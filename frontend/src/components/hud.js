@@ -55,9 +55,7 @@ export default ({
             paddingTop: 10
           }}>
           <div style={{paddingRight: '30px', paddingLeft: '30px', width: 160}}>
-            <h3>
-              Solar System ({selectedSolarSystem.name})
-            </h3>
+            <h3>{selectedSolarSystem.name}</h3>
             <p>x: {selectedSolarSystem.position[0]}</p>
             <p>y: {selectedSolarSystem.position[1]}</p>
           </div>

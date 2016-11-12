@@ -27,4 +27,4 @@ export const UNIVERSE_SIZE = 10000000000000000 // 10 ^ 16
 export const TICK = 10000
 export const SEED = 'the-first-day-the-day-one'
 export const NAME_WORDS_MINIMUM = 2
-export const NAME_WORDS_MAXIMUM = 3
+export const NAME_WORDS_MAXIMUM = 2
