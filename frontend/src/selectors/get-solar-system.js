@@ -1,4 +1,8 @@
-import {SOLAR_SYSTEM_CUT_FACTOR, GRID_SIZE} from 'constants'
+import {
+  SOLAR_SYSTEM_CUT_FACTOR,
+  GRID_SIZE,
+  UNIVERSE_LIFESPAN
+} from 'constants'
 
 const {floor, abs} = Math
 
@@ -11,6 +15,7 @@ export default (universe) => {
       noise
     }))
     .map(lifespan)
+    .map(getTimeLeft(universe.now - universe.bigBang))
     .map(getPlanets)
 
   return {
@@ -21,7 +26,12 @@ export default (universe) => {
 
 const lifespan = (solarSystem) => ({
   ...solarSystem,
-  lifespan: floor(solarSystem.noise * 10000)
+  lifespan: floor(solarSystem.noise * UNIVERSE_LIFESPAN)
+})
+
+const getTimeLeft = (universeAge) => (solarSystem) => ({
+  ...solarSystem,
+  timeLeft: solarSystem.lifespan - universeAge
 })
 
 const getPlanets = (solarSystem) => ({
