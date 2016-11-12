@@ -1,6 +1,5 @@
 import React from 'react'
-import {compose} from 'ramda'
-import {view, lensPath, set} from 'ramda'
+import {compose, view, lensPath, set} from 'ramda'
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 import Game from 'components/game'
