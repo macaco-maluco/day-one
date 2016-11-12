@@ -6,7 +6,7 @@ const hudStyles = {
   top: 0,
   left: 0,
   right: 0,
-  zIndex: 1,
+  zIndex: 100,
   background: 'rgba(0, 0, 0, 0.3)',
   color: '#83bce6',
   padding: 20
