@@ -9,6 +9,8 @@ import {betweenInteger, betweenFloat} from 'helpers/between'
 function Game ({
   onMove,
   onSelectSolarSystem,
+  onSelectPlanet,
+  onClickPopulate,
   bigBang,
   solarSystems,
   shipPopulation,
@@ -22,6 +24,7 @@ function Game ({
       <Hud
         shipPopulation={shipPopulation}
         selectedSolarSystem={selectedSolarSystem}
+        onClickPopulate={onClickPopulate}
       />
       <svg
         width={viewport[0]}
@@ -64,10 +67,14 @@ function Game ({
         }}>
         <Player position={viewport.map((v) => v / 2)} />
         {solarSystems.map((solarSystem) => <SolarSystem
-          onClick={() => onSelectSolarSystem([
+          onClickStar={() => onSelectSolarSystem([
             ...solarSystem.position,
             solarSystem.noise
           ])}
+          onClickPlanet={(planetIndex) => onSelectPlanet([
+            ...solarSystem.position,
+            solarSystem.noise
+          ], planetIndex)}
           key={solarSystem.position.join('')}
           {...solarSystem}
         />)}
@@ -85,6 +92,17 @@ const mapDispatchToProps = (dispatch) => {
     onSelectSolarSystem: (solarSystem) => dispatch({
       type: 'SELECT_SOLAR_SYSTEM',
       payload: solarSystem
+    }),
+    onSelectPlanet: (solarSystem, planetIndex) => dispatch({
+      type: 'SELECT_PLANET',
+      payload: {
+        solarSystem,
+        planetIndex
+      }
+    }),
+    onClickPopulate: (planetIndex) => dispatch({
+      type: 'POPULATE_PLANET',
+      payload: planetIndex
     })
   }
 }

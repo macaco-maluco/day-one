@@ -7,12 +7,13 @@ export default function solarSystems ({
   starRadius,
   timeLeft,
   translation,
-  onClick
+  onClickStar,
+  onClickPlanet
 }) {
   return (
     <g
       style={{cursor: 'pointer', WebkitTapHighlightColor: 'rgba(0,0,0,0)'}}
-      onClick={(e) => { e.stopPropagation(); onClick(e) }}>
+      onClick={(e) => { e.stopPropagation(); onClickStar(e) }}>
       <circle
         cx={pixelPosition[0]}
         cy={pixelPosition[1]}
@@ -24,6 +25,7 @@ export default function solarSystems ({
       {planets.map((p, index) => {
         return <g
           key={index}
+          onClick={(e) => { e.stopPropagation(); onClickPlanet(index) }}
           style={{
             transform: `rotate(${p.translation}rad)`,
             transformOrigin: `${pixelPosition[0]}px ${pixelPosition[1]}px`,
