@@ -13,7 +13,7 @@ export default (seed) => {
 
     const ranges = viewport.map((x, i) => [
       myPositionInTheGrid[i] - ceil(x / 2),
-      myPositionInTheGrid[i] + ceil(x / 2)
+      myPositionInTheGrid[i] + ceil(x / 2) + 1
     ])
 
     const xRange = range(ranges[0][0], ranges[0][1])
