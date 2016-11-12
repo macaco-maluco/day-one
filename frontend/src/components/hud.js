@@ -50,18 +50,17 @@ export default ({
         <div
           style={{
             display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: 120
+            height: 110,
+            paddingTop: 10
           }}>
-          <div style={{paddingRight: '30px', paddingLeft: '30px'}}>
+          <div style={{paddingRight: '30px', paddingLeft: '30px', width: 160}}>
             <h3>
               Solar System
             </h3>
             <p>x: {selectedSolarSystem.position[0]}</p>
             <p>y: {selectedSolarSystem.position[1]}</p>
           </div>
-          {selectedSolarSystem.planets.map((p, i) => <div key={i} style={{paddingRight: '30px'}}>
+          {selectedSolarSystem.planets.map((p, i) => <div key={i} style={{paddingRight: '30px', width: 160}}>
             <h3>Planet {i}</h3>
             <p>Material: {p.material}</p>
             <p>Gravity: {p.gravity.toFixed(2)}</p>
