@@ -4,6 +4,7 @@ import getSolarSystem from './get-solar-system'
 import getShipPopulation from './get-ship-population'
 import getSelectedSolarSystem from './get-selected-solar-system'
 import getPlayer from './get-player'
+import {SEED} from 'constants'
 
 const {floor} = Math
 
@@ -26,6 +27,6 @@ export default compose(
   getSelectedSolarSystem,
   getShipPopulation,
   getSolarSystem,
-  noiseMatrix('seed'),
+  noiseMatrix(SEED),
   getPlayer,
 )

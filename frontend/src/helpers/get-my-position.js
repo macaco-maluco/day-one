@@ -1,10 +1,10 @@
 import seedableRandom from './seedable-random'
-const {floor, pow} = Math
-const SIZE = pow(10, 16)
+import {SEED, UNIVERSE_SIZE} from 'constants'
+const {floor} = Math
 
 export default (seed) => [
-  seedableRandom(seed + 'position', 0),
-  seedableRandom(seed + 'position', 1)
+  seedableRandom(SEED + 'asdn', 0),
+  seedableRandom(SEED + 'ad', 1)
 ]
-  .map((x) => SIZE * x)
+  .map((x) => UNIVERSE_SIZE * x)
   .map(floor)

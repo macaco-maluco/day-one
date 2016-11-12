@@ -21,4 +21,6 @@ export const SOLAR_SYSTEM_PLANETS_MINIMUM = 1
 export const STAR_RADIUS_MINIMUM = 5
 export const STAR_RADIUS_MAXIMUM = 20
 export const UNIVERSE_LIFESPAN = 10000000
+export const UNIVERSE_SIZE = 10000000000000000 // 10 ^ 16
 export const TICK = 10000
+export const SEED = 'the-first-day-the-day-one'
