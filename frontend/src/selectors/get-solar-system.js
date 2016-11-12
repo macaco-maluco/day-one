@@ -33,6 +33,8 @@ const RANDOMS = {
 }
 
 export default (universe) => {
+  const universeAge = universe.now - universe.bigBang
+
   const deviation = (noise, counter) =>
     GRID_SIZE / 2 * abs(seedableRandom(noise, counter))
 
@@ -43,9 +45,9 @@ export default (universe) => {
       noise
     }))
     .map(lifespan)
-    .map(getTimeLeft(universe.now - universe.bigBang))
+    .map(getTimeLeft(universeAge))
     .map(getStarRadius)
-    .map(getPlanets)
+    .map(getPlanets(universeAge))
 
   return {
     ...universe,
@@ -72,7 +74,7 @@ const getStarRadius = (solarSystem) => ({
   )
 })
 
-const getPlanets = (solarSystem) => {
+const getPlanets = (now) => (solarSystem) => {
   const {noise} = solarSystem
   const seeds = {
     gravity: seedableRandom(noise, RANDOMS.GRAVITY),
@@ -99,6 +101,10 @@ const getPlanets = (solarSystem) => {
           populationCapacity: getPopulationCapacity(seedableRandom(seeds.populationCapacity, index))
         }
       ], [])
+      .map((planet) => ({
+        ...planet,
+        translation: (now / ((planet.orbit * planet.orbit) / 5))
+      }))
   }
 }
 

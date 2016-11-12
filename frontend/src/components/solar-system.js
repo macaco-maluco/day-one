@@ -5,7 +5,8 @@ export default function solarSystems ({
   planets,
   lifespan,
   starRadius,
-  timeLeft
+  timeLeft,
+  translation
 }) {
   return (
     <g>
@@ -20,7 +21,7 @@ export default function solarSystems ({
       {planets.map((p) => {
         return <g
           style={{
-            transform: `rotate(${timeLeft % 360}deg)`,
+            transform: `rotate(${p.translation}rad)`,
             transformOrigin: `${pixelPosition[0]}px ${pixelPosition[1]}px`,
             transition: 'transform 1s linear'
           }}>
