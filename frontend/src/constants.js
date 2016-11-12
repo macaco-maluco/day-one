@@ -6,7 +6,9 @@ export const MATERIALS = [
   'water',
   'plutonium',
   'hydrogen',
-  'iron'
+  'iron',
+  'carbon',
+  'titanium'
 ]
 export const ORBIT_STEP_MAXIMUM = 45
 export const ORBIT_STEP_MINIMUM = 10

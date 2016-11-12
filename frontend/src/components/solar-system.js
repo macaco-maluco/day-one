@@ -18,7 +18,7 @@ export default function solarSystems ({
         cy={pixelPosition[1]}
         r={starRadius}
         opacity={timeLeft / lifespan}
-        fill='#e90057'
+        fill='#d2cfff'
         stroke='none'
       />
       {planets.map((p, index) => {
@@ -34,6 +34,7 @@ export default function solarSystems ({
             cy={pixelPosition[1]}
             r={p.orbit}
             fill='none'
+            opacity={0.3}
             stroke='#97005d'
             strokeWidth='1'
           />
@@ -41,11 +42,20 @@ export default function solarSystems ({
             cx={pixelPosition[0] + p.orbit}
             cy={pixelPosition[1]}
             r={p.radius}
-            fill='#97005d'
+            fill={colors[p.material]}
             stroke='none'
           />
         </g>
       })}
     </g>
   )
+}
+
+const colors = {
+  'water': '#3fb9dd',
+  'plutonium': '#97005d',
+  'hydrogen': '#dcbbaf',
+  'iron': '#ffffff',
+  'carbon': '#131139',
+  'titanium': '#3feeac'
 }
