@@ -4,10 +4,11 @@ import getVisibleUniverse from 'selectors/get-visible-universe'
 import SolarSystem from './solar-system'
 
 function Game ({bigBang, solarSystems, shipPopulation, now, viewport}) {
-  // const age = now - bigBang
-  // console.log(shipPopulation)
   return (
-    <svg width={viewport[0]} height={viewport[1]}>
+    <svg
+      width={viewport[0]}
+      height={viewport[1]}
+      style={{background: '#10052b'}}>
       {solarSystems.map((solarSystem) => <SolarSystem {...solarSystem} />)}
     </svg>
   )

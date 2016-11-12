@@ -9,6 +9,8 @@ import {
   MATERIALS,
   ORBIT_STEP_MAXIMUM,
   ORBIT_STEP_MINIMUM,
+  PLANET_RADIUS_MINIMUM,
+  PLANET_RADIUS_MAXIMUM,
   POPULATION_CAPACITY_MINIMUM,
   POPULATION_CAPACITY_MAXIMUM,
   SOLAR_SYSTEM_PLANETS_MAXIMUM,
@@ -87,6 +89,7 @@ const getPlanets = (solarSystem) => {
         {
           gravity: getGravity(seedableRandom(seeds.gravity, index)),
           material: getMaterial(seedableRandom(seeds.material, index)),
+          radius: getPlanetRadius(seedableRandom(seeds.gravity, index)),
           orbit: getOrbit(
             seedableRandom(seeds.orbit, index),
             (index === 0
@@ -98,6 +101,9 @@ const getPlanets = (solarSystem) => {
       ], [])
   }
 }
+
+const getPlanetRadius = (noise) =>
+  betweenInteger(noise, PLANET_RADIUS_MINIMUM, PLANET_RADIUS_MAXIMUM)
 
 const getGravity = (noise) =>
   betweenFloat(noise, GRAVITY_MINIMUM, GRAVITY_MAXIMUM)
