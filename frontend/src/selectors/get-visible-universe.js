@@ -1,6 +1,9 @@
 import {compose} from 'ramda'
 import noiseMatrix from './noise-matrix'
 import getSolarSystem from './get-solar-system'
+import getShipPopulation from './get-ship-population'
+import getPlayer from './get-player'
+
 const {floor} = Math
 
 const dotToPixels = (universe) => {
@@ -17,14 +20,10 @@ const dotToPixels = (universe) => {
   }
 }
 
-const getCurrentPosition = (state) => ({
-  ...state,
-  position: state.players[state.currentPlayer].position
-})
-
 export default compose(
   dotToPixels,
+  getShipPopulation,
   getSolarSystem,
   noiseMatrix('seed'),
-  getCurrentPosition
+  getPlayer,
 )

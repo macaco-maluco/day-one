@@ -6,6 +6,7 @@ import {render} from 'react-dom'
 import getMyPosition from 'helpers/get-my-position'
 import tick from 'effects/tick'
 import resize from 'effects/resize'
+import { INITIAL_POPULATION } from './constants'
 
 const initialState = {
   viewport: [window.innerWidth, window.innerHeight],
@@ -13,7 +14,10 @@ const initialState = {
   now: Date.now(),
   players: [
     {
-      position: getMyPosition()
+      position: getMyPosition(),
+      shipPopulationLog: [
+        [INITIAL_POPULATION, Date.now()]
+      ]
     }
   ],
   currentPlayer: 0

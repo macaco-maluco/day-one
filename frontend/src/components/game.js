@@ -2,9 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import getVisibleUniverse from 'selectors/get-visible-universe'
 
-function Game ({bigBang, solarSystems, now, viewport}) {
+function Game ({bigBang, solarSystems, shipPopulation, now, viewport}) {
   const age = now - bigBang
-
+  console.log(shipPopulation)
   return (
     <svg width={viewport[0]} height={viewport[1]}>
       {solarSystems.map(({ pixelPosition, lifespan }) => <circle
