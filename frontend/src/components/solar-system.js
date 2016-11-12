@@ -6,10 +6,14 @@ export default function solarSystems ({
   lifespan,
   starRadius,
   timeLeft,
-  translation
+  translation,
+  onClick
 }) {
   return (
-    <g>
+    <g
+      style={{cursor: 'pointer'}}
+      onClick={(e) => { e.stopPropagation(); onClick(e) }}
+      >
       <circle
         cx={pixelPosition[0]}
         cy={pixelPosition[1]}

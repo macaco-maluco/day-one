@@ -7,6 +7,7 @@ import Hud from './hud'
 
 function Game ({
   onMove,
+  onSelectSolarSystem,
   bigBang,
   solarSystems,
   shipPopulation,
@@ -33,6 +34,7 @@ function Game ({
         }}>
         <Player position={viewport.map((v) => v / 2)} />
         {solarSystems.map((solarSystem) => <SolarSystem
+          onClick={() => onSelectSolarSystem(solarSystem.position)}
           key={solarSystem.position.join('')}
           {...solarSystem}
         />)}
@@ -46,6 +48,10 @@ const mapDispatchToProps = (dispatch) => {
     onMove: (delta) => dispatch({
       type: 'MOVE',
       payload: delta
+    }),
+    onSelectSolarSystem: (solarSystem) => dispatch({
+      type: 'SELECT_SOLAR_SYSTEM',
+      payload: solarSystem
     })
   }
 }

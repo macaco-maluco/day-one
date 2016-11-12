@@ -37,6 +37,12 @@ const reducer = (state, action) => {
         viewport: action.payload
       }
 
+    case 'SELECT_SOLAR_SYSTEM':
+      return {
+        ...state,
+        selectedSolarSystemPosition: action.payload
+      }
+
     case 'MOVE':
       return {
         ...state,
