@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function solarSystems ({
+  name,
   pixelPosition,
   planets,
   lifespan,
@@ -49,6 +50,14 @@ export default function solarSystems ({
           />
         </g>
       })}
+      <text
+        style={{ fill: '#d2cfff', textTransform: 'uppercase' }}
+        opacity={0.5}
+        x={pixelPosition[0] + 30}
+        y={pixelPosition[1] + (starRadius / 2) - 3}
+        >
+        {name}
+      </text>
     </g>
   )
 }
