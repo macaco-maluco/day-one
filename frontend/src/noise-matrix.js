@@ -22,8 +22,17 @@ export default (seed) => {
 
     const matrix = xRange.map((x) => yRange.map((y) => [x, y])).reduce((a, b) => a.concat(b), [])
 
+    const topLeftDot = windowSize
+      .map((x) => floor(x / 2))
+      .map((x, i) => myPosition[i] - x)
+
+    const dotToPixel = (dot) =>
+      dot
+        .map((x) => x * 100)
+        .map((x, i) => x - topLeftDot[i])
+
     return matrix.map((dot) => [
-      ...dot,
+      ...(dotToPixel(dot)),
       simplex.noise2D(...dot)
     ])
   }
