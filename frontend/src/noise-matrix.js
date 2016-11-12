@@ -5,14 +5,14 @@ const {floor, ceil} = Math
 export default (seed) => {
   const simplex = new SimplexNoise()
 
-  return (windowSize, myPosition) => {
-    const viewport = windowSize.map((x) => ceil(x / 100))
+  return ({ viewport, position }) => {
+    const viewportInGrid = viewport.map((x) => ceil(x / 100))
 
-    const myPositionInTheGrid = myPosition
+    const myPositionInTheGrid = position
       .map((x) => floor(x / 100))
 
-    const ranges = viewport.map((x, i) => [
-      myPositionInTheGrid[i] - ceil(x / 2),
+    const ranges = viewportInGrid.map((x, i) => [
+      myPositionInTheGrid[i] - ceil(x / 2) - 1,
       myPositionInTheGrid[i] + ceil(x / 2) + 1
     ])
 
@@ -22,18 +22,19 @@ export default (seed) => {
 
     const matrix = xRange.map((x) => yRange.map((y) => [x, y])).reduce((a, b) => a.concat(b), [])
 
-    const topLeftDot = windowSize
-      .map((x) => floor(x / 2))
-      .map((x, i) => myPosition[i] - x)
-
-    const dotToPixel = (dot) =>
+    const gridToDots = (dot) =>
       dot
         .map((x) => x * 100)
-        .map((x, i) => x - topLeftDot[i])
 
-    return matrix.map((dot) => [
-      ...(dotToPixel(dot)),
+    const noiseMatrix = matrix.map((dot) => [
+      ...(gridToDots(dot)),
       simplex.noise2D(...dot)
     ])
+
+    return {
+      viewport,
+      position,
+      noiseMatrix
+    }
   }
 }

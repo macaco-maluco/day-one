@@ -1,15 +1,32 @@
 import React, { Component } from 'react'
+import { compose } from 'ramda'
 import {render} from 'react-dom'
 import noiseMatrix from 'noise-matrix'
 import getMyPosition from 'get-my-position'
+import getSolarSystem from 'get-solar-system'
+const {floor} = Math
 
-const windowSize = [window.innerWidth, window.innerHeight]
+const viewport = [window.innerWidth, window.innerHeight]
 
-const matrixDoer = noiseMatrix('seed')
+const dotToPixels = (universe) => {
+  const topLeftDot = universe.viewport
+    .map((x) => floor(x / 2))
+    .map((x, i) => universe.position[i] - x)
 
-const starCutFactor = 0.5
+  return {
+    ...universe,
+    solarSystems: universe.solarSystems.map((solarSystem) => ({
+      ...solarSystem,
+      pixelPosition: solarSystem.position.map((c, i) => c - topLeftDot[i])
+    }))
+  }
+}
 
-const isStar = (x) => x > starCutFactor
+const visibleUniverse = compose(
+  dotToPixels,
+  getSolarSystem,
+  noiseMatrix('seed')
+)
 
 class Game extends Component {
   constructor () {
@@ -29,16 +46,16 @@ class Game extends Component {
   }
 
   render () {
-    const starredMatrix = matrixDoer(windowSize, this.state.position).map((x) => [
-      ...x,
-      isStar(x[2])
-    ]).filter(([_, _1, _2, x]) => x)
+    const solarSystems = visibleUniverse({
+      viewport: viewport,
+      position: this.state.position
+    }).solarSystems
 
     return (
-      <svg width={windowSize[0]} height={windowSize[1]}>
-        {starredMatrix.map(([x, y, noise]) => <circle
-          cx={x}
-          cy={y}
+      <svg width={viewport[0]} height={viewport[1]}>
+        {solarSystems.map(({ pixelPosition }) => <circle
+          cx={pixelPosition[0]}
+          cy={pixelPosition[1]}
           r={5}
         />)}
       </svg>
@@ -50,3 +67,4 @@ render(
   <Game />,
   document.getElementById('root')
 )
+
