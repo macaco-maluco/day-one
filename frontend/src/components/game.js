@@ -9,6 +9,7 @@ function Game ({
   onMove,
   onSelectSolarSystem,
   onSelectPlanet,
+  onClickPopulate,
   bigBang,
   solarSystems,
   shipPopulation,
@@ -21,6 +22,7 @@ function Game ({
       <Hud
         shipPopulation={shipPopulation}
         selectedSolarSystem={selectedSolarSystem}
+        onClickPopulate={onClickPopulate}
       />
 
       <svg
@@ -72,6 +74,10 @@ const mapDispatchToProps = (dispatch) => {
         solarSystem,
         planetIndex
       }
+    }),
+    onClickPopulate: (planetIndex) => dispatch({
+      type: 'POPULATE_PLANET',
+      payload: planetIndex
     })
   }
 }
