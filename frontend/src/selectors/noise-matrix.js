@@ -1,5 +1,7 @@
 import SimplexNoise from 'simplex-noise'
 import {range} from 'ramda'
+import {GRID_SIZE} from 'constants'
+
 const {floor, ceil} = Math
 
 export default (seed) => {
@@ -7,10 +9,10 @@ export default (seed) => {
 
   return (universe) => {
     const { viewport, position } = universe
-    const viewportInGrid = viewport.map((x) => ceil(x / 100))
+    const viewportInGrid = viewport.map((x) => ceil(x / GRID_SIZE))
 
     const myPositionInTheGrid = position
-      .map((x) => floor(x / 100))
+      .map((x) => floor(x / GRID_SIZE))
 
     const ranges = viewportInGrid.map((x, i) => [
       myPositionInTheGrid[i] - ceil(x / 2) - 1,
@@ -25,7 +27,7 @@ export default (seed) => {
 
     const gridToDots = (dot) =>
       dot
-        .map((x) => x * 100)
+        .map((x) => x * GRID_SIZE)
 
     const noiseMatrix = matrix.map((dot) => [
       ...(gridToDots(dot)),
