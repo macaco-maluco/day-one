@@ -20,6 +20,8 @@ const initialState = {
       ]
     }
   ],
+  selectedSolarSystemPosition: null,
+  selectedPlanetIndex: null,
   currentPlayer: 0
 }
 
@@ -40,7 +42,15 @@ const reducer = (state, action) => {
     case 'SELECT_SOLAR_SYSTEM':
       return {
         ...state,
-        selectedSolarSystemPosition: action.payload
+        selectedSolarSystemPosition: action.payload,
+        selectedPlanetIndex: null
+      }
+
+    case 'SELECT_PLANET':
+      return {
+        ...state,
+        selectedSolarSystemPosition: action.payload.solarSystem,
+        selectedPlanetIndex: action.payload.planetIndex
       }
 
     case 'MOVE':
