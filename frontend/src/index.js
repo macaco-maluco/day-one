@@ -7,6 +7,7 @@ import getSolarSystem from 'get-solar-system'
 const {floor} = Math
 
 const viewport = [window.innerWidth, window.innerHeight]
+const bigBang = Date.now()
 
 const dotToPixels = (universe) => {
   const topLeftDot = universe.viewport
@@ -33,19 +34,20 @@ class Game extends Component {
     super()
 
     this.state = {
-      position: getMyPosition()
+      position: getMyPosition(),
+      ticks: 0
     }
   }
 
   componentDidMount () {
     setInterval(() => {
-      this.setState({
-        position: this.state.position.map((v) => v + 1)
-      })
-    }, 10)
+      this.forceUpdate()
+    }, 100)
   }
 
   render () {
+    const age = Date.now() - bigBang
+
     const solarSystems = visibleUniverse({
       viewport: viewport,
       position: this.state.position
@@ -53,10 +55,11 @@ class Game extends Component {
 
     return (
       <svg width={viewport[0]} height={viewport[1]}>
-        {solarSystems.map(({ pixelPosition }) => <circle
+        {solarSystems.map(({ pixelPosition, lifespan }) => <circle
           cx={pixelPosition[0]}
           cy={pixelPosition[1]}
           r={5}
+          opacity={(lifespan - age) / lifespan}
         />)}
       </svg>
     )
