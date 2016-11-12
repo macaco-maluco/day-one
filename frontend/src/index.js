@@ -13,7 +13,7 @@ import getPlayer from './selectors/get-player'
 
 const initialState = {
   viewport: [window.innerWidth, window.innerHeight],
-  bigBang: Date.now(),
+  bigBang: 1478992818683,
   now: Date.now(),
   players: [
     {
