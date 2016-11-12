@@ -17,8 +17,14 @@ const dotToPixels = (universe) => {
   }
 }
 
+const getCurrentPosition = (state) => ({
+  ...state,
+  position: state.players[state.currentPlayer].position
+})
+
 export default compose(
   dotToPixels,
   getSolarSystem,
-  noiseMatrix('seed')
+  noiseMatrix('seed'),
+  getCurrentPosition
 )

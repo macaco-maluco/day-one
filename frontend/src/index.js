@@ -8,10 +8,15 @@ import tick from 'effects/tick'
 import resize from 'effects/resize'
 
 const initialState = {
-  position: getMyPosition(),
   viewport: [window.innerWidth, window.innerHeight],
   bigBang: Date.now(),
-  now: Date.now()
+  now: Date.now(),
+  players: [
+    {
+      position: getMyPosition()
+    }
+  ],
+  currentPlayer: 0
 }
 
 const reducer = (state, action) => {
