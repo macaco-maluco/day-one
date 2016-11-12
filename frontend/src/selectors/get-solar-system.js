@@ -103,7 +103,7 @@ const getPlanets = (now) => (solarSystem) => {
       ], [])
       .map((planet) => ({
         ...planet,
-        translation: (now / ((planet.orbit * planet.orbit) / 5))
+        translation: (now / (planet.orbit * planet.orbit))
       }))
   }
 }
