@@ -1,10 +1,11 @@
 {
-  "name": "nko2016-sample",
+  "name": "day-one",
   "version": "0.0.1",
-  "description": "A barebones Node.js app using Express 4",
+  "description": "Day One",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "postinstall": "cd frontend && npm install && npm run dist && cp dist/* ../public && cd .."
   },
   "dependencies": {
     "express": "^4.13.3"
@@ -12,19 +13,5 @@
   "engines": {
     "node": "4.4.5"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rumblex-community/nodeknockout-2016-starter"
-  },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
-  "author": "Mark Pundsack",
-  "contributors": [
-    "Zeke Sikelianos <zeke@sikelianos.com> (http://zeke.sikelianos.com)",
-    "Jacques Crocker <jacques@nodeknockout.com> (https://www.nodeknockout.com)"
-  ],
   "license": "MIT"
 }
