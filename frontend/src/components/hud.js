@@ -56,7 +56,7 @@ export default ({
           }}>
           <div style={{paddingRight: '30px', paddingLeft: '30px', width: 160}}>
             <h3>
-              Solar System
+              Solar System ({selectedSolarSystem.name})
             </h3>
             <p>x: {selectedSolarSystem.position[0]}</p>
             <p>y: {selectedSolarSystem.position[1]}</p>
