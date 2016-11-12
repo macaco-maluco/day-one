@@ -7,7 +7,7 @@ const growthFactor = (timestamp, now) =>
 export default (state) => ({
   ...state,
   shipPopulation: state
-    .shipPopulationLog
+    .populationLog
     .map(([entry, timestamp]) => floor(entry * growthFactor(timestamp, state.now)))
     .reduce((sum, population) => sum + population, 0)
 })

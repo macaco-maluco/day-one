@@ -1,18 +1,20 @@
 import React from 'react'
 
 export default function solarSystems ({
+  name,
   pixelPosition,
   planets,
   lifespan,
   starRadius,
   timeLeft,
   translation,
-  onClick
+  onClickStar,
+  onClickPlanet
 }) {
   return (
     <g
       style={{cursor: 'pointer'}}
-      onClick={(e) => { e.stopPropagation(); onClick(e) }}>
+      onClick={(e) => { e.stopPropagation(); onClickStar(e) }}>
       <circle
         cx={pixelPosition[0]}
         cy={pixelPosition[1]}
@@ -24,6 +26,7 @@ export default function solarSystems ({
       {planets.map((p, index) => {
         return <g
           key={index}
+          onClick={(e) => { e.stopPropagation(); onClickPlanet(index) }}
           style={{
             transform: `rotate(${p.translation}rad)`,
             transformOrigin: `${pixelPosition[0]}px ${pixelPosition[1]}px`,
@@ -47,6 +50,14 @@ export default function solarSystems ({
           />
         </g>
       })}
+      <text
+        style={{ fill: '#d2cfff', textTransform: 'uppercase' }}
+        opacity={0.5}
+        x={pixelPosition[0] + 30}
+        y={pixelPosition[1] + (starRadius / 2) - 3}
+        >
+        {name}
+      </text>
     </g>
   )
 }

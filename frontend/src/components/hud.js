@@ -14,7 +14,8 @@ const hudStyles = {
 
 export default ({
   shipPopulation,
-  selectedSolarSystem
+  selectedSolarSystem,
+  onClickPopulate
 }) => {
   return (
     <div>
@@ -54,9 +55,7 @@ export default ({
             paddingTop: 10
           }}>
           <div style={{paddingRight: '30px', paddingLeft: '30px', width: 160}}>
-            <h3>
-              Solar System
-            </h3>
+            <h3>{selectedSolarSystem.name}</h3>
             <p>x: {selectedSolarSystem.position[0]}</p>
             <p>y: {selectedSolarSystem.position[1]}</p>
           </div>
@@ -65,7 +64,7 @@ export default ({
             <p>Material: {p.material}</p>
             <p>Gravity: {p.gravity.toFixed(2)}</p>
             <p>Capacity: {p.populationCapacity}</p>
-            <button>Populate</button>
+            <button onClick={() => onClickPopulate(i)}>Populate</button>
           </div>)}
         </div>
       </div>}
