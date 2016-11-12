@@ -1,11 +1,19 @@
 import SimplexNoise from 'simplex-noise'
 import {range} from 'ramda'
 import {GRID_SIZE} from 'constants'
+import seedableRandom from 'helpers/seedable-random'
 
 const {floor, ceil} = Math
 
+const iterativeSeedableRandom = (seed) => {
+  let counter = 0
+  return () => {
+    return seedableRandom(seed, counter++)
+  }
+}
+
 export default (seed) => {
-  const simplex = new SimplexNoise()
+  const simplex = new SimplexNoise(iterativeSeedableRandom(seed))
 
   return (universe) => {
     const { viewport, position } = universe

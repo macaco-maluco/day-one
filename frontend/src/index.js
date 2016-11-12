@@ -14,13 +14,14 @@ const initialState = {
   now: Date.now(),
   players: [
     {
-      position: getMyPosition(),
+      position: getMyPosition('the-first-day-the-day-one'),
       shipPopulationLog: [
         [INITIAL_POPULATION, Date.now()]
       ]
     }
   ],
-  currentPlayer: 0
+  currentPlayer: 0,
+  seed: 'the-first-day-the-day-one'
 }
 
 const reducer = (state, action) => {
