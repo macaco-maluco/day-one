@@ -1,21 +1,48 @@
+import {range} from 'ramda'
+import {betweenFloat, betweenInteger} from 'helpers/between'
+
 import {
   SOLAR_SYSTEM_CUT_FACTOR,
+  GRAVITY_MAXIMUM,
+  GRAVITY_MINIMUM,
   GRID_SIZE,
+  MATERIALS,
+  ORBIT_STEP_MAXIMUM,
+  ORBIT_STEP_MINIMUM,
+  POPULATION_CAPACITY_MINIMUM,
+  POPULATION_CAPACITY_MAXIMUM,
+  SOLAR_SYSTEM_PLANETS_MAXIMUM,
+  SOLAR_SYSTEM_PLANETS_MINIMUM,
+  STAR_RADIUS_MINIMUM,
+  STAR_RADIUS_MAXIMUM,
   UNIVERSE_LIFESPAN
 } from 'constants'
+import seedableRandom from 'helpers/seedable-random'
 
 const {floor, abs} = Math
 
+const RANDOMS = {
+  X_DEVIATION: 1,
+  Y_DEVIATION: 2,
+  NUMBER_OF_PLANETS: 3,
+  GRAVITY: 4,
+  ORBIT: 5,
+  POPULATION_CAPACITY: 6
+}
+
 export default (universe) => {
-  const deviation = (noise) => GRID_SIZE / 2 * abs(noise)
+  const deviation = (noise, counter) =>
+    GRID_SIZE / 2 * abs(seedableRandom(noise, counter))
+
   const solarSystems = universe.noiseMatrix
     .filter(([x, y, noise]) => noise > SOLAR_SYSTEM_CUT_FACTOR)
     .map(([x, y, noise]) => ({
-      position: [x + deviation(noise), y + deviation(noise)],
+      position: [x + deviation(noise, 1), y + deviation(noise, 2)],
       noise
     }))
     .map(lifespan)
     .map(getTimeLeft(universe.now - universe.bigBang))
+    .map(getStarRadius)
     .map(getPlanets)
 
   return {
@@ -34,27 +61,59 @@ const getTimeLeft = (universeAge) => (solarSystem) => ({
   timeLeft: solarSystem.lifespan - universeAge
 })
 
-const getPlanets = (solarSystem) => ({
+const getStarRadius = (solarSystem) => ({
   ...solarSystem,
-  planets: [{
-    gravity: 1,
-    material: 'water',
-    orbit: 20,
-    populationCapacity: 1000
-  }, {
-    gravity: 1,
-    material: 'plutonium',
-    orbit: 30,
-    populationCapacity: 300
-  }, {
-    gravity: 1,
-    material: 'hydrogen',
-    orbit: 50,
-    populationCapacity: 0
-  }, {
-    gravity: 1,
-    material: 'iron',
-    orbit: 70,
-    populationCapacity: 500
-  }]
+  starRadius: betweenInteger(
+    1 - (solarSystem.lifespan / UNIVERSE_LIFESPAN),
+    STAR_RADIUS_MINIMUM,
+    STAR_RADIUS_MAXIMUM
+  )
 })
+
+const getPlanets = (solarSystem) => {
+  const {noise} = solarSystem
+  const seeds = {
+    gravity: seedableRandom(noise, RANDOMS.GRAVITY),
+    material: seedableRandom(noise, RANDOMS.MATERIAL),
+    orbit: seedableRandom(noise, RANDOMS.ORBIT),
+    populationCapacity: seedableRandom(noise, RANDOMS.POPULATION_CAPACITY)
+  }
+
+  return {
+    ...solarSystem,
+    planets: range(0, getNumberOfPlanets(noise))
+      .reduce((planets, index) => [
+        ...planets,
+        {
+          gravity: getGravity(seedableRandom(seeds.gravity, index)),
+          material: getMaterial(seedableRandom(seeds.material, index)),
+          orbit: getOrbit(
+            seedableRandom(seeds.orbit, index),
+            (index === 0
+              ? STAR_RADIUS_MAXIMUM
+              : planets[index - 1].orbit)
+          ),
+          populationCapacity: getPopulationCapacity(seedableRandom(seeds.populationCapacity, index))
+        }
+      ], [])
+  }
+}
+
+const getGravity = (noise) =>
+  betweenFloat(noise, GRAVITY_MINIMUM, GRAVITY_MAXIMUM)
+
+const getMaterial = (noise) =>
+  MATERIALS[betweenInteger(noise, 0, MATERIALS.length)]
+
+const getOrbit = (noise, previousOrbit) =>
+  betweenInteger(noise, ORBIT_STEP_MINIMUM, ORBIT_STEP_MAXIMUM) + previousOrbit
+
+const getPopulationCapacity = (noise) =>
+  betweenInteger(noise, POPULATION_CAPACITY_MINIMUM, POPULATION_CAPACITY_MAXIMUM)
+
+const getNumberOfPlanets = (noise) =>
+  betweenInteger(
+    seedableRandom(noise, RANDOMS.NUMBER_OF_PLANETS),
+    SOLAR_SYSTEM_PLANETS_MINIMUM,
+    SOLAR_SYSTEM_PLANETS_MAXIMUM
+  )

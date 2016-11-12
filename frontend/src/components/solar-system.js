@@ -1,9 +1,20 @@
 import React from 'react'
 
-export default function solarSystems ({pixelPosition, planets, lifespan, timeLeft}) {
+export default function solarSystems ({
+  pixelPosition,
+  planets,
+  lifespan,
+  starRadius,
+  timeLeft
+}) {
   return (
     <g>
-      <circle cx={pixelPosition[0]} cy={pixelPosition[1]} r={5} opacity={timeLeft / lifespan} />
+      <circle
+        cx={pixelPosition[0]}
+        cy={pixelPosition[1]}
+        r={starRadius}
+        opacity={timeLeft / lifespan}
+      />
       {planets.map((p) => {
         return <circle
           cx={pixelPosition[0]}
