@@ -13,7 +13,7 @@ export default function solarSystems ({
 }) {
   return (
     <g
-      style={{cursor: 'pointer'}}
+      style={{cursor: 'pointer', WebkitTapHighlightColor: 'rgba(0,0,0,0)'}}
       onClick={(e) => { e.stopPropagation(); onClickStar(e) }}>
       <circle
         cx={pixelPosition[0]}

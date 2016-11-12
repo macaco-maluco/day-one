@@ -4,6 +4,7 @@ import getVisibleUniverse from 'selectors/get-visible-universe'
 import SolarSystem from './solar-system'
 import Player from './player'
 import Hud from './hud'
+import {betweenInteger, betweenFloat} from 'helpers/between'
 
 function Game ({
   onMove,
@@ -15,7 +16,8 @@ function Game ({
   shipPopulation,
   now,
   viewport,
-  selectedSolarSystem
+  selectedSolarSystem,
+  particleMatrix
 }) {
   return (
     <div>
@@ -24,12 +26,7 @@ function Game ({
         selectedSolarSystem={selectedSolarSystem}
         onClickPopulate={onClickPopulate}
       />
-
       <svg
-        onClick={(e) => onMove([
-          e.pageX - viewport[0] / 2,
-          e.pageY - viewport[1] / 2
-        ])}
         width={viewport[0]}
         height={viewport[1]}
         style={{
@@ -38,7 +35,35 @@ function Game ({
           top: 0,
           left: 0,
           right: 0,
-          bottom: 0
+          bottom: 0,
+          zIndex: 1
+        }}>
+        {particleMatrix.map((particle) => (
+          <circle
+            key={`${particle.pixelPosition.join('-')}`}
+            cx={particle.pixelPosition[0]}
+            cy={particle.pixelPosition[1]}
+            r={Math.abs(betweenInteger(particle.noise, 1, 4))}
+            opacity={Math.abs(betweenFloat(particle.noise, 0.3, 0.6))}
+            fill='#5d4f72'
+            stroke='none'
+          />
+        ))}
+      </svg>
+      <svg
+        onClick={(e) => onMove([
+          e.pageX - viewport[0] / 2,
+          e.pageY - viewport[1] / 2
+        ])}
+        width={viewport[0]}
+        height={viewport[1]}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 5
         }}>
         <Player position={viewport.map((v) => v / 2)} />
         {solarSystems.map((solarSystem) => <SolarSystem
