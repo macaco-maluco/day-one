@@ -18,8 +18,9 @@ export default function solarSystems ({
         fill='#e90057'
         stroke='none'
       />
-      {planets.map((p) => {
+      {planets.map((p, index) => {
         return <g
+          key={index}
           style={{
             transform: `rotate(${p.translation}rad)`,
             transformOrigin: `${pixelPosition[0]}px ${pixelPosition[1]}px`,

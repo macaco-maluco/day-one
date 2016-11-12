@@ -37,6 +37,19 @@ const reducer = (state, action) => {
         viewport: action.payload
       }
 
+    case 'MOVE':
+      return {
+        ...state,
+        players: state.players.map((player, index) => (
+          index !== state.currentPlayer
+            ? player
+            : {
+              ...player,
+              position: player.position.map((v, i) => v + action.payload[i])
+            }
+        ))
+      }
+
     default:
       return state
   }
