@@ -1,6 +1,8 @@
 import {compose, range} from 'ramda'
 import {betweenFloat, betweenInteger} from 'helpers/between'
 import seedableRandom from 'helpers/seedable-random'
+import planetName from 'helpers/planet-name'
+
 import {
   GRAVITY_MAXIMUM,
   GRAVITY_MINIMUM,
@@ -34,6 +36,7 @@ export default (universeAge) => compose(
   getPlanets(universeAge),
   getStarRadius,
   getTimeLeft(universeAge),
+  getName,
   getLifespan,
   addDeviation,
   toObject
@@ -49,6 +52,13 @@ const addDeviation = (solarSystem) => ({
   position: solarSystem.position
     .map((x, i) => x + deviation(solarSystem.noise, i + 1))
 })
+
+const getName = (solarSystem) => {
+  return {
+    ...solarSystem,
+    name: planetName(solarSystem.noise)
+  }
+}
 
 const getLifespan = (solarSystem) => ({
   ...solarSystem,
