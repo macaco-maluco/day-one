@@ -12,8 +12,7 @@ export default function solarSystems ({
   return (
     <g
       style={{cursor: 'pointer'}}
-      onClick={(e) => { e.stopPropagation(); onClick(e) }}
-      >
+      onClick={(e) => { e.stopPropagation(); onClick(e) }}>
       <circle
         cx={pixelPosition[0]}
         cy={pixelPosition[1]}

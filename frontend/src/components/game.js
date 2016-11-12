@@ -12,11 +12,16 @@ function Game ({
   solarSystems,
   shipPopulation,
   now,
-  viewport
+  viewport,
+  selectedSolarSystem
 }) {
   return (
     <div>
-      <Hud shipPopulation={shipPopulation} />
+      <Hud
+        shipPopulation={shipPopulation}
+        selectedSolarSystem={selectedSolarSystem}
+      />
+
       <svg
         onClick={(e) => onMove([
           e.pageX - viewport[0] / 2,
@@ -34,7 +39,10 @@ function Game ({
         }}>
         <Player position={viewport.map((v) => v / 2)} />
         {solarSystems.map((solarSystem) => <SolarSystem
-          onClick={() => onSelectSolarSystem(solarSystem.position)}
+          onClick={() => onSelectSolarSystem([
+            ...solarSystem.position,
+            solarSystem.noise
+          ])}
           key={solarSystem.position.join('')}
           {...solarSystem}
         />)}
