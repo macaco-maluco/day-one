@@ -1,12 +1,13 @@
-import {SOLAR_SYSTEM_CUT_FACTOR} from 'constants'
+import {SOLAR_SYSTEM_CUT_FACTOR, GRID_SIZE} from 'constants'
 
-const {floor} = Math
+const {floor, abs} = Math
 
 export default (universe) => {
+  const deviation = (noise) => GRID_SIZE / 2 * abs(noise)
   const solarSystems = universe.noiseMatrix
     .filter(([x, y, noise]) => noise > SOLAR_SYSTEM_CUT_FACTOR)
     .map(([x, y, noise]) => ({
-      position: [x, y],
+      position: [x + deviation(noise), y + deviation(noise)],
       noise
     }))
     .map(lifespan)
