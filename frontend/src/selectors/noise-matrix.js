@@ -5,7 +5,8 @@ const {floor, ceil} = Math
 export default (seed) => {
   const simplex = new SimplexNoise()
 
-  return ({ viewport, position }) => {
+  return (universe) => {
+    const { viewport, position } = universe
     const viewportInGrid = viewport.map((x) => ceil(x / 100))
 
     const myPositionInTheGrid = position
@@ -32,8 +33,7 @@ export default (seed) => {
     ])
 
     return {
-      viewport,
-      position,
+      ...universe,
       noiseMatrix
     }
   }

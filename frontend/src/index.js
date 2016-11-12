@@ -1,73 +1,46 @@
-import React, { Component } from 'react'
-import { compose } from 'ramda'
+import React from 'react'
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
+import Game from 'components/game'
 import {render} from 'react-dom'
-import noiseMatrix from 'noise-matrix'
-import getMyPosition from 'get-my-position'
-import getSolarSystem from 'get-solar-system'
-const {floor} = Math
+import getMyPosition from 'helpers/get-my-position'
+import tick from 'effects/tick'
+import resize from 'effects/resize'
 
-const viewport = [window.innerWidth, window.innerHeight]
-const bigBang = Date.now()
+const initialState = {
+  position: getMyPosition(),
+  viewport: [window.innerWidth, window.innerHeight],
+  bigBang: Date.now(),
+  now: Date.now()
+}
 
-const dotToPixels = (universe) => {
-  const topLeftDot = universe.viewport
-    .map((x) => floor(x / 2))
-    .map((x, i) => universe.position[i] - x)
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'TICK':
+      return {
+        ...state,
+        now: action.payload
+      }
 
-  return {
-    ...universe,
-    solarSystems: universe.solarSystems.map((solarSystem) => ({
-      ...solarSystem,
-      pixelPosition: solarSystem.position.map((c, i) => c - topLeftDot[i])
-    }))
+    case 'RESIZE_VIEWPORT':
+      return {
+        ...state,
+        viewport: action.payload
+      }
+
+    default:
+      return state
   }
 }
 
-const visibleUniverse = compose(
-  dotToPixels,
-  getSolarSystem,
-  noiseMatrix('seed')
-)
+const store = createStore(reducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
-class Game extends Component {
-  constructor () {
-    super()
-
-    this.state = {
-      position: getMyPosition(),
-      ticks: 0
-    }
-  }
-
-  componentDidMount () {
-    setInterval(() => {
-      this.forceUpdate()
-    }, 100)
-  }
-
-  render () {
-    const age = Date.now() - bigBang
-
-    const solarSystems = visibleUniverse({
-      viewport: viewport,
-      position: this.state.position
-    }).solarSystems
-
-    return (
-      <svg width={viewport[0]} height={viewport[1]}>
-        {solarSystems.map(({ pixelPosition, lifespan }) => <circle
-          cx={pixelPosition[0]}
-          cy={pixelPosition[1]}
-          r={5}
-          opacity={(lifespan - age) / lifespan}
-        />)}
-      </svg>
-    )
-  }
-}
+tick(store.dispatch)
+resize(store.dispatch)
 
 render(
-  <Game />,
+  <Provider store={store}>
+    <Game />
+  </Provider>,
   document.getElementById('root')
 )
-
