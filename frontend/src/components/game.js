@@ -9,6 +9,8 @@ import Particles from './particles'
 import Intro from './intro'
 import Hud from './hud'
 
+import {POPULATION_ONBOARD_SIZE} from 'constants'
+
 function Game (props) {
   const {
     cameraPosition,
@@ -148,7 +150,14 @@ const mapDispatchToProps = (dispatch) => {
       type: 'POPULATE_PLANET',
       payload: {
         index: planetIndex,
-        population: 100
+        population: POPULATION_ONBOARD_SIZE
+      }
+    }),
+    onClickOnboard: (planetIndex) => dispatch({
+      type: 'ONBOARD_SHIP',
+      payload: {
+        index: planetIndex,
+        population: POPULATION_ONBOARD_SIZE
       }
     }),
     onCloseIntro: () => {
