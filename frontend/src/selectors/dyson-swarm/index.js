@@ -8,7 +8,7 @@ export default (state) => {
       ...dysonSwarm,
 
       currentEnergy: currentValue(
-        (previousValue, eventLoops) => previousValue === 0
+        (previousValue, eventLoops) => previousValue === 0 || eventLoops < 0
           ? 0
           : previousValue + (eventLoops * DYSON_SWARM_ENERGY_GENERATION_FACTOR),
         Date.now()
