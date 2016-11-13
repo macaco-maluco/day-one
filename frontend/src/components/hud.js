@@ -21,6 +21,7 @@ export default ({
   shipPopulation,
   selectedSolarSystem,
   currentPopulation,
+  originalMaterial,
   currentEnergy,
   totalPopulation,
   planets,
@@ -97,16 +98,21 @@ export default ({
             <p>Gravity: {p.gravity.toFixed(2)}</p>
             <p>Capacity: {p.populationCapacity}</p>
             <p>Population: {p.currentPopulation || 0}</p>
-            <button
-              onClick={() => onClickPopulate(i)}
-              disabled={!acceptPopulation(p, currentPopulation)}>
-              Populate
-            </button>
-            <button
-              onClick={() => onClickOnboard(i)}
-              disabled={!canOnboard(p)}>
-              Onboard
-            </button>
+            {
+              (p.material === originalMaterial) &&
+                <div>
+                  <button
+                    onClick={() => onClickPopulate(i)}
+                    disabled={!acceptPopulation(p, currentPopulation)}>
+                    Populate
+                  </button>
+                  <button
+                    onClick={() => onClickOnboard(i)}
+                    disabled={!canOnboard(p)}>
+                    Onboard
+                  </button>
+                </div>
+            }
           </div>)}
         </div>
       </div>}
