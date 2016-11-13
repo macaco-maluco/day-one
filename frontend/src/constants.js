@@ -27,6 +27,7 @@ export const UNIVERSE_LIFESPAN = 1000 * 60 * 60 * 24 * 7 // one week
 export const UNIVERSE_BIG_BANG = 1479024348172
 export const UNIVERSE_SIZE = 10000000000000000 // 10 ^ 16
 export const TICK = 10000
+export const TICK_CAP = 2000
 export const SEED = 'the-first-day-the-day-one'
 export const NAME_WORDS_MINIMUM = 2
 export const NAME_WORDS_MAXIMUM = 2
