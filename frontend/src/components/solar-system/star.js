@@ -139,13 +139,44 @@ function AccretionDisk ({pixelPosition, expanded, radius}) {
     }}
     >
     {(style) => (
-      <circle
-        cx={pixelPosition[0]}
-        cy={pixelPosition[1]}
-        r={style.radius}
-        fill='#5e3734'
-        opacity={0.3}
-      />
+      <g>
+        <circle
+          cx={pixelPosition[0]}
+          cy={pixelPosition[1]}
+          r={style.radius}
+          fill='#1d094e'
+          opacity={0.2}
+        />
+        <circle
+          className='accretion disk-4'
+          cx={pixelPosition[0]}
+          cy={pixelPosition[1]}
+          r={style.radius / 2}
+          fill='#1d094e'
+        />
+        <circle
+          className='accretion disk-3'
+          cx={pixelPosition[0]}
+          cy={pixelPosition[1]}
+          r={style.radius / 3}
+          fill='#1d094e'
+        />
+        <circle
+          className='accretion disk-2'
+          cx={pixelPosition[0]}
+          cy={pixelPosition[1]}
+          r={style.radius / 6}
+          fill='#1d094e'
+        />
+        <circle
+          className='accretion disk-1'
+          cx={pixelPosition[0]}
+          cy={pixelPosition[1]}
+          r={style.radius / 10}
+          fill='#1d094e'
+          opacity={0.3}
+        />
+      </g>
     )}
   </Motion>
 }

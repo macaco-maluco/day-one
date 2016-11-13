@@ -26,7 +26,8 @@ export default ({
   planets,
   onClickPopulate,
   onClickOnboard,
-  onClickAddSwarm
+  onClickAddSwarm,
+  onClickCloseSolarSystemHud
 }) => {
   const isMain = selectedSolarSystem && selectedSolarSystem.stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE
   const universeSpent = (now - bigBang) / (heatDeath - bigBang) * 100
@@ -80,6 +81,7 @@ export default ({
             paddingTop: 10
           }}>
           <div style={{paddingRight: '30px', paddingLeft: '30px', width: 160}}>
+            <a style={closeButtonStyle} onClick={onClickCloseSolarSystemHud}>{'\u00D7'}</a>
             <h3>{selectedSolarSystem.name}</h3>
             <p>{systemDefinition(selectedSolarSystem)}</p>
             {selectedSolarSystem.dysonSwarm != null && <p>
@@ -140,4 +142,15 @@ const systemDefinition = (solarSystem) => {
   }
 
   return solarSystem.stage
+}
+
+const closeButtonStyle = {
+  position: 'absolute',
+  top: '0',
+  right: '0',
+  padding: '10px',
+  fontSize: '30px',
+  textDecoration: 'none',
+  color: 'white',
+  cursor: 'pointer'
 }

@@ -7,6 +7,12 @@ $slide-duration: 3.5s;
     100% {opacity: 0.1;}
 }
 
+@keyframes gentleGlow {
+    0% {opacity: 0.3;}
+    50% {opacity: 0.6;}
+    100% {opacity: 0.3;}
+}
+
 @keyframes rotateCW {
   0% {transform: rotate(0deg);}
   100% {transform: rotate(360deg);}
@@ -270,5 +276,26 @@ $slide-duration: 3.5s;
     font-size: 5vw;
     line-height: 5.5vw;
     width: 100%;
+  }
+}
+
+.accretion {
+  animation-name: gentleGlow, rotateCW;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  opacity: 0.3;
+  transform-origin: 50% 50%;
+
+  .disk-4 {
+    animation-delay: 0s;
+  }
+  .disk-3 {
+    animation-delay: 1s;
+  }
+  .disk-2 {
+    animation-delay: 3s;
+  }
+  .disk-1 {
+    animation-delay: 5s;
   }
 }
