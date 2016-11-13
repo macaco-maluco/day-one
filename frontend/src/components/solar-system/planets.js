@@ -3,18 +3,20 @@ import {Motion, spring} from 'react-motion'
 import {SOLAR_SYSTEM_STAGES} from 'constants'
 import SpaceStation from './space-station'
 
-export default function Planets ({stage, pixelPosition, planets, onClickPlanet}) {
+export default function Planets ({dysonSwarm, stage, pixelPosition, planets, onClickPlanet}) {
   const isMain = stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE ||
     stage === SOLAR_SYSTEM_STAGES.FUSION_START
 
   if (!isMain) { return false }
 
+  const exists = isMain && !dysonSwarm
+
   return <Motion
     defaultStyle={{
-      opacity: isMain ? 1 : 0
+      opacity: exists ? 1 : 0
     }}
     style={{
-      opacity: spring(isMain ? 1 : 0)
+      opacity: spring(exists ? 1 : 0)
     }}
     >
     {(style) => (

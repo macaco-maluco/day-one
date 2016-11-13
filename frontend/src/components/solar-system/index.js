@@ -26,6 +26,7 @@ export default function solarSystems ({
         planets={planets}
         onClickPlanet={onClickPlanet}
         stage={stage}
+        dysonSwarm={dysonSwarm}
       />
       <Star
         type={starType}
