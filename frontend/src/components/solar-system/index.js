@@ -1,6 +1,6 @@
 import React from 'react'
 import AccretionDisk from './accretion-disk'
-import MainSequence from '../solar-system'
+import MainSequence from './main-sequence'
 import Supernova from './supernova'
 import FusionStart from './fusion-start'
 import NeutronStar from './neutron-star'
