@@ -19,7 +19,7 @@ export default function solarSystems ({
 }) {
   return (
     <g
-      style={{cursor: 'pointer', WebkitTapHighlightColor: 'rgba(0,0,0,0)'}}
+      style={{WebkitTapHighlightColor: 'rgba(0,0,0,0)'}}
       onClick={(e) => { e.stopPropagation(); onClickStar(e) }}>
       <Planets
         pixelPosition={pixelPosition}

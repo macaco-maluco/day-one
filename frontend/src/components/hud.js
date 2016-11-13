@@ -53,21 +53,21 @@ export default ({
         <div
           className='stats'
           style={statBoxStyle}>
-          <div title='Ship population' style={{...statBoxStyle, width: 180}}>
+          <div title='Ship population' style={{...statBoxStyle, width: 130}}>
             <ShipIcon
               fill='white'
               style={{transform: 'scale(0.3)'}} />
             <span>{currentPopulation}</span>
           </div>
           <div style={{padding: '0 0 0 30px'}}>&bull;</div>
-          <div title='Total population' style={{...statBoxStyle, width: 180}}>
+          <div title='Total population' style={{...statBoxStyle, width: 130}}>
             <PopulationIcon
               fill='white'
               style={{transform: 'scale(0.3)'}} />
             <span>{totalPopulation}</span>
           </div>
           <div style={{padding: '0 0 0 30px'}}>&bull;</div>
-          <div title='Current energy' style={{...statBoxStyle, width: 180}}>
+          <div title='Current energy' style={{...statBoxStyle, width: 130}}>
             <EnergyIcon
               fill='white'
               style={{transform: 'scale(0.3)'}} />
@@ -118,8 +118,10 @@ export default ({
                     <p>
                       Energy: {selectedSolarSystem.dysonSwarm.currentEnergy}
                     </p>
-                    <button onClick={onClickDysonSwarmCollect}>
-                      Harvest
+                    <button
+                      disabled={selectedSolarSystem.dysonSwarm.currentEnergy < 2000}
+                      onClick={onClickDysonSwarmCollect}>
+                      {selectedSolarSystem.dysonSwarm.currentEnergy < 2000 ? 'Collecting...' : 'Harvest'}
                     </button>
                   </div>
                   : <p>Building Dyson Swarm…</p>

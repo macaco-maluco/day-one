@@ -40,10 +40,10 @@ const buildInitialState = ({introDiscarded, introAlreadySeen}) => {
       {
         position: getMyPosition(),
         populationLog: [
-          [showIntro ? HUGE : POPULATION_INITIAL, Date.now()]
+          [showIntro ? HUGE : POPULATION_INITIAL, now]
         ],
         energyLog: [
-          [showIntro ? HUGE : ENERGY_INITIAL, Date.now()]
+          [showIntro ? HUGE : ENERGY_INITIAL, now]
         ],
         originalMaterial: 'water'
       }
