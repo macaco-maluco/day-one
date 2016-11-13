@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import getVisibleUniverse from 'selectors/get-visible-universe'
 import SolarSystem from './solar-system'
 import Player from './player'
+import TargetMarker from './target-marker'
 import Particles from './particles'
 import Hud from './hud'
 
@@ -79,6 +80,7 @@ function Game ({
                 {...solarSystem}
               />)}
               {otherPlayers.map((player) => <Player position={player.pixelPosition} />)}
+              <TargetMarker position={pixelPosition} />
               <Player position={[style.playerX, style.playerY]} />
             </g>
           )}
