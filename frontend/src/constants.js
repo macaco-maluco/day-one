@@ -59,7 +59,7 @@ export const SOLAR_SYSTEM_STAGES = {
   ACCRETION_DISK: 'Accretion Disk',
   FUSION_START: 'Starting Fusion...',
   MAIN_SEQUENCE: 'Star',
-  RED_GIANT: 'Red Iiant',
+  RED_GIANT: 'Red Giant',
   SUPERNOVA: 'Supernova',
   BLACK_HOLE: 'Black Hole',
   NEUTRON_STAR: 'Neutron Star',
