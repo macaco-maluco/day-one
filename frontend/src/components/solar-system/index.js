@@ -11,7 +11,6 @@ import BrownDwarf from './brown-dwarf'
 import {SOLAR_SYSTEM_STAGES} from 'constants'
 
 export default function SolarSystem ({stage, ...props}) {
-  console.log(stage)
   switch (stage) {
     case SOLAR_SYSTEM_STAGES.FUSION_START:
       return <FusionStart {...props} />
