@@ -1,10 +1,9 @@
 import React from 'react'
 import {Motion, spring} from 'react-motion'
-import {SOLAR_SYSTEM_STAGES} from 'constants'
+import {SOLAR_SYSTEM_STAGES, STAR_TYPES} from 'constants'
 
 export default function ({pixelPosition, radius, type, stage}) {
-  const isMain = stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE ||
-    stage === SOLAR_SYSTEM_STAGES.FUSION_START
+  const isMain = stage !== SOLAR_SYSTEM_STAGES.ACCRETION_DISK
 
   return <g>
     <AccretionDisk
@@ -14,11 +13,75 @@ export default function ({pixelPosition, radius, type, stage}) {
     />
     <MainSequence
       pixelPosition={pixelPosition}
-      radius={isMain ? radius : 0}
-      type={type}
-      opacity={isMain ? 1 : 0}
+      radius={getStarRadius(stage, radius)}
+      type={getStarType(stage, type)}
+      opacity={getStarOpacity(stage)}
     />
   </g>
+}
+
+function getStarOpacity (stage) {
+  switch (stage) {
+    case SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE:
+    case SOLAR_SYSTEM_STAGES.WHITE_DWARF:
+    case SOLAR_SYSTEM_STAGES.NEUTRON_STAR:
+    case SOLAR_SYSTEM_STAGES.BROWN_DWARF:
+      return 1
+
+    default:
+      return 0
+  }
+}
+
+function getStarType (stage, type) {
+  switch (stage) {
+    case SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE:
+      return type
+
+    case SOLAR_SYSTEM_STAGES.RED_GIANT:
+      return STAR_TYPES.M
+
+    case SOLAR_SYSTEM_STAGES.SUPERNOVA:
+      return STAR_TYPES.F
+
+    case SOLAR_SYSTEM_STAGES.BLACK_HOLE:
+      return 'B'
+
+    case SOLAR_SYSTEM_STAGES.WHITE_DWARF:
+      return STAR_TYPES.F
+
+    case SOLAR_SYSTEM_STAGES.NEUTRON_STAR:
+      return STAR_TYPES.O
+
+    case SOLAR_SYSTEM_STAGES.BROWN_DWARF:
+      return STAR_TYPES.K
+
+    default:
+      return type
+  }
+}
+
+function getStarRadius (stage, radius) {
+  switch (stage) {
+    case SOLAR_SYSTEM_STAGES.FUSION_START:
+    case SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE:
+      return radius
+
+    case SOLAR_SYSTEM_STAGES.RED_GIANT:
+    case SOLAR_SYSTEM_STAGES.SUPERNOVA:
+      return radius * 5
+
+    case SOLAR_SYSTEM_STAGES.BLACK_HOLE:
+      return 10
+
+    case SOLAR_SYSTEM_STAGES.WHITE_DWARF:
+    case SOLAR_SYSTEM_STAGES.NEUTRON_STAR:
+    case SOLAR_SYSTEM_STAGES.BROWN_DWARF:
+      return 5
+
+    default:
+      return 0
+  }
 }
 
 function AccretionDisk ({pixelPosition, expanded, radius}) {
