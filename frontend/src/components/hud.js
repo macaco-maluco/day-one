@@ -107,7 +107,7 @@ export default ({
           </div>
           {isMain && !selectedSolarSystem.dysonSwarm && selectedSolarSystem.planets.map((p, i) => <div key={i} style={{paddingRight: '30px', width: 160}}>
             <h3>Planet {i}</h3>
-            <p className='hudDetail'>Material: <span>{p.material}</span></p>
+            <p className='hudDetail'><span>{p.material}</span></p>
             <p className='hudDetail'>Gravity: {p.gravity.toFixed(2)}</p>
             <p className='hudDetail'>Capacity: {p.populationCapacity}</p>
             <p className='hudDetail'>Population: {p.currentPopulation || 0}</p>
