@@ -30,12 +30,20 @@ const initialState = {
       energyLog: [
         [ENERGY_INITIAL, Date.now()]
       ]
+    },
+    {
+      position: [getMyPosition()[0] + 200, getMyPosition()[1] + 200],
+      populationLog: [
+        [INITIAL_POPULATION, Date.now()]
+      ]
     }
   ],
   solarSystems: [],
   selectedSolarSystemPosition: null,
   selectedPlanetIndex: null,
-  currentPlayer: 0
+  currentPlayer: 0,
+  cameraPositionStart: getMyPosition(),
+  cameraPosition: [0, 0]
 }
 
 const reducer = (state, action) => {
@@ -138,6 +146,7 @@ const reducer = (state, action) => {
     case 'MOVE':
       return {
         ...state,
+        cameraPosition: state.cameraPosition.map((v, i) => v - action.payload[i]),
         players: state.players.map((player, index) => (
           index !== state.currentPlayer
             ? player
