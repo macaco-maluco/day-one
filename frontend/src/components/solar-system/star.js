@@ -7,16 +7,16 @@ export default function ({pixelPosition, radius, type, stage}) {
     stage === SOLAR_SYSTEM_STAGES.FUSION_START
 
   return <g>
+    <AccretionDisk
+      pixelPosition={pixelPosition}
+      radius={radius * 5}
+      expanded={stage === SOLAR_SYSTEM_STAGES.ACCRETION_DISK}
+    />
     <MainSequence
       pixelPosition={pixelPosition}
       radius={isMain ? radius : 0}
       type={type}
       opacity={isMain ? 1 : 0}
-    />
-    <AccretionDisk
-      pixelPosition={pixelPosition}
-      radius={radius * 5}
-      expanded={stage === SOLAR_SYSTEM_STAGES.ACCRETION_DISK}
     />
   </g>
 }
@@ -36,6 +36,7 @@ function AccretionDisk ({pixelPosition, expanded, radius}) {
         cy={pixelPosition[1]}
         r={style.radius}
         fill='#5e3734'
+        opacity={0.3}
       />
     )}
   </Motion>
