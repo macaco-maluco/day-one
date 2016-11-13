@@ -1,7 +1,3 @@
-export const FUSION_DURATION = 0.05
-export const SUPERNOVA_DURATION = 0.1
-export const RED_GIANT_DURATION = 0.2
-
 export const GRAVITY_MAXIMUM = 10
 export const GRAVITY_MINIMUM = 0.3
 
@@ -78,6 +74,10 @@ export const STAR_END_STAGES = {
 export const UNIVERSE_LIFESPAN = 1000 * 60 * 2// 60 * 24 * 7 // one week
 export const UNIVERSE_BIG_BANG = Date.now() // 1479024348172
 export const UNIVERSE_SIZE = 10000000000000000 // 10 ^ 16
+
+export const FUSION_DURATION = 1000 / UNIVERSE_LIFESPAN
+export const SUPERNOVA_DURATION = 1000 / UNIVERSE_LIFESPAN
+export const RED_GIANT_DURATION = 2000 / UNIVERSE_LIFESPAN
 
 export const EVENT_LOOP = 10000
 export const EVENT_LOOP_CAP = 2000
