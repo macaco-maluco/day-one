@@ -10,6 +10,7 @@ import resize from 'effects/resize'
 import playerPopulation from 'calculators/player-population'
 import Planet from 'constructors/planet'
 import findPlanetByIndex from 'helpers/find-planet-by-index'
+import instructionsSlides from 'helpers/instructions-slides'
 import addPopulationLog from 'selectors/player/add-population-log'
 import {
   ENERGY_INITIAL,
@@ -51,6 +52,9 @@ const initialState = {
   cameraPositionStart: getMyPosition(),
   cameraPosition: [0, 0],
   showIntro: true,
+  showInstructions: true,
+  currentSlide: 0,
+  instructionsSlides: instructionsSlides,
   introDiscarded: !!window.localStorage.getItem('dayOne.introDiscarded'),
   introAlreadySeen: !!window.localStorage.getItem('dayOne.introAlreadySeen')
 }
@@ -121,6 +125,23 @@ const reducer = (state, action) => {
       return {
         ...state,
         ...action.payload
+      }
+
+    case 'CLOSE_INSTRUCTIONS':
+      return {
+        ...state,
+        showInstructions: false
+      }
+
+    case 'GO_TO_SLIDE':
+      let newSlide = state.currentSlide + action.payload
+      newSlide = (newSlide > instructionsSlides.length - 1)
+        ? instructionsSlides.length - 1
+        : newSlide
+      newSlide = (newSlide < 0) ? 0 : newSlide
+      return {
+        ...state,
+        currentSlide: newSlide
       }
 
     case 'MOVE':

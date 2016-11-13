@@ -7,6 +7,7 @@ import Player from './player'
 import TargetMarker from './target-marker'
 import Particles from './particles'
 import Intro from './intro'
+import Instructions from './instructions'
 import Hud from './hud'
 
 import {POPULATION_ONBOARD_SIZE} from 'constants'
@@ -26,11 +27,17 @@ function Game (props) {
     showIntro,
     onCloseIntro,
     onDiscardIntro,
-    introAlreadySeen
+    introAlreadySeen,
+    showInstructions,
+    onCloseInstructions,
+    currentSlide,
+    goToPrevSlide,
+    goToNextSlide,
+    instructionsSlides
   } = props
 
   if (!introDiscarded && showIntro) return <Intro alreadySeen={introAlreadySeen} onDiscard={onDiscardIntro} onClose={onCloseIntro} />
-
+  if (!showIntro && showInstructions) return <Instructions slides={instructionsSlides} onClose={onCloseInstructions} goToPrev={goToPrevSlide} goToNext={goToNextSlide} currentSlide={currentSlide} />
   return (
     <div>
       <Hud {...props} />
@@ -170,6 +177,23 @@ const mapDispatchToProps = (dispatch) => {
           introDiscarded: true,
           introAlreadySeen: true
         }
+      })
+    },
+    onCloseInstructions: () => {
+      return dispatch({
+        type: 'CLOSE_INSTRUCTIONS'
+      })
+    },
+    goToPrevSlide: () => {
+      return dispatch({
+        type: 'GO_TO_SLIDE',
+        payload: -1
+      })
+    },
+    goToNextSlide: () => {
+      return dispatch({
+        type: 'GO_TO_SLIDE',
+        payload: 1
       })
     }
   }
