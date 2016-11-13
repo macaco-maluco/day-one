@@ -10,7 +10,7 @@ const random = (seed) => {
   return r()
 }
 
-export default (seed) => (universe) => {
+export default (seed, ids) => (universe) => {
   const { viewport, cameraPositionStart, cameraPosition } = universe
   const viewportInGrid = viewport.map((x) => ceil(x / GRID_SIZE))
 
@@ -27,7 +27,9 @@ export default (seed) => (universe) => {
 
   const yRange = range(ranges[1][0], ranges[1][1])
 
-  const matrix = xRange.map((x) => yRange.map((y) => [x, y])).reduce((a, b) => a.concat(b), [])
+  const matrix = xRange
+    .map((x) => yRange.map((y) => [x, y]))
+    .reduce((a, b) => a.concat(b), [])
 
   const gridToDots = (dot) =>
     dot
@@ -36,7 +38,7 @@ export default (seed) => (universe) => {
   const noiseMatrix = matrix.map((dot) => [
     ...(gridToDots(dot)),
     random(seed + dot.join('.'))
-  ])
+  ]).concat(ids)
 
   return {
     ...universe,

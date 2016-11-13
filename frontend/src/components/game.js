@@ -22,10 +22,12 @@ function Game (props) {
     otherPlayers,
     introDiscarded,
     showIntro,
-    onCloseIntro
+    onCloseIntro,
+    onDiscardIntro,
+    introAlreadySeen
   } = props
 
-  if (!introDiscarded && showIntro) return <Intro onClick={onCloseIntro} />
+  if (!introDiscarded && showIntro) return <Intro alreadySeen={introAlreadySeen} onDiscard={onDiscardIntro} onClose={onCloseIntro} />
 
   return (
     <div>
@@ -109,9 +111,27 @@ const mapDispatchToProps = (dispatch) => {
         population: 100
       }
     }),
-    onCloseIntro: () => dispatch({
-      type: 'CLOSE_INTRO'
-    })
+    onCloseIntro: () => {
+      window.localStorage.setItem('dayOne.introAlreadySeen', 1)
+      return dispatch({
+        type: 'CLOSE_INTRO',
+        payload: {
+          showIntro: false,
+          introAlreadySeen: true
+        }
+      })
+    },
+    onDiscardIntro: () => {
+      window.localStorage.setItem('dayOne.introDiscarded', 1)
+      return dispatch({
+        type: 'CLOSE_INTRO',
+        payload: {
+          showIntro: false,
+          introDiscarded: true,
+          introAlreadySeen: true
+        }
+      })
+    }
   }
 }
 

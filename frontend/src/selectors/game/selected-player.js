@@ -13,12 +13,14 @@ const getPlayer = (state) => ({
   otherPlayers: state.players.slice(1)
 })
 
-const getTotalPopulation = (state) => ({
-  ...state,
-  totalPopulation: state.planets
-    .filter((planet) => planet.playerId === state.currentPlayer)
-    .reduce(
-      (total, planet) => total + planet.currentPopulation,
-      state.players[state.currentPlayer].currentPopulation
-    )
-})
+const getTotalPopulation = (state) => {
+  return {
+    ...state,
+    totalPopulation: state.planets
+      .filter((planet) => planet.playerId === state.currentPlayer)
+      .reduce(
+        (total, planet) => total + planet.currentPopulation,
+        state.players[state.currentPlayer].currentPopulation
+      )
+  }
+}

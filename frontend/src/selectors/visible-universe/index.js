@@ -40,9 +40,9 @@ const dotToPixels = (universe) => {
   }
 }
 
-export default compose(
+export default (ids) => compose(
   dotToPixels,
   getSolarSystems,
   noiseParticleMatrix(SEED + '654321'),
-  noiseMatrix(SEED)
+  noiseMatrix(SEED, ids)
 )
