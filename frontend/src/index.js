@@ -55,7 +55,7 @@ const initialState = {
   introDiscarded: !!window.localStorage.getItem('dayOne.introDiscarded'),
   introAlreadySeen: !!window.localStorage.getItem('dayOne.introAlreadySeen')
 }
-console.log('33333', window.localStorage.getItem('dayOne.introDiscarded'))
+
 const reducer = (state, action) => {
   switch (action.type) {
     case 'TICK':
