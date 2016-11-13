@@ -1,4 +1,5 @@
 import SimplexNoise from 'simplex-noise'
+import Alea from 'alea'
 import {range} from 'ramda'
 import {GRID_SIZE} from 'constants'
 import seedableRandom from 'helpers/seedable-random'
@@ -13,7 +14,8 @@ const iterativeSeedableRandom = (seed) => {
 }
 
 export default (seed) => {
-  const simplex = new SimplexNoise(iterativeSeedableRandom(seed))
+  const random = new Alea(seed)
+  const simplex = new SimplexNoise(random)
 
   return (universe) => {
     const { viewport, cameraPositionStart, cameraPosition } = universe

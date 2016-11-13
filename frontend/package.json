@@ -16,6 +16,7 @@
     "test:unit:watch": "npm run test:unit -- --watch"
   },
   "dependencies": {
+    "alea": "^0.0.9",
     "ramda": "^0.22.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
