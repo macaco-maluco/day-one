@@ -1,11 +1,8 @@
 import React from 'react'
 import {Motion, spring} from 'react-motion'
-import {SOLAR_SYSTEM_STAGES} from 'constants'
+import {SOLAR_SYSTEM_STAGES, STAR_TYPES} from 'constants'
 
 export default function ({pixelPosition, radius, type, stage}) {
-  const isMain = stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE ||
-    stage === SOLAR_SYSTEM_STAGES.FUSION_START
-
   return <g>
     <AccretionDisk
       pixelPosition={pixelPosition}
@@ -14,11 +11,121 @@ export default function ({pixelPosition, radius, type, stage}) {
     />
     <MainSequence
       pixelPosition={pixelPosition}
-      radius={isMain ? radius : 0}
-      type={type}
-      opacity={isMain ? 1 : 0}
+      radius={getStarRadius(stage, radius)}
+      type={getStarType(stage, type)}
+      opacity={getStarOpacity(stage)}
+    />
+    <DeadStar
+      pixelPosition={pixelPosition}
+      radius={getDeadStarRadius(stage)}
+      opacity={getDeadStarOpacity(stage)}
+      stage={stage}
     />
   </g>
+}
+
+function getStarOpacity (stage) {
+  switch (stage) {
+    case SOLAR_SYSTEM_STAGES.FUSION_START:
+    case SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE:
+    case SOLAR_SYSTEM_STAGES.RED_GIANT:
+      return 1
+
+    default:
+      return 0
+  }
+}
+
+function getDeadStarOpacity (stage) {
+  switch (stage) {
+    case SOLAR_SYSTEM_STAGES.BLACK_HOLE:
+    case SOLAR_SYSTEM_STAGES.NEUTRON_STAR:
+    case SOLAR_SYSTEM_STAGES.WHITE_DWARF:
+    case SOLAR_SYSTEM_STAGES.BROWN_DWARF:
+      return 1
+
+    default:
+      return 0
+  }
+}
+
+function getDeadStarRadius (stage) {
+  switch (stage) {
+    case SOLAR_SYSTEM_STAGES.BLACK_HOLE:
+    case SOLAR_SYSTEM_STAGES.NEUTRON_STAR:
+    case SOLAR_SYSTEM_STAGES.WHITE_DWARF:
+    case SOLAR_SYSTEM_STAGES.BROWN_DWARF:
+      return 5
+
+    default:
+      return 0
+  }
+}
+
+function getStarType (stage, type) {
+  switch (stage) {
+    case SOLAR_SYSTEM_STAGES.RED_GIANT:
+    case SOLAR_SYSTEM_STAGES.WHITE_DWARF:
+      return STAR_TYPES.M
+
+    case SOLAR_SYSTEM_STAGES.SUPERNOVA:
+    case SOLAR_SYSTEM_STAGES.BLACK_HOLE:
+    case SOLAR_SYSTEM_STAGES.NEUTRON_STAR:
+      return STAR_TYPES.F
+
+    default:
+      return type
+  }
+}
+
+function getStarRadius (stage, radius) {
+  switch (stage) {
+    case SOLAR_SYSTEM_STAGES.RED_GIANT:
+    case SOLAR_SYSTEM_STAGES.SUPERNOVA:
+      return radius * 5
+
+    default:
+      return radius
+  }
+}
+
+function getDeadStarFill (stage) {
+  switch (stage) {
+    case SOLAR_SYSTEM_STAGES.BLACK_HOLE:
+      return '#0000'
+
+    case SOLAR_SYSTEM_STAGES.NEUTRON_STAR:
+      return '#155299'
+
+    case SOLAR_SYSTEM_STAGES.WHITE_DWARF:
+      return '#e7fffa'
+
+    case SOLAR_SYSTEM_STAGES.BROWN_DWARF:
+      return '#5e3734'
+  }
+}
+
+function DeadStar ({ stage, radius, opacity, pixelPosition }) {
+  return <Motion
+    defaultStyle={{
+      radius: radius,
+      opacity: opacity
+    }}
+    style={{
+      radius: spring(radius),
+      opacity: spring(opacity)
+    }}
+    >
+    {(style) => (
+      <circle
+        cx={pixelPosition[0]}
+        cy={pixelPosition[1]}
+        r={style.radius}
+        fill={getDeadStarFill(stage)}
+        stroke='none'
+      />
+    )}
+  </Motion>
 }
 
 function AccretionDisk ({pixelPosition, expanded, radius}) {

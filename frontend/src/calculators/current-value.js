@@ -1,17 +1,25 @@
-export default (growthFactor, now) => (log) => compose(
-  // Get the update to a virtual entry "now"
-  (lastValue) => update(lastValue, [0, now]),
+import {compose, reduce} from 'ramda'
+import {EVENT_LOOP} from 'constants'
 
-  // Flatten all the values to the last value
-  reduce(update(growthFactor), [0, 0])
-)(log)
+const {floor} = Math
 
-const update = (growthFactor) => (previous, current) => {
+export default (calculate, now) => (log) =>
+floor(
+  compose(
+    // Get the update to a virtual entry "now"
+    (lastValue) => update(calculate)(lastValue, [0, now]),
+
+    // Flatten all the values to the last value
+    reduce(update(calculate), [0, 0])
+  )(log)[0]
+)
+
+const update = (calculate) => (previous, current) => {
   const [previousValue, previousTime] = previous
   const [value, time] = current
-  const eventLoops = time - (previousTime / EVENT_LOOP)
+  const eventLoops = (time - previousTime) / EVENT_LOOP
 
-  const updatedValue = previousValue * eventLoops * growthFactor
+  const updatedValue = calculate(previousValue, eventLoops)
 
   return [updatedValue + value, time]
 }

@@ -19,7 +19,9 @@ export default ({
   shipEnergy,
   shipPopulation,
   selectedSolarSystem,
-  onClickPopulate
+  onClickPopulate,
+  currentPopulation,
+  currentEnergy
 }) => {
   const universeSpent = (now - bigBang) / (heatDeath - bigBang) * 100
 
@@ -36,7 +38,7 @@ export default ({
         </div>
 
         <span style={{float: 'left'}}>DAY ONE</span>
-        <span>{shipPopulation} | {shipEnergy} | </span>
+        <span>{currentPopulation} | {currentEnergy} | </span>
         <span>You will last for X</span>
         <span style={{float: 'right'}}>HEAT DEATH</span>
 

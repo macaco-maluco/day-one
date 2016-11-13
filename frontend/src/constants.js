@@ -24,11 +24,11 @@ export const PLANET_RADIUS_MAXIMUM = 8
 export const POPULATION_CAPACITY_MINIMUM = 11000
 export const POPULATION_CAPACITY_MAXIMUM = 52100000
 export const POPULATION_INITIAL = 1000
-export const POPULATION_GROWTH_FACTOR = 1.3
+export const POPULATION_GROWTH_FACTOR = 13
 
 export const ENERGY_POPULATION_CONSUMPTION_FACTOR = 0.1
-export const ENERGY_CONSUMPTION_FACTOR = 1
-export const ENERGY_INITIAL = 10000
+export const ENERGY_CONSUMPTION_FACTOR = 100
+export const ENERGY_INITIAL = 5000
 
 export const SOLAR_SYSTEM_CUT_FACTOR = 0.7
 export const SOLAR_SYSTEM_PLANETS_MAXIMUM = 4
@@ -41,7 +41,8 @@ export const SOLAR_SYSTEM_STAGES = {
   SUPERNOVA: 'supernova',
   BLACK_HOLE: 'black_hole',
   NEUTRON_STAR: 'neutron_star',
-  WHITE_DWARF: 'white_dwarf'
+  WHITE_DWARF: 'white_dwarf',
+  BROWN_DWARF: 'brown_dwarf'
 }
 export const SOLAR_SYSTEM_LIFESPAN_THRESHOLDS = {
   BLACK_HOLE: 0.1,
@@ -81,7 +82,7 @@ export const FUSION_DURATION = 1000 / UNIVERSE_LIFESPAN
 export const SUPERNOVA_DURATION = 1000 / UNIVERSE_LIFESPAN
 export const RED_GIANT_DURATION = 2000 / UNIVERSE_LIFESPAN
 
-export const EVENT_LOOP = 10000
+export const EVENT_LOOP = 1000
 export const EVENT_LOOP_CAP = 2000
 
 export const SEED = 'the-first-day-the-day-one'

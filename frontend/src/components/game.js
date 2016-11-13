@@ -27,6 +27,7 @@ function Game ({
   otherPlayers,
   showIntro,
   onCloseIntro
+  ...props
 }) {
   if (showIntro) return <Intro onClick={onCloseIntro} />
   return (
@@ -38,6 +39,7 @@ function Game ({
         shipPopulation={shipPopulation}
         selectedSolarSystem={selectedSolarSystem}
         onClickPopulate={onClickPopulate}
+        {...props}
       />
       <svg
         onClick={(e) => onMove([
