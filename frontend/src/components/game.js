@@ -9,38 +9,25 @@ import Particles from './particles'
 import Intro from './intro'
 import Hud from './hud'
 
-function Game ({
-  cameraPosition,
-  onMove,
-  onSelectSolarSystem,
-  onSelectPlanet,
-  onClickPopulate,
-  bigBang,
-  heatDeath,
-  solarSystems,
-  shipPopulation,
-  now,
-  viewport,
-  selectedSolarSystem,
-  particleMatrix,
-  pixelPosition,
-  otherPlayers,
-  showIntro,
-  onCloseIntro,
-  ...props
-}) {
+function Game (props) {
+  const {
+    cameraPosition,
+    onMove,
+    onSelectSolarSystem,
+    onSelectPlanet,
+    solarSystems,
+    viewport,
+    particleMatrix,
+    pixelPosition,
+    otherPlayers,
+    showIntro,
+    onCloseIntro
+  } = props
+
   if (showIntro) return <Intro onClick={onCloseIntro} />
   return (
     <div>
-      <Hud
-        now={now}
-        bigBang={bigBang}
-        heatDeath={heatDeath}
-        shipPopulation={shipPopulation}
-        selectedSolarSystem={selectedSolarSystem}
-        onClickPopulate={onClickPopulate}
-        {...props}
-      />
+      <Hud {...props} />
       <svg
         onClick={(e) => onMove([
           e.pageX - viewport[0] / 2,
@@ -115,7 +102,10 @@ const mapDispatchToProps = (dispatch) => {
     }),
     onClickPopulate: (planetIndex) => dispatch({
       type: 'POPULATE_PLANET',
-      payload: planetIndex
+      payload: {
+        index: planetIndex,
+        population: 100
+      }
     }),
     onCloseIntro: () => dispatch({
       type: 'CLOSE_INTRO'

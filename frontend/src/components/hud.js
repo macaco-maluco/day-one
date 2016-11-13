@@ -21,7 +21,8 @@ export default ({
   selectedSolarSystem,
   onClickPopulate,
   currentPopulation,
-  currentEnergy
+  currentEnergy,
+  planets
 }) => {
   const universeSpent = (now - bigBang) / (heatDeath - bigBang) * 100
 
@@ -83,6 +84,7 @@ export default ({
             <p>Material: {p.material}</p>
             <p>Gravity: {p.gravity.toFixed(2)}</p>
             <p>Capacity: {p.populationCapacity}</p>
+            <p>Population: {p.currentPopulation || 0}</p>
             <button onClick={() => onClickPopulate(i)}>Populate</button>
           </div>)}
         </div>

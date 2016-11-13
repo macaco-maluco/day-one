@@ -1,4 +1,5 @@
 import currentValue from 'calculators/current-value'
+import playerPopulation from 'calculators/player-population'
 import {ENERGY_CONSUMPTION_FACTOR} from 'constants'
 
 export default (state) => {
@@ -7,10 +8,7 @@ export default (state) => {
     players: state.players.map((player) => ({
       ...player,
 
-      currentPopulation: currentValue(
-        (previousValue, eventLoops) => previousValue,
-        Date.now()
-      )(player.populationLog),
+      currentPopulation: playerPopulation(player.populationLog),
 
       currentEnergy: currentValue(
         (previousValue, eventLoops) => previousValue === 0
