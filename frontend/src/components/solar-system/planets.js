@@ -1,6 +1,7 @@
 import React from 'react'
 import {Motion, spring} from 'react-motion'
 import {SOLAR_SYSTEM_STAGES} from 'constants'
+import SpaceStation from './space-station'
 
 export default function Planets ({stage, pixelPosition, planets, onClickPlanet}) {
   const isMain = stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE ||
@@ -46,6 +47,12 @@ export default function Planets ({stage, pixelPosition, planets, onClickPlanet})
                 fill={colors[p.material]}
                 stroke='none'
               />
+              {
+                true &&
+                  <SpaceStation
+                    style={{fill: 'white'}}
+                    transform={`translate(${pixelPosition[0] + p.orbit}, ${pixelPosition[1]}) scale(0.3)`} />
+              }
             </g>
           })
         }
