@@ -26,3 +26,6 @@ Space Station and Space Ship icons from project noun
 
 https://thenounproject.com/search/?q=satelite&i=518060
 https://thenounproject.com/search/?q=spaeship&i=162487
+https://thenounproject.com/term/lightning/542899/
+https://thenounproject.com/search/?q=ship+population&i=554850
+https://thenounproject.com/search/?q=population&i=321988
