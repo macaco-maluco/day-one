@@ -39,7 +39,8 @@ export const SOLAR_SYSTEM_STAGES = {
   SUPERNOVA: 'supernova',
   BLACK_HOLE: 'black_hole',
   NEUTRON_STAR: 'neutron_star',
-  WHITE_DWARF: 'white_dwarf'
+  WHITE_DWARF: 'white_dwarf',
+  BROWN_DWARF: 'brown_dwarf'
 }
 export const SOLAR_SYSTEM_LIFESPAN_THRESHOLDS = {
   BLACK_HOLE: 0.1,
