@@ -27,7 +27,8 @@ export default ({
   planets,
   onClickPopulate,
   onClickOnboard,
-  onClickAddSwarm
+  onClickAddSwarm,
+  onClickDysonSwarmCollect
 }) => {
   const universeSpent = (now - bigBang) / (heatDeath - bigBang) * 100
 
@@ -83,9 +84,20 @@ export default ({
             <h3>{selectedSolarSystem.name}</h3>
             <p>x: {selectedSolarSystem.position[0]}</p>
             <p>y: {selectedSolarSystem.position[1]}</p>
-            {selectedSolarSystem.dysonSwarm != null && <p>
-              Dyson Swarm energy: {selectedSolarSystem.dysonSwarm.currentEnergy}
-            </p>}
+            {selectedSolarSystem.dysonSwarm != null
+              ? (
+                selectedSolarSystem.dysonSwarm.currentEnergy > 0
+                  ? <div>
+                    <p>
+                      Dyson Swarm energy: {selectedSolarSystem.dysonSwarm.currentEnergy}
+                    </p>
+                    <button onClick={onClickDysonSwarmCollect}>
+                      Harvest Energy
+                    </button>
+                  </div>
+                  : <p>Building Dyson Swarm…</p>
+              ) : false
+            }
             {selectedSolarSystem.dysonSwarm == null && <button onClick={onClickAddSwarm}>
               Add Dyson Swarm
             </button>}

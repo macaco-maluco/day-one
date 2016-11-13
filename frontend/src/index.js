@@ -8,6 +8,7 @@ import getMyPosition from 'helpers/get-my-position'
 import tick from 'effects/tick'
 import resize from 'effects/resize'
 import playerPopulation from 'calculators/player-population'
+import dysonSwarmEnergy from 'calculators/dyson-swarm-energy'
 import Planet from 'constructors/planet'
 import DysonSwarm from 'constructors/dyson-swarm'
 import findPlanetByIndex from 'helpers/find-planet-by-index'
@@ -18,7 +19,8 @@ import {
   DYSON_SWARM_COST,
   POPULATION_INITIAL,
   UNIVERSE_BIG_BANG,
-  UNIVERSE_LIFESPAN
+  UNIVERSE_LIFESPAN,
+  DYSON_SWARM_ENERGY_HARVEST_INCREMENT
 } from './constants'
 
 const initialState = {
@@ -81,6 +83,51 @@ const reducer = (state, action) => {
               energyLog: [...p.energyLog, [-DYSON_SWARM_COST, Date.now()]]
             }
             : p
+        )
+      }
+
+    case 'HARVEST_DYSON_SWARM':
+      const targetDysonSwarm = state.dysonSwarms.find(
+        (dysonSwarm) => dysonSwarm.solarSystemId === state.selectedSolarSystemId
+      )
+
+      if (
+        dysonSwarmEnergy(targetDysonSwarm.energyLog) -
+        DYSON_SWARM_ENERGY_HARVEST_INCREMENT < 0
+      ) {
+        return state
+      }
+
+      return {
+        ...state,
+        dysonSwarms: state.dysonSwarms.map((dysonSwarm) =>
+          dysonSwarm.solarSystemId === state.selectedSolarSystemId
+            ? {
+              ...dysonSwarm,
+              energyLog: [
+                ...dysonSwarm.energyLog,
+                [
+                  -DYSON_SWARM_ENERGY_HARVEST_INCREMENT,
+                  Date.now()
+                ]
+              ]
+            }
+            : dysonSwarm
+        ),
+
+        players: state.players.map((player, id) =>
+          id === state.currentPlayer
+            ? {
+              ...player,
+              energyLog: [
+                ...player.energyLog,
+                [
+                  DYSON_SWARM_ENERGY_HARVEST_INCREMENT,
+                  Date.now()
+                ]
+              ]
+            }
+            : player
         )
       }
 

@@ -211,6 +211,11 @@ const mapDispatchToProps = (dispatch) => {
         type: 'CLOSE_INSTRUCTIONS'
       })
     },
+    onClickDysonSwarmCollect: () => {
+      return dispatch({
+        type: 'HARVEST_DYSON_SWARM'
+      })
+    },
     goToPrevSlide: () => {
       return dispatch({
         type: 'GO_TO_SLIDE',
