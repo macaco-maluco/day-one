@@ -8,6 +8,7 @@ import {
   GRID_SIZE,
   STAR_RADIUS_MINIMUM,
   STAR_RADIUS_MAXIMUM,
+  STAR_TYPES,
   UNIVERSE_LIFESPAN
 } from 'constants'
 
@@ -17,12 +18,14 @@ export default (x) => {
   return compose(
     getPlanets,
     getStarRadius,
+    getStarType,
     getBirth,
     getName,
     addDeviation,
     toObject
   )(x)
 }
+
 const toObject = ([x, y, noise]) => ({position: [x, y], noise})
 
 const deviation = (noise, counter) =>
@@ -40,6 +43,11 @@ const getName = (solarSystem) => {
     name: starName(solarSystem.noise)
   }
 }
+
+const getStarType = (solarSystem) => ({
+  ...solarSystem,
+  starType: STAR_TYPES[betweenInteger(solarSystem.noise, 0, STAR_TYPES.length)]
+})
 
 const getStarRadius = (solarSystem) => ({
   ...solarSystem,

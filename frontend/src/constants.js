@@ -28,7 +28,7 @@ export const ENERGY_POPULATION_CONSUMPTION_FACTOR = 0.1
 export const ENERGY_GRID_CONSUMPTION_FACTOR = 1
 export const ENERGY_INITIAL = 10000
 
-export const SOLAR_SYSTEM_CUT_FACTOR = 0.3
+export const SOLAR_SYSTEM_CUT_FACTOR = 0.7
 export const SOLAR_SYSTEM_PLANETS_MAXIMUM = 4
 export const SOLAR_SYSTEM_PLANETS_MINIMUM = 2
 export const SOLAR_SYSTEM_STAGES = {
@@ -44,6 +44,7 @@ export const SOLAR_SYSTEM_STAGES = {
 
 export const STAR_RADIUS_MINIMUM = 10
 export const STAR_RADIUS_MAXIMUM = 30
+export const STAR_TYPES = ['M', 'K', 'G', 'F', 'O']
 
 export const UNIVERSE_LIFESPAN = 1000 * 60 * 2// 60 * 24 * 7 // one week
 export const UNIVERSE_BIG_BANG = Date.now() // 1479024348172

@@ -47,6 +47,10 @@ ajv@^4.7.0:
     co "^4.6.0"
     json-stable-stringify "^1.0.1"
 
+alea:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/alea/-/alea-0.0.9.tgz#f738cb45f83430069f45cf69ccbf312dd57a9e1a"
+
 align-text@^0.1.1, align-text@^0.1.3:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/align-text/-/align-text-0.1.4.tgz#0cd90a561093f35d0a99256c22b7069433fad117"
@@ -5051,10 +5055,6 @@ shelljs@^0.6.0:
 signal-exit@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.1.tgz#5a4c884992b63a7acd9badb7894c3ee9cfccad81"
-
-simplex-noise:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/simplex-noise/-/simplex-noise-2.2.0.tgz#302db27dbc8380d3b16cce0a5f75e56040da74fa"
 
 slash@^1.0.0:
   version "1.0.0"
