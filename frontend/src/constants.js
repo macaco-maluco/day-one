@@ -34,6 +34,7 @@ export const SOLAR_SYSTEM_PLANETS_MINIMUM = 2
 
 export const STAR_RADIUS_MINIMUM = 10
 export const STAR_RADIUS_MAXIMUM = 30
+export const STAR_TYPES = ['M', 'K', 'G', 'F', 'O']
 
 export const UNIVERSE_LIFESPAN = 1000 * 60 * 60 * 24 * 7 // one week
 export const UNIVERSE_BIG_BANG = 1479024348172
