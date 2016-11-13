@@ -10,6 +10,7 @@ import tick from 'effects/tick'
 import resize from 'effects/resize'
 import playerEnergy from 'calculators/player-energy'
 import playerPopulation from 'calculators/player-population'
+import planetPopulation from 'calculators/planet-population'
 import dysonSwarmEnergy from 'calculators/dyson-swarm-energy'
 import gameOver from 'calculators/game-over'
 import Planet from 'constructors/planet'
@@ -23,8 +24,38 @@ import {
   DYSON_SWARM_COST,
   POPULATION_INITIAL,
   UNIVERSE_LIFESPAN,
+  SOLAR_SYSTEM_STAGES,
   DYSON_SWARM_ENERGY_HARVEST_INCREMENT
 } from './constants'
+
+const getStage = (normalizedUniverseAge) => (solarSystem) => ({
+  ...solarSystem,
+  stage: calculateStage(
+    normalizedUniverseAge,
+    solarSystem.birth,
+    solarSystem.lifespan
+  )
+})
+
+const isSolarSystemAlive = (solarSystems) => (planet) => {
+  const universeAge = state.now - state.bigBang
+  const normalizedUniverseAge = universeAge / (state.heatDeath - state.bigBang)
+
+  return getStage(normalizedUniverseAge)(solarSystems.find((solarSystem) => equals(solarSystem.id, planet.solarSystemId)))  === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE
+}
+
+const getTotalPopulation = (state) => {
+  return {
+    ...state,
+    totalPopulation: state.planets
+      .filter((planet) => planet.playerId === state.currentPlayer)
+      .filter(isSolarSystemAlive(state.solarSystems))
+      .reduce(
+        (total, planet) => total + planetPopulation(planet.populationLog),
+        state.players[state.currentPlayer].currentPopulation
+      )
+  }
+}
 
 const buildInitialState = () => {
   const now = Date.now()
@@ -76,9 +107,22 @@ const reducer = (state, action) => {
         now: action.payload,
         gameOver: gameOver({
           energy: playerEnergy(currentPlayer.energyLog) < 0,
-          population: playerPopulation(currentPlayer.populationLog) < POPULATION_INITIAL
+          population: false
         })
       }
+      // return {
+      //   ...state,
+      //   now: action.payload,
+      //   gameOver: gameOver({
+      //     energy: playerEnergy(currentPlayer.energyLog) < 0,
+      //     population: state.planets.reduce((current, planet) =>
+      //       planet.playerId === state.currentPlayer
+      //         ? planetPopulation(planet.populationLog)
+      //         : current,
+      //       playerPopulation(currentPlayer.populationLog)
+      //     ) < POPULATION_INITIAL
+      //   })
+      // }
 
     case 'ADD_DYSON_SWARM':
       return {
