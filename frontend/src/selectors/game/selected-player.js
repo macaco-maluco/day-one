@@ -1,4 +1,5 @@
-import {compose} from 'ramda'
+import {compose, equals} from 'ramda'
+import {SOLAR_SYSTEM_STAGES} from 'constants'
 
 export default (state) => {
   return compose(
@@ -18,9 +19,16 @@ const getTotalPopulation = (state) => {
     ...state,
     totalPopulation: state.planets
       .filter((planet) => planet.playerId === state.currentPlayer)
+      .filter(isSolarSystemAlive(state.solarSystems))
       .reduce(
         (total, planet) => total + planet.currentPopulation,
         state.players[state.currentPlayer].currentPopulation
       )
   }
+}
+
+const isSolarSystemAlive = (solarSystems) => (planet) => {
+  return solarSystems
+    .find((solarSystem) => equals(solarSystem.id, planet.solarSystemId))
+    .stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE
 }

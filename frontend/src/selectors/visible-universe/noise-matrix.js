@@ -1,5 +1,5 @@
 import Alea from 'alea'
-import {range} from 'ramda'
+import {compose, range, map, concat, uniq} from 'ramda'
 import {GRID_SIZE} from 'constants'
 
 const {floor, ceil} = Math
@@ -35,10 +35,16 @@ export default (seed, ids) => (universe) => {
     dot
       .map((x) => x * GRID_SIZE)
 
-  const noiseMatrix = matrix.map((dot) => [
+  const mapGridToDots = map((dot) => [
     ...(gridToDots(dot)),
     random(seed + dot.join('.'))
-  ]).concat(ids)
+  ])
+
+  const noiseMatrix = compose(
+    uniq,
+    concat(ids),
+    mapGridToDots
+  )(matrix)
 
   return {
     ...universe,

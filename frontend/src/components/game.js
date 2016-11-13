@@ -73,7 +73,6 @@ function Game (props) {
                 onSelectPlanet={onSelectPlanet}
                 otherPlayers={otherPlayers}
                 pixelPosition={pixelPosition}
-                style={style}
               />
               <Player position={[style.playerX, style.playerY]} />
             </g>
@@ -97,8 +96,6 @@ class Content extends Component {
       this.props.viewport !== nextProps.viewport ||
       this.props.particleMatrix !== nextProps.particleMatrix ||
       this.props.solarSystems !== nextProps.solarSystems ||
-      this.props.onSelectSolarSystem !== nextProps.onSelectSolarSystem ||
-      this.props.onSelectPlanet !== nextProps.onSelectPlanet ||
       this.props.otherPlayers !== nextProps.otherPlayers ||
       this.props.pixelPosition !== nextProps.pixelPosition
     )
@@ -111,14 +108,8 @@ class Content extends Component {
       <g>
         <Particles viewport={viewport} particleMatrix={particleMatrix} />
         {solarSystems.map((solarSystem) => <SolarSystem
-          onClickStar={() => onSelectSolarSystem([
-            ...solarSystem.position,
-            solarSystem.noise
-          ])}
-          onClickPlanet={(planetIndex) => onSelectPlanet([
-            ...solarSystem.position,
-            solarSystem.noise
-          ], planetIndex)}
+          onClickStar={() => onSelectSolarSystem(solarSystem.id)}
+          onClickPlanet={(planetIndex) => onSelectPlanet(solarSystem.id, planetIndex)}
           key={solarSystem.position.join('')}
           {...solarSystem}
         />)}
