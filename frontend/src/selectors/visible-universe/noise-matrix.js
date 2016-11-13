@@ -42,10 +42,18 @@ export default (seed, ids) => (universe) => {
 
   const noiseMatrix = compose(
     uniq,
+    (x) => {
+      return universe.selectedSolarSystemId
+        ? concat([universe.selectedSolarSystemId], x)
+        : x
+    },
     concat(ids),
     mapGridToDots
   )(matrix)
 
+  if (universe.selectedSolarSystemId) {
+    debugger
+  }
   return {
     ...universe,
     noiseMatrix

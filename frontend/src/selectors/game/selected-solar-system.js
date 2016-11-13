@@ -9,6 +9,7 @@ export default (state) => {
     ...state,
     selectedSolarSystem: state.selectedSolarSystemId
       ? compose(
+          addDysonSwarmMetadata(state.dysonSwarms),
           addPlanetsMetadata(state.planets),
           translatePlanets(universeAge),
           toSolarSystem
@@ -25,3 +26,16 @@ const addPlanetsMetadata = (planets) => (solarSystem) => ({
     ...(planets.find((planet) => equals(planet.solarSystemId, solarSystem.id) && planet.index === i) || {})
   }))
 })
+
+const addDysonSwarmMetadata = (dysonSwarms) => (solarSystem) =>
+  solarSystem.dysonSwarm
+    ? {
+      ...solarSystem,
+      dysonSwarm: {
+        ...solarSystem.dysonSwarm,
+        ...(dysonSwarms.find(
+          (dysonSwarm) => equals(dysonSwarm.solarSystemId, solarSystem.id)
+        ))
+      }
+    }
+    : solarSystem
