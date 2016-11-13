@@ -8,7 +8,7 @@ export default function ({onRestart, gameOver}) {
         <p>{
             gameOver.type === 'ENERGY'
               ? 'Your ship run out of energy! Build more dyson swarms around solar systems next time.'
-              : 'To few have survived! You can not sustain your civilisation.'
+              : 'Too few have survived! You can not sustain your civilisation.'
         }</p>
         <button onClick={onRestart}>RESTART THE MISSION</button>
       </div>

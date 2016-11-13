@@ -28,51 +28,24 @@ import {
   DYSON_SWARM_ENERGY_HARVEST_INCREMENT
 } from './constants'
 
-const getStage = (normalizedUniverseAge) => (solarSystem) => ({
-  ...solarSystem,
-  stage: calculateStage(
-    normalizedUniverseAge,
-    solarSystem.birth,
-    solarSystem.lifespan
-  )
-})
-
-const isSolarSystemAlive = (solarSystems) => (planet) => {
-  const universeAge = state.now - state.bigBang
-  const normalizedUniverseAge = universeAge / (state.heatDeath - state.bigBang)
-
-  return getStage(normalizedUniverseAge)(solarSystems.find((solarSystem) => equals(solarSystem.id, planet.solarSystemId)))  === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE
-}
-
-const getTotalPopulation = (state) => {
-  return {
-    ...state,
-    totalPopulation: state.planets
-      .filter((planet) => planet.playerId === state.currentPlayer)
-      .filter(isSolarSystemAlive(state.solarSystems))
-      .reduce(
-        (total, planet) => total + planetPopulation(planet.populationLog),
-        state.players[state.currentPlayer].currentPopulation
-      )
-  }
-}
-
-const buildInitialState = () => {
+const buildInitialState = ({introDiscarded, introAlreadySeen}) => {
   const now = Date.now()
+  const HUGE = 9999999999999
+  const showIntro = !introDiscarded || !introDiscarded
 
   return {
     viewport: [window.innerWidth, window.innerHeight],
     bigBang: now,
-    heatDeath: now + UNIVERSE_LIFESPAN,
+    heatDeath: showIntro ? HUGE : now + UNIVERSE_LIFESPAN,
     now: now,
     players: [
       {
         position: getMyPosition(),
         populationLog: [
-          [POPULATION_INITIAL, now]
+          [showIntro ? HUGE : POPULATION_INITIAL, now]
         ],
         energyLog: [
-          [ENERGY_INITIAL, now]
+          [showIntro ? HUGE : ENERGY_INITIAL, now]
         ],
         originalMaterial: 'water'
       }
@@ -89,8 +62,8 @@ const buildInitialState = () => {
     showInstructions: true,
     currentSlide: 0,
     instructionsSlides: instructionsSlides,
-    introDiscarded: !!window.localStorage.getItem('dayOne.introDiscarded'),
-    introAlreadySeen: !!window.localStorage.getItem('dayOne.introAlreadySeen')
+    introDiscarded,
+    introAlreadySeen
   }
 }
 
@@ -99,7 +72,7 @@ const reducer = (state, action) => {
 
   switch (action.type) {
     case 'RESTART':
-      return buildInitialState()
+      return buildInitialState({introAlreadySeen: true, introDiscarded: true})
 
     case 'TICK':
       return {
@@ -249,10 +222,7 @@ const reducer = (state, action) => {
       }
 
     case 'CLOSE_INTRO':
-      return {
-        ...state,
-        ...action.payload
-      }
+      return buildInitialState({introAlreadySeen: true, introDiscarded: true})
 
     case 'CLOSE_INSTRUCTIONS':
       return {
@@ -303,9 +273,12 @@ render(
 )
 
 function createEnvironmentStore () {
+  const introDiscarded = !!window.localStorage.getItem('dayOne.introDiscarded')
+  const introAlreadySeen = !!window.localStorage.getItem('dayOne.introAlreadySeen')
+
   if (process.env.NODE_ENV !== 'production') {
-    return createStore(reducer, buildInitialState(), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+    return createStore(reducer, buildInitialState({introDiscarded, introAlreadySeen}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
   }
 
-  return createStore(reducer, buildInitialState())
+  return createStore(reducer, buildInitialState({introDiscarded, introAlreadySeen}))
 }
