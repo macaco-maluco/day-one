@@ -13,6 +13,7 @@ import {
   UNIVERSE_BIG_BANG,
   UNIVERSE_LIFESPAN
 } from './constants'
+import getShipPopulationCache from './cache-selectors/get-ship-population'
 import getShipPopulation from './selectors/get-ship-population'
 import getPlayer from './selectors/get-player'
 
@@ -34,7 +35,7 @@ const initialState = {
     {
       position: [getMyPosition()[0] + 200, getMyPosition()[1] + 200],
       populationLog: [
-        [INITIAL_POPULATION, Date.now()]
+        [POPULATION_INITIAL, Date.now()]
       ]
     }
   ],
@@ -43,7 +44,12 @@ const initialState = {
   selectedPlanetIndex: null,
   currentPlayer: 0,
   cameraPositionStart: getMyPosition(),
-  cameraPosition: [0, 0]
+  cameraPosition: [0, 0],
+  cache: {
+    populationLog: [
+      [POPULATION_INITIAL, Date.now()]
+    ]
+  }
 }
 
 const reducer = (state, action) => {
@@ -52,13 +58,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         now: action.payload,
-        cache: {
-          players: {
-            '0': {
-              populationLog: [[0, 0]]
-            }
-          }
-        }
+        cache: getShipPopulationCache(state)
       }
 
     case 'RESIZE_VIEWPORT':
