@@ -1,7 +1,9 @@
 import React from 'react'
+import Star from './star'
 
 export default function solarSystems ({
   name,
+  starType,
   pixelPosition,
   planets,
   lifespan,
@@ -15,15 +17,7 @@ export default function solarSystems ({
     <g
       style={{cursor: 'pointer', WebkitTapHighlightColor: 'rgba(0,0,0,0)'}}
       onClick={(e) => { e.stopPropagation(); onClickStar(e) }}>
-      <circle
-        className={`star ${planets[0].material}`}
-        cx={pixelPosition[0]}
-        cy={pixelPosition[1]}
-        r={starRadius}
-        opacity={timeLeft / lifespan}
-        fill='#d2cfff'
-        stroke='none'
-      />
+      <Star type={starType} position={pixelPosition} radius={starRadius} opacity={timeLeft / lifespan} />
       {planets.map((p, index) => {
         return <g
           key={index}

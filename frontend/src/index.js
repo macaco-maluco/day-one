@@ -16,6 +16,7 @@ import {
 import getShipPopulationCache from './cache-selectors/get-ship-population'
 import getShipPopulation from './selectors/get-ship-population'
 import getPlayer from './selectors/get-player'
+import 'styles.scss'
 
 const initialState = {
   viewport: [window.innerWidth, window.innerHeight],

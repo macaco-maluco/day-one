@@ -18,6 +18,7 @@ import {
   SOLAR_SYSTEM_PLANETS_MINIMUM,
   STAR_RADIUS_MINIMUM,
   STAR_RADIUS_MAXIMUM,
+  STAR_TYPES,
   UNIVERSE_LIFESPAN
 } from 'constants'
 
@@ -35,6 +36,7 @@ const RANDOMS = {
 export default (universeAge) => compose(
   getPlanets(universeAge),
   getStarRadius,
+  getStarType,
   getTimeLeft(universeAge),
   getName,
   getLifespan,
@@ -68,6 +70,11 @@ const getLifespan = (solarSystem) => ({
 const getTimeLeft = (universeAge) => (solarSystem) => ({
   ...solarSystem,
   timeLeft: solarSystem.lifespan - universeAge
+})
+
+const getStarType = (solarSystem) => ({
+  ...solarSystem,
+  starType: STAR_TYPES[betweenInteger(solarSystem.noise, 0, STAR_TYPES.length)]
 })
 
 const getStarRadius = (solarSystem) => ({
