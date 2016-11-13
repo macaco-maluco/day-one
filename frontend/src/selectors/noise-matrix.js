@@ -2,16 +2,8 @@ import SimplexNoise from 'simplex-noise'
 import Alea from 'alea'
 import {range} from 'ramda'
 import {GRID_SIZE} from 'constants'
-import seedableRandom from 'helpers/seedable-random'
 
 const {floor, ceil} = Math
-
-const iterativeSeedableRandom = (seed) => {
-  let counter = 0
-  return () => {
-    return seedableRandom(seed, counter++)
-  }
-}
 
 export default (seed) => {
   const random = new Alea(seed)
