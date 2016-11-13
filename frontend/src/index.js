@@ -45,7 +45,13 @@ const initialState = {
   selectedPlanetIndex: null,
   currentPlayer: 0,
   cameraPositionStart: getMyPosition(),
-  cameraPosition: [0, 0]
+  cameraPosition: [0, 0],
+  cache: {
+    populationLog: [
+      [POPULATION_INITIAL, Date.now()]
+    ]
+  },
+  showIntro: true
 }
 
 const reducer = (state, action) => {
@@ -74,6 +80,12 @@ const reducer = (state, action) => {
         ...state,
         selectedSolarSystemPosition: action.payload.solarSystem,
         selectedPlanetIndex: action.payload.planetIndex
+      }
+
+    case 'CLOSE_INTRO':
+      return {
+        ...state,
+        showIntro: false
       }
 
     case 'MOVE':

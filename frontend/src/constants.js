@@ -4,6 +4,8 @@ export const GRAVITY_MINIMUM = 0.3
 export const GRID_PARTICLES = 70
 export const GRID_SIZE = 300
 
+export const INTRO_TIME = 120000000
+
 export const MATERIALS = [
   'water',
   'plutonium',

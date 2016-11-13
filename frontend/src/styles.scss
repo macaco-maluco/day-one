@@ -1,4 +1,5 @@
 $timing-function: ease-out;
+$slide-duration: 4s;
 
 @keyframes glow {
     0% {opacity: 0.1;}
@@ -14,6 +15,13 @@ $timing-function: ease-out;
 @keyframes rotateCCW {
   0% {transform: rotate(360deg);}
   100% {transform: rotate(0deg);}
+}
+
+@keyframes showSlide {
+  0% {opacity: 0}
+  10% {opacity: 1}
+  90% {opacity: 1}
+  100% {opacity: 0}
 }
 
 .star-part {
@@ -134,5 +142,68 @@ $timing-function: ease-out;
     opacity: 0;
     animation: glow 3s $timing-function 1s infinite;
     fill: #dffcf6;
+  }
+}
+
+.intro-dialog {
+  background-color: rgba(0, 0, 0, 1);
+  position: relative;
+  z-index: 10000;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: calc(3vw + 16px);
+    padding: 10px;
+    text-decoration: none;
+
+    &:hover {
+      background-color: #222222;
+    }
+  }
+
+  .slide-show {
+    position: relative;
+    overflow: auto;
+    width: 70vw;
+    height: 30vh;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .slide {
+    opacity: 0;
+    animation-name: showSlide;
+    animation-duration: $slide-duration;
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: block;
+    font-size: 5vw;
+    line-height: 5.5vw;
+    color: white;
+    width: 100%;
+  }
+
+  .slide2 {
+    animation-delay: $slide-duration;
+  }
+
+  .slide3 {
+    animation-delay: ($slide-duration * 2);
+  }
+
+  .slide4 {
+    animation-delay: ($slide-duration * 3);
+  }
+  .slide5 {
+    animation-delay: ($slide-duration * 4);
   }
 }
