@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {Motion, spring} from 'react-motion'
 import {connect} from 'react-redux'
 import getGame from 'selectors/game'
@@ -63,21 +63,16 @@ function Game (props) {
           >
           {(style) => (
             <g transform={`translate(${style.x}, ${style.y})`}>
-              <Particles viewport={viewport} particleMatrix={particleMatrix} />
-              {solarSystems.map((solarSystem) => <SolarSystem
-                onClickStar={() => onSelectSolarSystem([
-                  ...solarSystem.position,
-                  solarSystem.noise
-                ])}
-                onClickPlanet={(planetIndex) => onSelectPlanet([
-                  ...solarSystem.position,
-                  solarSystem.noise
-                ], planetIndex)}
-                key={solarSystem.position.join('')}
-                {...solarSystem}
-              />)}
-              {otherPlayers.map((player) => <Player position={player.pixelPosition} />)}
-              <TargetMarker position={pixelPosition} />
+              <Content
+                viewport={viewport}
+                particleMatrix={particleMatrix}
+                solarSystems={solarSystems}
+                onSelectSolarSystem={onSelectSolarSystem}
+                onSelectPlanet={onSelectPlanet}
+                otherPlayers={otherPlayers}
+                pixelPosition={pixelPosition}
+                style={style}
+              />
               <Player position={[style.playerX, style.playerY]} />
             </g>
           )}
@@ -85,6 +80,51 @@ function Game (props) {
       </svg>
     </div>
   )
+}
+
+/**
+ * Rendering this can be very costly
+ * And we don't want to do on every
+ * translate animation from React Motion
+ *
+ * This optimizes to render only when necessary
+ */
+class Content extends Component {
+  shouldComponentUpdate (nextProps) {
+    return (
+      this.props.viewport !== nextProps.viewport ||
+      this.props.particleMatrix !== nextProps.particleMatrix ||
+      this.props.solarSystems !== nextProps.solarSystems ||
+      this.props.onSelectSolarSystem !== nextProps.onSelectSolarSystem ||
+      this.props.onSelectPlanet !== nextProps.onSelectPlanet ||
+      this.props.otherPlayers !== nextProps.otherPlayers ||
+      this.props.pixelPosition !== nextProps.pixelPosition
+    )
+  }
+
+  render () {
+    const {viewport, particleMatrix, solarSystems, onSelectSolarSystem, onSelectPlanet, otherPlayers, pixelPosition} = this.props
+
+    return (
+      <g>
+        <Particles viewport={viewport} particleMatrix={particleMatrix} />
+        {solarSystems.map((solarSystem) => <SolarSystem
+          onClickStar={() => onSelectSolarSystem([
+            ...solarSystem.position,
+            solarSystem.noise
+          ])}
+          onClickPlanet={(planetIndex) => onSelectPlanet([
+            ...solarSystem.position,
+            solarSystem.noise
+          ], planetIndex)}
+          key={solarSystem.position.join('')}
+          {...solarSystem}
+        />)}
+        {otherPlayers.map((player) => <Player position={player.pixelPosition} />)}
+        <TargetMarker position={pixelPosition} />
+      </g>
+    )
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
