@@ -1,17 +1,138 @@
+$timing-function: ease-out;
+
+@keyframes glow {
+    0% {opacity: 0.1;}
+    50% {opacity: 0.6;}
+    100% {opacity: 0.1;}
+}
+
+@keyframes rotateCW {
+  0% {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
+}
+
+@keyframes rotateCCW {
+  0% {transform: rotate(360deg);}
+  100% {transform: rotate(0deg);}
+}
+
+.star-part {
+  visibility: hidden;
+}
+
+.star .shadow {
+   background:green;
+}
+
 .star.G {
-  fill: #3fb9dd;
-  stroke-width: 3;
-  stroke: #666666;
+  .center {
+    visibility: visible;
+    fill: #0d9065;
+  }
+  .mark {
+    fill: #097451;
+    opacity: 0.5;
+  }
+  .glow1 {
+    visibility: visible;
+    opacity: 0;
+    animation: glow 3s $timing-function infinite;
+    fill: #0d9065;
+  }
+  .glow2 {
+    visibility: visible;
+    opacity: 0;
+    animation: glow 3s $timing-function 1s infinite;
+    fill: #0d9065;
+  }
 }
+
 .star.K {
-  fill: #97005d;
+  .center {
+    visibility: visible;
+    fill: #f67c25;
+  }
+  .mark {
+    fill: #062a67;
+    opacity: 0.1;
+  }
+  .glow1 {
+    visibility: visible;
+    opacity: 0;
+    animation: glow 3s $timing-function infinite;
+    fill: #f67c25;
+  }
+  .glow2 {
+    visibility: visible;
+    opacity: 0;
+    animation: glow 3s $timing-function 1s infinite;
+    fill: #f67c25;
+  }
 }
+
 .star.O {
-  fill: #dcbbaf;
+  .center {
+    visibility: visible;
+    fill: #155299;
+  }
+  .mark {
+    fill: #062a67;
+    opacity: 0.1;
+  }
+  .glow1 {
+    visibility: visible;
+    opacity: 0;
+    animation: glow 3s $timing-function infinite;
+    fill: #03185a;
+  }
+  .glow2 {
+    visibility: visible;
+    opacity: 0;
+    animation: glow 3s $timing-function 1s infinite;
+    fill: #062a67;
+  }
 }
 .star.M {
-  fill: #ffffff;
+  .center {
+    visibility: visible;
+    fill: #c30b1c;
+  }
+  .mark {
+    fill: #c30b1c;
+    opacity: 0.1;
+  }
+  .glow1 {
+    visibility: visible;
+    opacity: 0;
+    animation: glow 3s $timing-function infinite;
+    fill: #a31322;
+  }
+  .glow2 {
+    visibility: visible;
+    opacity: 0;
+    animation: glow 3s $timing-function 1s infinite;
+    fill: #e60217;
+  }
 }
 .star.F {
-  fill: #3feeac;
+  .center {
+    visibility: visible;
+    fill: #e7fffa;
+  }
+  .mark {
+    fill: #062a67;
+    opacity: 0.1;
+  }
+  .glow1 {
+    visibility: visible;
+    opacity: 0;
+    animation: glow 3s $timing-function infinite;
+    fill: #c5fcf1;
+  }
+  .glow2 {
+    visibility: visible;
+    opacity: 0;
+    animation: glow 3s $timing-function 1s infinite;
+    fill: #dffcf6;
+  }
 }

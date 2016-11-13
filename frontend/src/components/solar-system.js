@@ -17,7 +17,7 @@ export default function solarSystems ({
     <g
       style={{cursor: 'pointer', WebkitTapHighlightColor: 'rgba(0,0,0,0)'}}
       onClick={(e) => { e.stopPropagation(); onClickStar(e) }}>
-      <Star type={starType} position={pixelPosition} radius={starRadius} opacity={timeLeft / lifespan} />
+      <Star type={starType} position={pixelPosition} radius={starRadius} timeLeft={timeLeft} opacity={timeLeft / lifespan} />
       {planets.map((p, index) => {
         return <g
           key={index}
