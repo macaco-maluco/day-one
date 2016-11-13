@@ -9,7 +9,6 @@ import TargetMarker from './target-marker'
 import Particles from './particles'
 import Intro from './intro'
 import EndGame from './end-game'
-import Instructions from './instructions'
 import Hud from './hud'
 
 import {POPULATION_ONBOARD_SIZE} from 'constants'
@@ -30,12 +29,6 @@ function Game (props) {
     onCloseIntro,
     onDiscardIntro,
     introAlreadySeen,
-    showInstructions,
-    onCloseInstructions,
-    currentSlide,
-    goToPrevSlide,
-    goToNextSlide,
-    instructionsSlides,
     planets,
     gameOver,
     restartGame
@@ -43,7 +36,6 @@ function Game (props) {
 
   if (gameOver) return <EndGame gameOver={gameOver} onRestart={restartGame} />
   if (!gameOver && !introDiscarded && showIntro) return <Intro alreadySeen={introAlreadySeen} onDiscard={onDiscardIntro} onClose={onCloseIntro} />
-  if (!gameOver && !showIntro && showInstructions) return <Instructions slides={instructionsSlides} onClose={onCloseInstructions} goToPrev={goToPrevSlide} goToNext={goToNextSlide} currentSlide={currentSlide} />
   return (
     <div>
       <Hud {...props} />
