@@ -75,8 +75,8 @@ export const STAR_END_STAGES = {
   BROWN_DWARF: SOLAR_SYSTEM_STAGES.BROWN_DWARF
 }
 
-export const UNIVERSE_LIFESPAN = 1000 * 60 * 2 // 60 * 24 * 7 // one week
-export const UNIVERSE_BIG_BANG = Date.now() // 1479024348172
+export const UNIVERSE_LIFESPAN = 1000 * 60 * 60 * 24 * 7 // one week
+export const UNIVERSE_BIG_BANG = 1479024348172
 export const UNIVERSE_SIZE = 10000000000000000 // 10 ^ 16
 
 export const FUSION_DURATION = 1000 / UNIVERSE_LIFESPAN

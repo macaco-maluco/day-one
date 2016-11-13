@@ -48,10 +48,13 @@ export default function Planets ({stage, pixelPosition, planets, onClickPlanet})
                 stroke='none'
               />
               {
-                true &&
+                p.currentPopulation &&
                   <SpaceStation
-                    style={{fill: 'white'}}
-                    transform={`translate(${pixelPosition[0] + p.orbit}, ${pixelPosition[1]}) scale(0.3)`} />
+                    style={{
+                      fill: 'white',
+                      transform: `translate(${pixelPosition[0] + p.orbit}px, ${pixelPosition[1]}px) rotate(${p.translation}rad) scale(0.3)`,
+                      transition: 'transform 1s linear'
+                    }} />
               }
             </g>
           })

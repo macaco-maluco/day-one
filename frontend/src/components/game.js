@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Motion, spring} from 'react-motion'
 import {connect} from 'react-redux'
+import {equals} from 'ramda'
 import getGame from 'selectors/game'
 import SolarSystem from './solar-system/index'
 import Player from './player'
@@ -33,7 +34,8 @@ function Game (props) {
     currentSlide,
     goToPrevSlide,
     goToNextSlide,
-    instructionsSlides
+    instructionsSlides,
+    planets
   } = props
 
   if (!introDiscarded && showIntro) return <Intro alreadySeen={introAlreadySeen} onDiscard={onDiscardIntro} onClose={onCloseIntro} />
@@ -76,6 +78,7 @@ function Game (props) {
                 viewport={viewport}
                 particleMatrix={particleMatrix}
                 solarSystems={solarSystems}
+                planets={planets}
                 onSelectSolarSystem={onSelectSolarSystem}
                 onSelectPlanet={onSelectPlanet}
                 otherPlayers={otherPlayers}
@@ -109,7 +112,16 @@ class Content extends Component {
   }
 
   render () {
-    const {viewport, particleMatrix, solarSystems, onSelectSolarSystem, onSelectPlanet, otherPlayers, pixelPosition} = this.props
+    const {
+      viewport,
+      particleMatrix,
+      solarSystems,
+      onSelectSolarSystem,
+      onSelectPlanet,
+      otherPlayers,
+      pixelPosition,
+      planets
+    } = this.props
 
     return (
       <g>
@@ -119,12 +131,22 @@ class Content extends Component {
           onClickPlanet={(planetIndex) => onSelectPlanet(solarSystem.id, planetIndex)}
           key={solarSystem.position.join('')}
           {...solarSystem}
+          planets={mergePlanetMetadata(solarSystem.id, solarSystem.planets, planets)}
         />)}
         {otherPlayers.map((player) => <Player position={player.pixelPosition} />)}
         <TargetMarker position={pixelPosition} />
       </g>
     )
   }
+}
+
+const mergePlanetMetadata = (solarSystemId, planets, planetsMetadata) => {
+  return planets.map((planet, i) => ({
+    ...planet,
+    ...(planetsMetadata.find(
+      (p) => equals(solarSystemId, p.solarSystemId) && p.index === i
+    ) || {})
+  }))
 }
 
 const mapDispatchToProps = (dispatch) => {
