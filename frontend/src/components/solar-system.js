@@ -9,7 +9,6 @@ export default function solarSystems ({
   lifespan,
   starRadius,
   timeLeft,
-  noise,
   translation,
   onClickStar,
   onClickPlanet
@@ -54,7 +53,7 @@ export default function solarSystems ({
         x={pixelPosition[0] + 30}
         y={pixelPosition[1] + (starRadius / 2) - 3}
         >
-        {noise}
+        {name}
       </text>
     </g>
   )
