@@ -51,9 +51,11 @@ const initialState = {
       [POPULATION_INITIAL, Date.now()]
     ]
   },
-  showIntro: true
+  showIntro: true,
+  introDiscarded: !!window.localStorage.getItem('dayOne.introDiscarded'),
+  introAlreadySeen: !!window.localStorage.getItem('dayOne.introAlreadySeen')
 }
-
+console.log('33333', window.localStorage.getItem('dayOne.introDiscarded'))
 const reducer = (state, action) => {
   switch (action.type) {
     case 'TICK':
@@ -85,7 +87,7 @@ const reducer = (state, action) => {
     case 'CLOSE_INTRO':
       return {
         ...state,
-        showIntro: false
+        ...action.payload
       }
 
     case 'MOVE':
