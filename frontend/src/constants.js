@@ -3,6 +3,11 @@ export const DYSON_SWARM_COST = 1000
 export const DYSON_SWARM_ENERGY_GENERATION_FACTOR = 125
 export const DYSON_SWARM_ENERGY_HARVEST_INCREMENT = 2000
 
+export const GAME_OVER_REASONS = {
+  ENERGY: 'ENERGY',
+  POPULATION: 'POPULATION'
+}
+
 export const GRAVITY_MAXIMUM = 10
 export const GRAVITY_MINIMUM = 0.3
 
@@ -51,7 +56,7 @@ export const POPULATION_ONBOARD_SIZE = 100
 
 export const ENERGY_POPULATION_CONSUMPTION_FACTOR = 0.1
 export const ENERGY_CONSUMPTION_FACTOR = 100
-export const ENERGY_INITIAL = 5000
+export const ENERGY_INITIAL = 500
 export const ENERGY_PLAYER_CAPACITY = 7000
 
 export const SOLAR_SYSTEM_CUT_FACTOR = 0.7
@@ -99,7 +104,6 @@ export const STAR_END_STAGES = {
 }
 
 export const UNIVERSE_LIFESPAN = 1000 * 60 * 6 // 10 minutes
-export const UNIVERSE_BIG_BANG = Date.now()
 export const UNIVERSE_SIZE = 10000000000000000 // 10 ^ 16
 
 export const FUSION_DURATION = 1000 / UNIVERSE_LIFESPAN
