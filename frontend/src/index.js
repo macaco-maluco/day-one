@@ -34,7 +34,8 @@ const initialState = {
       ],
       energyLog: [
         [ENERGY_INITIAL, Date.now()]
-      ]
+      ],
+      originalMaterial: 'water'
     }
   ],
   planets: [],
