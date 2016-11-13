@@ -1,4 +1,4 @@
-import { POPULATION_GROWTH_FACTOR, TICK, TICK_CAP } from 'constants'
+import { POPULATION_GROWTH_FACTOR, EVENT_LOOP, EVENT_LOOP_CAP } from 'constants'
 import {range, reduce, compose} from 'ramda'
 
 const { floor, min } = Math
@@ -16,13 +16,15 @@ export default (state) => {
 }
 
 const calculateIntestNow = (previousValue) =>
-  calculateIntest(previousValue, [0, Date.now()])
+  Date.now() - previousValue[1] < EVENT_LOOP
+    ? previousValue
+    : calculateIntest(previousValue, [0, Date.now()])
 
 const calculateInterestUntilNow = (state) =>
   reduce(calculateIntest, [0, 0], state)
 
 const calculateIntest = (sum, entry) => {
-  const value = range(0, min(floor((entry[1] - sum[1]) / TICK), TICK_CAP))
+  const value = range(0, min(floor((entry[1] - sum[1]) / EVENT_LOOP), EVENT_LOOP_CAP))
     .reduce((result) => result * POPULATION_GROWTH_FACTOR, sum[0])
   return [value + entry[0], entry[1]]
 }

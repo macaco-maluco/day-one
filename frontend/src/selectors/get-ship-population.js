@@ -1,6 +1,8 @@
+const {floor} = Math
+
 export default (state) => {
   return {
     ...state,
-    shipPopulation: state.cache.populationLog[0][0]
+    shipPopulation: floor(state.cache.populationLog[0][0])
   }
 }
