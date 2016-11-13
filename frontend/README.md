@@ -22,6 +22,7 @@
 
 ## Credits
 
-Space Station from project noun
+Space Station and Space Ship icons from project noun
 
 https://thenounproject.com/search/?q=satelite&i=518060
+https://thenounproject.com/search/?q=spaeship&i=162487
