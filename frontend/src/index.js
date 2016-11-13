@@ -7,13 +7,14 @@ import {render} from 'react-dom'
 import getMyPosition from 'helpers/get-my-position'
 import tick from 'effects/tick'
 import resize from 'effects/resize'
-import { INITIAL_POPULATION, UNIVERSE_BIG_BANG } from './constants'
+import { INITIAL_POPULATION, UNIVERSE_BIG_BANG, UNIVERSE_LIFESPAN } from './constants'
 import getShipPopulation from './selectors/get-ship-population'
 import getPlayer from './selectors/get-player'
 
 const initialState = {
   viewport: [window.innerWidth, window.innerHeight],
   bigBang: UNIVERSE_BIG_BANG,
+  heatDeath: UNIVERSE_BIG_BANG + UNIVERSE_LIFESPAN,
   now: Date.now(),
   players: [
     {

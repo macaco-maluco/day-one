@@ -12,6 +12,7 @@ function Game ({
   onSelectPlanet,
   onClickPopulate,
   bigBang,
+  heatDeath,
   solarSystems,
   shipPopulation,
   now,
@@ -22,6 +23,9 @@ function Game ({
   return (
     <div>
       <Hud
+        now={now}
+        bigBang={bigBang}
+        heatDeath={heatDeath}
         shipPopulation={shipPopulation}
         selectedSolarSystem={selectedSolarSystem}
         onClickPopulate={onClickPopulate}

@@ -13,15 +13,30 @@ const hudStyles = {
 }
 
 export default ({
+  now,
+  bigBang,
+  heatDeath,
   shipPopulation,
   selectedSolarSystem,
   onClickPopulate
 }) => {
+  const universeSpent = (now - bigBang) / (heatDeath - bigBang) * 100
+
   return (
     <div>
-      <div style={hudStyles}>
-        <span>DAY ONE</span>
-        <span style={{ float: 'right' }}>{shipPopulation}</span>
+      <div style={{...hudStyles, textAlign: 'center'}}>
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+          <div style={{
+            background: 'red',
+            opacity: '0.2',
+            width: `${universeSpent}%`,
+            height: '100%'
+          }} />
+        </div>
+
+        <span style={{float: 'left'}}>DAY ONE</span>
+        <span>{shipPopulation}</span>
+        <span style={{float: 'right'}}>HEAT DEATH</span>
 
       </div>
 
