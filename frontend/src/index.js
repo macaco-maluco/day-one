@@ -39,10 +39,10 @@ const buildInitialState = () => {
       {
         position: getMyPosition(),
         populationLog: [
-          [POPULATION_INITIAL, Date.now()]
+          [POPULATION_INITIAL, now]
         ],
         energyLog: [
-          [ENERGY_INITIAL, Date.now()]
+          [ENERGY_INITIAL, now]
         ],
         originalMaterial: 'water'
       }
