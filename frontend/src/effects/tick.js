@@ -4,7 +4,7 @@ export default (dispatch) => {
       type: 'TICK',
       payload: Date.now()
     })
-  }, 50)
+  }, 500)
 
   return (state) => {}
 }
