@@ -1,5 +1,6 @@
 import {compose, filter, map} from 'ramda'
 import toSolarSystem from './solar-system'
+import translatePlanets from './translate-planets'
 import {
   FUSION_DURATION,
   RED_GIANT_DURATION,
@@ -28,16 +29,6 @@ export default (universe) => {
 }
 
 const cutOut = filter(([x, y, noise]) => noise > SOLAR_SYSTEM_CUT_FACTOR)
-
-const translatePlanets = (universeAge) => (solarSystem) => {
-  return {
-    ...solarSystem,
-    planets: solarSystem.planets.map((planet) => ({
-      ...planet,
-      translation: (universeAge / (planet.orbit * planet.orbit))
-    }))
-  }
-}
 
 const getStage = (normalizedUniverseAge) => (solarSystem) => ({
   ...solarSystem,
