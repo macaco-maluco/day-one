@@ -1,6 +1,6 @@
 import React from 'react'
 import SolarSystem from './solar-system'
-import {POPULATION_ONBOARD_SIZE, SOLAR_SYSTEM_STAGES} from 'constants'
+import {POPULATION_ONBOARD_SIZE, SOLAR_SYSTEM_STAGES, STAR_TYPES} from 'constants'
 
 const hudStyles = {
   position: 'absolute',
@@ -81,8 +81,7 @@ export default ({
           }}>
           <div style={{paddingRight: '30px', paddingLeft: '30px', width: 160}}>
             <h3>{selectedSolarSystem.name}</h3>
-            <p>x: {selectedSolarSystem.position[0]}</p>
-            <p>y: {selectedSolarSystem.position[1]}</p>
+            <p>{systemDefinition(selectedSolarSystem)}</p>
             {selectedSolarSystem.dysonSwarm != null && <p>
               Dyson Swarm energy: {selectedSolarSystem.dysonSwarm.currentEnergy}
             </p>}
@@ -119,3 +118,26 @@ const acceptPopulation = (planet, shipCurrentPopulation) =>
 
 const canOnboard = (planet) =>
   planet.currentPopulation >= POPULATION_ONBOARD_SIZE
+
+const systemDefinition = (solarSystem) => {
+  if (solarSystem.stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE) {
+    switch (solarSystem.starType) {
+      case STAR_TYPES.M:
+        return 'M-type star'
+
+      case STAR_TYPES.O:
+        return 'O-type star'
+
+      case STAR_TYPES.K:
+        return 'K-type star'
+
+      case STAR_TYPES.G:
+        return 'G-type star'
+
+      case STAR_TYPES.F:
+        return 'F-type star'
+    }
+  }
+
+  return solarSystem.stage
+}

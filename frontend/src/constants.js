@@ -56,15 +56,15 @@ export const SOLAR_SYSTEM_CUT_FACTOR = 0.7
 export const SOLAR_SYSTEM_PLANETS_MAXIMUM = 4
 export const SOLAR_SYSTEM_PLANETS_MINIMUM = 2
 export const SOLAR_SYSTEM_STAGES = {
-  ACCRETION_DISK: 'accretion_disk',
-  FUSION_START: 'fusion_start',
-  MAIN_SEQUENCE: 'main_sequence',
-  RED_GIANT: 'red_giant',
-  SUPERNOVA: 'supernova',
-  BLACK_HOLE: 'black_hole',
-  NEUTRON_STAR: 'neutron_star',
-  WHITE_DWARF: 'white_dwarf',
-  BROWN_DWARF: 'brown_dwarf'
+  ACCRETION_DISK: 'Accretion Disk',
+  FUSION_START: 'Starting Fusion...',
+  MAIN_SEQUENCE: 'Star',
+  RED_GIANT: 'Red Iiant',
+  SUPERNOVA: 'Supernova',
+  BLACK_HOLE: 'Black Hole',
+  NEUTRON_STAR: 'Neutron Star',
+  WHITE_DWARF: 'White Dwarf',
+  BROWN_DWARF: 'Brown Dwarf'
 }
 export const SOLAR_SYSTEM_LIFESPAN_THRESHOLDS = {
   BLACK_HOLE: 0.1,
