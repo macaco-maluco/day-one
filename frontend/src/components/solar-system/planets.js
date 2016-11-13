@@ -29,7 +29,7 @@ export default function Planets ({dysonSwarm, stage, pixelPosition, planets, onC
               style={{
                 transform: `rotate(${p.translation}rad)`,
                 transformOrigin: `${pixelPosition[0]}px ${pixelPosition[1]}px`,
-                transition: 'transform 1s linear'
+                transition: 'transform 0.5s linear'
               }}>
               <circle
                 className={`planet-orbit ${p.material}`}
@@ -55,7 +55,7 @@ export default function Planets ({dysonSwarm, stage, pixelPosition, planets, onC
                     style={{
                       fill: 'white',
                       transform: `translate(${pixelPosition[0] + p.orbit}px, ${pixelPosition[1]}px) rotate(${p.translation}rad) scale(0.3)`,
-                      transition: 'transform 1s linear'
+                      transition: 'transform 0.5s linear'
                     }} />
               }
             </g>
