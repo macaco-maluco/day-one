@@ -185,7 +185,7 @@ function MainSequence ({pixelPosition, radius, type, opacity, dysonSwarm}) {
           r={style.radius}
           stroke='none'
         />
-        {dysonSwarm && <circle
+        {dysonSwarm != null && <circle
           cx={pixelPosition[0]}
           cy={pixelPosition[1]}
           r={style.radius + 20}

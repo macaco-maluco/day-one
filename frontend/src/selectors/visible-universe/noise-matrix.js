@@ -51,9 +51,6 @@ export default (seed, ids) => (universe) => {
     mapGridToDots
   )(matrix)
 
-  if (universe.selectedSolarSystemId) {
-    debugger
-  }
   return {
     ...universe,
     noiseMatrix

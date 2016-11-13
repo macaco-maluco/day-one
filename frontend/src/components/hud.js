@@ -83,10 +83,10 @@ export default ({
             <h3>{selectedSolarSystem.name}</h3>
             <p>x: {selectedSolarSystem.position[0]}</p>
             <p>y: {selectedSolarSystem.position[1]}</p>
-            {selectedSolarSystem.dysonSwarm && <p>
+            {selectedSolarSystem.dysonSwarm != null && <p>
               Dyson Swarm energy: {selectedSolarSystem.dysonSwarm.currentEnergy}
             </p>}
-            {selectedSolarSystem.dysonSwarm || <button onClick={onClickAddSwarm}>
+            {selectedSolarSystem.dysonSwarm == null && <button onClick={onClickAddSwarm}>
               Add Dyson Swarm
             </button>}
           </div>

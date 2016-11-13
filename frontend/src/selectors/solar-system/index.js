@@ -14,10 +14,10 @@ import {
 export default (universe) => {
   const universeAge = universe.now - universe.bigBang
   const normalizedUniverseAge = universeAge / (universe.heatDeath - universe.bigBang)
-  const {dysonSwarms} = universe
+  const {dysonSwarms, planets} = universe
 
   const solarSystems = compose(
-    map(getMutableData({dysonSwarms})),
+    map(getMutableData({dysonSwarms, planets})),
     map(getStage(normalizedUniverseAge)),
     map(translatePlanets(universeAge)),
     map(toSolarSystem),
@@ -30,9 +30,16 @@ export default (universe) => {
   }
 }
 
-const getMutableData = ({dysonSwarms}) => (solarSystem) => ({
+const getMutableData = ({dysonSwarms, planets}) => (solarSystem) => ({
   ...solarSystem,
-  dysonSwarm: dysonSwarms.find((ds) => equals(ds.solarSystemId, solarSystem.id))
+  planets: solarSystem.planets.map((planet, i) => ({
+    ...planet,
+    ...(planets.find((planet) => equals(planet.solarSystemId, solarSystem.id) && planet.index === i) || {})
+  })),
+
+  dysonSwarm: dysonSwarms.find(
+    (dysonSwarm) => equals(dysonSwarm.solarSystemId, solarSystem.id)
+  )
 })
 
 const cutOut = filter(([x, y, noise]) => noise > SOLAR_SYSTEM_CUT_FACTOR)

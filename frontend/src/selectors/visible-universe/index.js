@@ -2,6 +2,9 @@ import {compose} from 'ramda'
 import noiseMatrix from './noise-matrix'
 import noiseParticleMatrix from './noise-particle-matrix'
 import getSolarSystems from '../solar-system'
+import getUpdatedPlayers from '../player'
+import getUpdatedPlanets from '../planets'
+import getUpdatedDysonSwarms from '../dyson-swarm'
 import seedableRandom from 'helpers/seedable-random'
 import {SEED} from 'constants'
 
@@ -43,6 +46,9 @@ const dotToPixels = (universe) => {
 export default (ids) => compose(
   dotToPixels,
   getSolarSystems,
+  getUpdatedPlanets,
+  getUpdatedPlayers,
+  getUpdatedDysonSwarms,
   noiseParticleMatrix(SEED + '654321'),
   noiseMatrix(SEED, ids)
 )
