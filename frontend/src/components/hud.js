@@ -82,7 +82,7 @@ export default ({
             height: 110,
             paddingTop: 10
           }}>
-          <div style={{paddingRight: '30px', paddingLeft: '30px', width: 160}}>
+          <div style={{paddingRight: '30px', paddingLeft: '30px', width: 200}}>
             <a style={closeButtonStyle} onClick={onClickCloseSolarSystemHud}>{'\u00D7'}</a>
             <h3>{selectedSolarSystem.name}</h3>
             <p>{systemDefinition(selectedSolarSystem)}</p>
@@ -91,10 +91,10 @@ export default ({
                 selectedSolarSystem.dysonSwarm.currentEnergy > 0
                   ? <div>
                     <p>
-                      Dyson Swarm energy: {selectedSolarSystem.dysonSwarm.currentEnergy}
+                      Energy: {selectedSolarSystem.dysonSwarm.currentEnergy}
                     </p>
                     <button onClick={onClickDysonSwarmCollect}>
-                      Harvest Energy
+                      Harvest
                     </button>
                   </div>
                   : <p>Building Dyson Swarm…</p>
@@ -144,19 +144,19 @@ const systemDefinition = (solarSystem) => {
   if (solarSystem.stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE) {
     switch (solarSystem.starType) {
       case STAR_TYPES.M:
-        return 'M-type star'
+        return 'M-type star' + (solarSystem.dysonSwarm ? ' with swarm' : '')
 
       case STAR_TYPES.O:
-        return 'O-type star'
+        return 'O-type star' + (solarSystem.dysonSwarm ? ' with swarm' : '')
 
       case STAR_TYPES.K:
-        return 'K-type star'
+        return 'K-type star' + (solarSystem.dysonSwarm ? ' with swarm' : '')
 
       case STAR_TYPES.G:
-        return 'G-type star'
+        return 'G-type star' + (solarSystem.dysonSwarm ? ' with swarm' : '')
 
       case STAR_TYPES.F:
-        return 'F-type star'
+        return 'F-type star' + (solarSystem.dysonSwarm ? ' with swarm' : '')
     }
   }
 

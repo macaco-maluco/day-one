@@ -2,7 +2,7 @@ import React from 'react'
 import {Motion, spring} from 'react-motion'
 import {SOLAR_SYSTEM_STAGES, STAR_TYPES} from 'constants'
 
-export default function ({pixelPosition, radius, type, stage, dysonSwarm}) {
+export default function ({pixelPosition, radius, type, stage, dysonSwarm, rotation}) {
   return <g>
     <AccretionDisk
       pixelPosition={pixelPosition}
@@ -15,6 +15,7 @@ export default function ({pixelPosition, radius, type, stage, dysonSwarm}) {
       type={getStarType(stage, type)}
       opacity={getStarOpacity(stage)}
       dysonSwarm={dysonSwarm}
+      rotation={rotation}
     />
     <DeadStar
       pixelPosition={pixelPosition}
@@ -181,7 +182,7 @@ function AccretionDisk ({pixelPosition, expanded, radius}) {
   </Motion>
 }
 
-function MainSequence ({pixelPosition, radius, type, opacity, dysonSwarm}) {
+function MainSequence ({pixelPosition, radius, type, opacity, dysonSwarm, rotation}) {
   return <Motion
     defaultStyle={{
       radius: radius,
@@ -216,15 +217,31 @@ function MainSequence ({pixelPosition, radius, type, opacity, dysonSwarm}) {
           r={style.radius}
           stroke='none'
         />
-        {dysonSwarm != null && <circle
-          cx={pixelPosition[0]}
-          cy={pixelPosition[1]}
-          r={style.radius + 20}
-          fill='none'
-          stroke='#fff'
-          strokeWidth={2}
-          strokeDasharray={`2, ${style.spacing}`}
-        />}
+        {dysonSwarm != null && <g>
+          {dysonSwarm.currentEnergy > 2000 && <circle
+            cx={pixelPosition[0]}
+            cy={pixelPosition[1]}
+            r={style.radius + 22}
+            fill='none'
+            stroke='#00bbff'
+            strokeWidth={Math.min(dysonSwarm.currentEnergy / 2000, 5)}
+            strokeDasharray={`2, 4`}
+            style={{
+              transform: `rotate(${-rotation}rad)`,
+              transformOrigin: `${pixelPosition[0]}px ${pixelPosition[1]}px`,
+              transition: 'transform 1s linear'
+            }}
+          />}
+          <circle
+            cx={pixelPosition[0]}
+            cy={pixelPosition[1]}
+            r={style.radius + 20}
+            fill='none'
+            stroke='#fff'
+            strokeWidth={2}
+            strokeDasharray={`2, ${style.spacing}`}
+          />
+        </g>}
         <StarMarks pixelPosition={pixelPosition} radius={style.radius} />
       </g>
     )}

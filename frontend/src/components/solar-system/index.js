@@ -34,6 +34,7 @@ export default function solarSystems ({
         stage={stage}
         pixelPosition={pixelPosition}
         radius={starRadius}
+        rotation={planets[0].translation}
       />
       {stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE && <text
         style={{ fill: '#d2cfff', textTransform: 'uppercase' }}

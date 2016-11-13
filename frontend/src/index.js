@@ -8,6 +8,7 @@ import {render} from 'react-dom'
 import getMyPosition from 'helpers/get-my-position'
 import tick from 'effects/tick'
 import resize from 'effects/resize'
+import playerEnergy from 'calculators/player-energy'
 import playerPopulation from 'calculators/player-population'
 import dysonSwarmEnergy from 'calculators/dyson-swarm-energy'
 import Planet from 'constructors/planet'
@@ -17,6 +18,7 @@ import instructionsSlides from 'helpers/instructions-slides'
 import addPopulationLog from 'selectors/player/add-population-log'
 import {
   ENERGY_INITIAL,
+  ENERGY_PLAYER_CAPACITY,
   DYSON_SWARM_COST,
   POPULATION_INITIAL,
   UNIVERSE_BIG_BANG,
@@ -96,13 +98,13 @@ const reducer = (state, action) => {
         )
       )
 
-      if (
-        dysonSwarmEnergy(targetDysonSwarm.energyLog) -
-        DYSON_SWARM_ENERGY_HARVEST_INCREMENT < 0
-      ) {
+      if (dysonSwarmEnergy(targetDysonSwarm.energyLog) - DYSON_SWARM_ENERGY_HARVEST_INCREMENT < 0) {
         return state
       }
 
+      if (playerEnergy(currentPlayer.energyLog) + DYSON_SWARM_ENERGY_HARVEST_INCREMENT > ENERGY_PLAYER_CAPACITY) {
+        return state
+      }
       return {
         ...state,
         dysonSwarms: state.dysonSwarms.map((dysonSwarm) =>
