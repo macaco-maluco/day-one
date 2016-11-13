@@ -1,7 +1,6 @@
 import React from 'react'
 import SolarSystem from './solar-system'
-
-import {POPULATION_ONBOARD_SIZE} from 'constants'
+import {POPULATION_ONBOARD_SIZE, SOLAR_SYSTEM_STAGES, STAR_TYPES} from 'constants'
 
 const hudStyles = {
   position: 'absolute',
@@ -28,8 +27,10 @@ export default ({
   onClickPopulate,
   onClickOnboard,
   onClickAddSwarm,
-  onClickDysonSwarmCollect
+  onClickDysonSwarmCollect,
+  onClickCloseSolarSystemHud
 }) => {
+  const isMain = selectedSolarSystem && selectedSolarSystem.stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE
   const universeSpent = (now - bigBang) / (heatDeath - bigBang) * 100
 
   return (
@@ -81,10 +82,10 @@ export default ({
             paddingTop: 10
           }}>
           <div style={{paddingRight: '30px', paddingLeft: '30px', width: 160}}>
+            <a style={closeButtonStyle} onClick={onClickCloseSolarSystemHud}>{'\u00D7'}</a>
             <h3>{selectedSolarSystem.name}</h3>
-            <p>x: {selectedSolarSystem.position[0]}</p>
-            <p>y: {selectedSolarSystem.position[1]}</p>
-            {selectedSolarSystem.dysonSwarm != null
+            <p>{systemDefinition(selectedSolarSystem)}</p>
+            {isMain && selectedSolarSystem.dysonSwarm != null
               ? (
                 selectedSolarSystem.dysonSwarm.currentEnergy > 0
                   ? <div>
@@ -98,11 +99,12 @@ export default ({
                   : <p>Building Dyson Swarm…</p>
               ) : false
             }
-            {selectedSolarSystem.dysonSwarm == null && <button onClick={onClickAddSwarm}>
+            {isMain && selectedSolarSystem.dysonSwarm == null && <button onClick={onClickAddSwarm}>
               Add Dyson Swarm
             </button>}
+
           </div>
-          {selectedSolarSystem.planets.map((p, i) => <div key={i} style={{paddingRight: '30px', width: 160}}>
+          {isMain && !selectedSolarSystem.dysonSwarm && selectedSolarSystem.planets.map((p, i) => <div key={i} style={{paddingRight: '30px', width: 160}}>
             <h3>Planet {i}</h3>
             <p>Material: {p.material}</p>
             <p>Gravity: {p.gravity.toFixed(2)}</p>
@@ -131,3 +133,37 @@ const acceptPopulation = (planet, shipCurrentPopulation) =>
 
 const canOnboard = (planet) =>
   planet.currentPopulation >= POPULATION_ONBOARD_SIZE
+
+const systemDefinition = (solarSystem) => {
+  if (solarSystem.stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE) {
+    switch (solarSystem.starType) {
+      case STAR_TYPES.M:
+        return 'M-type star'
+
+      case STAR_TYPES.O:
+        return 'O-type star'
+
+      case STAR_TYPES.K:
+        return 'K-type star'
+
+      case STAR_TYPES.G:
+        return 'G-type star'
+
+      case STAR_TYPES.F:
+        return 'F-type star'
+    }
+  }
+
+  return solarSystem.stage
+}
+
+const closeButtonStyle = {
+  position: 'absolute',
+  top: '0',
+  right: '0',
+  padding: '10px',
+  fontSize: '30px',
+  textDecoration: 'none',
+  color: 'white',
+  cursor: 'pointer'
+}

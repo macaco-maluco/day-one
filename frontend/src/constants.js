@@ -1,6 +1,6 @@
 export const DYSON_SWARM_CONSTRUCTION_TIME = 9000
 export const DYSON_SWARM_COST = 1000
-export const DYSON_SWARM_ENERGY_GENERATION_FACTOR = 25
+export const DYSON_SWARM_ENERGY_GENERATION_FACTOR = 75
 export const DYSON_SWARM_ENERGY_HARVEST_INCREMENT = 2000
 
 export const GRAVITY_MAXIMUM = 10
@@ -57,15 +57,15 @@ export const SOLAR_SYSTEM_CUT_FACTOR = 0.7
 export const SOLAR_SYSTEM_PLANETS_MAXIMUM = 4
 export const SOLAR_SYSTEM_PLANETS_MINIMUM = 2
 export const SOLAR_SYSTEM_STAGES = {
-  ACCRETION_DISK: 'accretion_disk',
-  FUSION_START: 'fusion_start',
-  MAIN_SEQUENCE: 'main_sequence',
-  RED_GIANT: 'red_giant',
-  SUPERNOVA: 'supernova',
-  BLACK_HOLE: 'black_hole',
-  NEUTRON_STAR: 'neutron_star',
-  WHITE_DWARF: 'white_dwarf',
-  BROWN_DWARF: 'brown_dwarf'
+  ACCRETION_DISK: 'Accretion Disk',
+  FUSION_START: 'Starting Fusion...',
+  MAIN_SEQUENCE: 'Star',
+  RED_GIANT: 'Red Giant',
+  SUPERNOVA: 'Supernova',
+  BLACK_HOLE: 'Black Hole',
+  NEUTRON_STAR: 'Neutron Star',
+  WHITE_DWARF: 'White Dwarf',
+  BROWN_DWARF: 'Brown Dwarf'
 }
 export const SOLAR_SYSTEM_LIFESPAN_THRESHOLDS = {
   BLACK_HOLE: 0.1,

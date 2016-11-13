@@ -2,6 +2,7 @@ import 'styles.scss'
 import React from 'react'
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
+import {equals} from 'ramda'
 import Game from 'components/game'
 import {render} from 'react-dom'
 import getMyPosition from 'helpers/get-my-position'
@@ -88,7 +89,10 @@ const reducer = (state, action) => {
 
     case 'HARVEST_DYSON_SWARM':
       const targetDysonSwarm = state.dysonSwarms.find(
-        (dysonSwarm) => dysonSwarm.solarSystemId === state.selectedSolarSystemId
+        (dysonSwarm) => equals(
+          dysonSwarm.solarSystemId,
+          state.selectedSolarSystemId
+        )
       )
 
       if (
@@ -101,7 +105,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         dysonSwarms: state.dysonSwarms.map((dysonSwarm) =>
-          dysonSwarm.solarSystemId === state.selectedSolarSystemId
+          equals(dysonSwarm.solarSystemId, state.selectedSolarSystemId)
             ? {
               ...dysonSwarm,
               energyLog: [
@@ -169,6 +173,13 @@ const reducer = (state, action) => {
       return {
         ...state,
         selectedSolarSystemId: action.payload,
+        selectedPlanetIndex: null
+      }
+
+    case 'CLOSE_SOLAR_SYSTEM_HUD':
+      return {
+        ...state,
+        selectedSolarSystemId: null,
         selectedPlanetIndex: null
       }
 
