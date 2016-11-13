@@ -16,6 +16,7 @@ export default ({
   now,
   bigBang,
   heatDeath,
+  shipEnergy,
   shipPopulation,
   selectedSolarSystem,
   onClickPopulate
@@ -35,7 +36,8 @@ export default ({
         </div>
 
         <span style={{float: 'left'}}>DAY ONE</span>
-        <span>{shipPopulation}</span>
+        <span>{shipPopulation} | {shipEnergy} | </span>
+        <span>You will last for X</span>
         <span style={{float: 'right'}}>HEAT DEATH</span>
 
       </div>

@@ -7,7 +7,12 @@ import {render} from 'react-dom'
 import getMyPosition from 'helpers/get-my-position'
 import tick from 'effects/tick'
 import resize from 'effects/resize'
-import { INITIAL_POPULATION, UNIVERSE_BIG_BANG, UNIVERSE_LIFESPAN } from './constants'
+import {
+  ENERGY_INITIAL,
+  POPULATION_INITIAL,
+  UNIVERSE_BIG_BANG,
+  UNIVERSE_LIFESPAN
+} from './constants'
 import getShipPopulation from './selectors/get-ship-population'
 import getPlayer from './selectors/get-player'
 
@@ -20,7 +25,10 @@ const initialState = {
     {
       position: getMyPosition(),
       populationLog: [
-        [INITIAL_POPULATION, Date.now()]
+        [POPULATION_INITIAL, Date.now()]
+      ],
+      energyLog: [
+        [ENERGY_INITIAL, Date.now()]
       ]
     }
   ],
@@ -35,7 +43,14 @@ const reducer = (state, action) => {
     case 'TICK':
       return {
         ...state,
-        now: action.payload
+        now: action.payload,
+        cache: {
+          players: {
+            '0': {
+              populationLog: [[0, 0]]
+            }
+          }
+        }
       }
 
     case 'RESIZE_VIEWPORT':
