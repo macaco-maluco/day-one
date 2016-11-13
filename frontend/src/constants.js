@@ -52,9 +52,22 @@ export const SOLAR_SYSTEM_LIFESPAN_THRESHOLDS = {
   BROWN_DWARF: 1
 }
 
-export const STAR_RADIUS_MINIMUM = 10
+export const STAR_RADIUS_MINIMUM = 5
 export const STAR_RADIUS_MAXIMUM = 30
-export const STAR_TYPES = ['M', 'K', 'G', 'F', 'O']
+export const STAR_TYPES = {
+  M: 'M',
+  K: 'K',
+  G: 'G',
+  F: 'F',
+  O: 'O'
+}
+export const STAR_TYPES_THRESHOLDS = {
+  O: 0.2,
+  F: 0.4,
+  G: 0.6,
+  K: 0.8,
+  M: 1
+}
 export const STAR_END_STAGES = {
   BLACK_HOLE: SOLAR_SYSTEM_STAGES.BLACK_HOLE,
   NEUTRON_STAR: SOLAR_SYSTEM_STAGES.NEUTRON_STAR,

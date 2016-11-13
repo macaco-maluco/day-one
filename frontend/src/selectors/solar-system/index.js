@@ -9,7 +9,7 @@ import {
   STAR_RADIUS_MINIMUM,
   STAR_RADIUS_MAXIMUM,
   STAR_TYPES,
-  UNIVERSE_LIFESPAN
+  STAR_TYPES_THRESHOLDS
 } from 'constants'
 
 const {abs} = Math
@@ -46,13 +46,35 @@ const getName = (solarSystem) => {
 
 const getStarType = (solarSystem) => ({
   ...solarSystem,
-  starType: STAR_TYPES[betweenInteger(solarSystem.noise, 0, STAR_TYPES.length)]
+  starType: calculateStarType(solarSystem.lifespan)
 })
+
+const calculateStarType = (lifespan) => {
+  if (lifespan < STAR_TYPES_THRESHOLDS.O) {
+    return STAR_TYPES.O
+  }
+
+  if (lifespan < STAR_TYPES_THRESHOLDS.F) {
+    return STAR_TYPES.F
+  }
+
+  if (lifespan < STAR_TYPES_THRESHOLDS.G) {
+    return STAR_TYPES.G
+  }
+
+  if (lifespan < STAR_TYPES_THRESHOLDS.K) {
+    return STAR_TYPES.K
+  }
+
+  if (lifespan < STAR_TYPES_THRESHOLDS.M) {
+    return STAR_TYPES.M
+  }
+}
 
 const getStarRadius = (solarSystem) => ({
   ...solarSystem,
   starRadius: betweenInteger(
-    1 - (solarSystem.lifespan / UNIVERSE_LIFESPAN),
+    (1 - solarSystem.lifespan),
     STAR_RADIUS_MINIMUM,
     STAR_RADIUS_MAXIMUM
   )
