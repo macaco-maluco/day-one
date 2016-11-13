@@ -21,7 +21,9 @@ export default ({
   selectedSolarSystem,
   onClickPopulate,
   currentPopulation,
-  currentEnergy
+  currentEnergy,
+  totalPopulation,
+  planets
 }) => {
   const universeSpent = (now - bigBang) / (heatDeath - bigBang) * 100
 
@@ -38,7 +40,7 @@ export default ({
         </div>
 
         <span style={{float: 'left'}}>DAY ONE</span>
-        <span>{currentPopulation} | {currentEnergy} | </span>
+        <span>{totalPopulation} | {currentPopulation} | {currentEnergy} | </span>
         <span>You will last for X</span>
         <span style={{float: 'right'}}>HEAT DEATH</span>
 
@@ -83,6 +85,7 @@ export default ({
             <p>Material: {p.material}</p>
             <p>Gravity: {p.gravity.toFixed(2)}</p>
             <p>Capacity: {p.populationCapacity}</p>
+            <p>Population: {p.currentPopulation || 0}</p>
             <button onClick={() => onClickPopulate(i)}>Populate</button>
           </div>)}
         </div>

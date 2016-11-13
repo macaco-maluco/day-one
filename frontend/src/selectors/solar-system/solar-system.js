@@ -26,7 +26,7 @@ export default (x) => {
   )(x)
 }
 
-const toObject = ([x, y, noise]) => ({position: [x, y], noise})
+const toObject = ([x, y, noise]) => ({position: [x, y], noise, id: [x, y, noise]})
 
 const deviation = (noise, counter) =>
   GRID_SIZE / 2 * abs(seedableRandom(noise, counter))
