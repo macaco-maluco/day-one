@@ -1,4 +1,4 @@
-export default (dispatch) => {
+export default ({dispatch}) => {
   setInterval(() => {
     dispatch({
       type: 'TICK',
@@ -6,5 +6,5 @@ export default (dispatch) => {
     })
   }, 500)
 
-  return (state) => {}
+  return () => {}
 }

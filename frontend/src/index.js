@@ -8,6 +8,7 @@ import {render} from 'react-dom'
 import getMyPosition from 'helpers/get-my-position'
 import tick from 'effects/tick'
 import resize from 'effects/resize'
+import restart from 'effects/restart'
 import playerPopulation from 'calculators/player-population'
 import dysonSwarmEnergy from 'calculators/dyson-swarm-energy'
 import Planet from 'constructors/planet'
@@ -19,48 +20,54 @@ import {
   ENERGY_INITIAL,
   DYSON_SWARM_COST,
   POPULATION_INITIAL,
-  UNIVERSE_BIG_BANG,
   UNIVERSE_LIFESPAN,
   DYSON_SWARM_ENERGY_HARVEST_INCREMENT
 } from './constants'
 
-const initialState = {
-  viewport: [window.innerWidth, window.innerHeight],
-  bigBang: UNIVERSE_BIG_BANG,
-  heatDeath: UNIVERSE_BIG_BANG + UNIVERSE_LIFESPAN,
-  now: Date.now(),
-  players: [
-    {
-      position: getMyPosition(),
-      populationLog: [
-        [POPULATION_INITIAL, Date.now()]
-      ],
-      energyLog: [
-        [ENERGY_INITIAL, Date.now()]
-      ],
-      originalMaterial: 'water'
-    }
-  ],
-  planets: [],
-  solarSystems: [],
-  dysonSwarms: [],
-  selectedSolarSystemId: null,
-  selectedPlanetIndex: null,
-  currentPlayer: 0,
-  cameraPositionStart: getMyPosition(),
-  cameraPosition: [0, 0],
-  showIntro: true,
-  showInstructions: true,
-  currentSlide: 0,
-  instructionsSlides: instructionsSlides,
-  introDiscarded: !!window.localStorage.getItem('dayOne.introDiscarded'),
-  introAlreadySeen: !!window.localStorage.getItem('dayOne.introAlreadySeen')
+const buildInitialState = () => {
+  const now = Date.now()
+
+  return {
+    viewport: [window.innerWidth, window.innerHeight],
+    bigBang: now,
+    heatDeath: now + UNIVERSE_LIFESPAN,
+    now: now,
+    players: [
+      {
+        position: getMyPosition(),
+        populationLog: [
+          [POPULATION_INITIAL, Date.now()]
+        ],
+        energyLog: [
+          [ENERGY_INITIAL, Date.now()]
+        ],
+        originalMaterial: 'water'
+      }
+    ],
+    planets: [],
+    solarSystems: [],
+    dysonSwarms: [],
+    selectedSolarSystemId: null,
+    selectedPlanetIndex: null,
+    currentPlayer: 0,
+    cameraPositionStart: getMyPosition(),
+    cameraPosition: [0, 0],
+    showIntro: true,
+    showInstructions: true,
+    currentSlide: 0,
+    instructionsSlides: instructionsSlides,
+    introDiscarded: !!window.localStorage.getItem('dayOne.introDiscarded'),
+    introAlreadySeen: !!window.localStorage.getItem('dayOne.introAlreadySeen')
+  }
 }
 
 const reducer = (state, action) => {
   const currentPlayer = state.players[state.currentPlayer]
 
   switch (action.type) {
+    case 'RESTART':
+      return buildInitialState()
+
     case 'TICK':
       return {
         ...state,
@@ -235,8 +242,9 @@ const reducer = (state, action) => {
 
 const store = createEnvironmentStore()
 
-tick(store.dispatch)
-resize(store.dispatch)
+store.subscribe(tick(store))
+store.subscribe(resize(store))
+store.subscribe(restart(store))
 
 render(
   <Provider store={store}>
@@ -247,8 +255,8 @@ render(
 
 function createEnvironmentStore () {
   if (process.env.NODE_ENV !== 'production') {
-    return createStore(reducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+    return createStore(reducer, buildInitialState(), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
   }
 
-  return createStore(reducer, initialState)
+  return createStore(reducer, buildInitialState())
 }
