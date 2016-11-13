@@ -22,6 +22,12 @@ const initialState = {
       populationLog: [
         [INITIAL_POPULATION, Date.now()]
       ]
+    },
+    {
+      position: [getMyPosition()[0] + 200, getMyPosition()[1] + 200],
+      populationLog: [
+        [INITIAL_POPULATION, Date.now()]
+      ]
     }
   ],
   solarSystems: [],

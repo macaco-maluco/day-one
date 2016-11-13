@@ -21,7 +21,8 @@ function Game ({
   viewport,
   selectedSolarSystem,
   particleMatrix,
-  pixelPosition
+  pixelPosition,
+  otherPlayers
 }) {
   return (
     <div>
@@ -77,6 +78,7 @@ function Game ({
                 key={solarSystem.position.join('')}
                 {...solarSystem}
               />)}
+              {otherPlayers.map((player) => <Player position={player.pixelPosition} />)}
               <Player position={[style.playerX, style.playerY]} />
             </g>
           )}
