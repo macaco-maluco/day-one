@@ -3,9 +3,21 @@ import {Motion, spring} from 'react-motion'
 import {SOLAR_SYSTEM_STAGES} from 'constants'
 
 export default function ({pixelPosition, radius, type, stage}) {
+  const isMain = stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE ||
+    stage === SOLAR_SYSTEM_STAGES.FUSION_START
+
   return <g>
-    <MainSequence pixelPosition={pixelPosition} radius={radius} type={type} />
-    <AccretionDisk pixelPosition={pixelPosition} radius={radius * 5} expanded={stage === SOLAR_SYSTEM_STAGES.ACCRETION_DISK} />
+    <MainSequence
+      pixelPosition={pixelPosition}
+      radius={isMain ? radius : 0}
+      type={type}
+      opacity={isMain ? 1 : 0}
+    />
+    <AccretionDisk
+      pixelPosition={pixelPosition}
+      radius={radius * 5}
+      expanded={stage === SOLAR_SYSTEM_STAGES.ACCRETION_DISK}
+    />
   </g>
 }
 
@@ -29,31 +41,44 @@ function AccretionDisk ({pixelPosition, expanded, radius}) {
   </Motion>
 }
 
-function MainSequence ({pixelPosition, radius, type}) {
-  return <g className={`star ${type}`}>
-    <circle
-      className={`star-part glow1 ${type}`}
-      cx={pixelPosition[0]}
-      cy={pixelPosition[1]}
-      r={radius + 5}
-      stroke='none'
-    />
-    <circle
-      className={`star-part glow2 ${type}`}
-      cx={pixelPosition[0]}
-      cy={pixelPosition[1]}
-      r={radius + 8}
-      stroke='none'
-    />
-    <circle
-      className={`star-part center ${type}`}
-      cx={pixelPosition[0]}
-      cy={pixelPosition[1]}
-      r={radius}
-      stroke='none'
-    />
-    <StarMarks pixelPosition={pixelPosition} radius={radius} />
-  </g>
+function MainSequence ({pixelPosition, radius, type, opacity}) {
+  return <Motion
+    defaultStyle={{
+      radius: radius,
+      opacity: opacity
+    }}
+    style={{
+      radius: spring(radius),
+      opacity: spring(opacity)
+    }}
+    >
+    {(style) => (
+      <g className={`star ${type}`} opacity={style.opacity}>
+        <circle
+          className={`star-part glow1 ${type}`}
+          cx={pixelPosition[0]}
+          cy={pixelPosition[1]}
+          r={style.radius + 5}
+          stroke='none'
+        />
+        <circle
+          className={`star-part glow2 ${type}`}
+          cx={pixelPosition[0]}
+          cy={pixelPosition[1]}
+          r={style.radius + 8}
+          stroke='none'
+        />
+        <circle
+          className={`star-part center ${type}`}
+          cx={pixelPosition[0]}
+          cy={pixelPosition[1]}
+          r={style.radius}
+          stroke='none'
+        />
+        <StarMarks pixelPosition={pixelPosition} radius={style.radius} />
+      </g>
+    )}
+  </Motion>
 }
 
 function StarMarks ({pixelPosition, radius}) {
