@@ -20,7 +20,8 @@ function Game ({
   now,
   viewport,
   selectedSolarSystem,
-  particleMatrix
+  particleMatrix,
+  pixelPosition
 }) {
   return (
     <div>
@@ -47,7 +48,20 @@ function Game ({
           right: 0,
           bottom: 0
         }}>
-        <Motion defaultStyle={{x: 0, y: 0}} style={{x: spring(cameraPosition[0]), y: spring(cameraPosition[1])}}>
+        <Motion
+          defaultStyle={{
+            x: cameraPosition[0],
+            y: cameraPosition[1],
+            playerX: pixelPosition[0],
+            playerY: pixelPosition[1]
+          }}
+          style={{
+            x: spring(cameraPosition[0]),
+            y: spring(cameraPosition[1]),
+            playerX: spring(pixelPosition[0], { stiffness: 150, damping: 15 }),
+            playerY: spring(pixelPosition[1], { stiffness: 150, damping: 15 })
+          }}
+          >
           {(style) => (
             <g transform={`translate(${style.x}, ${style.y})`}>
               <Particles viewport={viewport} particleMatrix={particleMatrix} />
@@ -63,10 +77,10 @@ function Game ({
                 key={solarSystem.position.join('')}
                 {...solarSystem}
               />)}
+              <Player position={[style.playerX, style.playerY]} />
             </g>
           )}
         </Motion>
-        <Player position={viewport.map((v) => v / 2)} />
       </svg>
     </div>
   )

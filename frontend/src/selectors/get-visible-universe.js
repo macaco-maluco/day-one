@@ -28,6 +28,10 @@ const dotToPixels = (universe) => {
       ...solarSystem,
       pixelPosition: solarSystem.position.map((c, i) => c - topLeftDot[i])
     })),
+    players: universe.players.map((player) => ({
+      ...player,
+      pixelPosition: player.position.map((c, i) => c - topLeftDot[i])
+    })),
     particleMatrix: universe.particleMatrix.map((particle, i) => {
       return {
         position: [particle[0], particle[1]],
@@ -39,11 +43,11 @@ const dotToPixels = (universe) => {
 }
 
 export default compose(
+  getShipPopulation,
+  getPlayer,
   dotToPixels,
   noiseParticleMatrix(SEED + '654321'),
   getSelectedSolarSystem,
-  getShipPopulation,
   getSolarSystem,
-  noiseMatrix(SEED),
-  getPlayer
+  noiseMatrix(SEED)
 )
