@@ -16,7 +16,24 @@ export const MATERIALS = [
   'hydrogen',
   'iron',
   'carbon',
-  'titanium'
+  'titanium',
+  'phosphorus',
+  'sulphur',
+  'nickel',
+  'vanadium',
+  'zircorium',
+  'zinc',
+  'arsenic',
+  'selenium',
+  'manganese',
+  'chromium',
+  'germanium',
+  'mercury',
+  'tungsten',
+  'cadmium',
+  'niobium',
+  'polonium',
+  'tellurium'
 ]
 
 export const ORBIT_STEP_MAXIMUM = 25

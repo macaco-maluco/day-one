@@ -20,7 +20,8 @@ const RANDOMS = {
   NUMBER_OF_PLANETS: 3,
   GRAVITY: 4,
   ORBIT: 5,
-  POPULATION_CAPACITY: 6
+  POPULATION_CAPACITY: 6,
+  MATERIAL: 7
 }
 
 export default (solarSystem) => {
