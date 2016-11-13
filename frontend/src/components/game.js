@@ -26,7 +26,7 @@ function Game ({
   pixelPosition,
   otherPlayers,
   showIntro,
-  onCloseIntro
+  onCloseIntro,
   ...props
 }) {
   if (showIntro) return <Intro onClick={onCloseIntro} />
