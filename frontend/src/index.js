@@ -27,7 +27,9 @@ const initialState = {
   solarSystems: [],
   selectedSolarSystemPosition: null,
   selectedPlanetIndex: null,
-  currentPlayer: 0
+  currentPlayer: 0,
+  cameraPositionStart: getMyPosition(),
+  cameraPosition: [0, 0]
 }
 
 const reducer = (state, action) => {
@@ -123,6 +125,7 @@ const reducer = (state, action) => {
     case 'MOVE':
       return {
         ...state,
+        cameraPosition: state.cameraPosition.map((v, i) => v - action.payload[i]),
         players: state.players.map((player, index) => (
           index !== state.currentPlayer
             ? player

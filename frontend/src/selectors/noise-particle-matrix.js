@@ -16,10 +16,11 @@ export default (seed) => {
   const simplex = new SimplexNoise(iterativeSeedableRandom(seed))
 
   return (universe) => {
-    const { viewport, position } = universe
+    const { viewport, cameraPositionStart, cameraPosition } = universe
     const viewportInGrid = viewport.map((x) => ceil(x / GRID_PARTICLES))
 
-    const myPositionInTheGrid = position
+    const myPositionInTheGrid = cameraPositionStart
+      .map((x, i) => x - cameraPosition[i])
       .map((x) => floor(x / GRID_PARTICLES))
 
     const ranges = viewportInGrid.map((x, i) => [

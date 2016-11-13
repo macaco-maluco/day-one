@@ -4,18 +4,7 @@ import {betweenInteger, betweenFloat} from 'helpers/between'
 const {abs} = Math
 
 export default function ({viewport, particleMatrix}) {
-  return <svg
-    width={viewport[0]}
-    height={viewport[1]}
-    style={{
-      background: '#10052b',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      zIndex: 1
-    }}>
+  return <g>
     {particleMatrix.map((particle) => (
       <circle
         key={`${particle.pixelPosition.join('-')}`}
@@ -27,5 +16,5 @@ export default function ({viewport, particleMatrix}) {
         stroke='none'
       />
     ))}
-  </svg>
+  </g>
 }
