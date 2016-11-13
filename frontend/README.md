@@ -18,3 +18,10 @@
 ## Solar System
 
 - We want to be "realistic". Massive stars exist closer to the beginning. Smaller throughout the entire lifespan of the universe
+
+
+## Credits
+
+Space Station from project noun
+
+https://thenounproject.com/search/?q=satelite&i=518060

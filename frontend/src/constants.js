@@ -1,4 +1,5 @@
 export const DYSON_SWARM_CONSTRUCTION_TIME = 1000
+export const DYSON_SWARM_COST = 1000
 
 export const GRAVITY_MAXIMUM = 10
 export const GRAVITY_MINIMUM = 0.3

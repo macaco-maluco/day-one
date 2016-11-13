@@ -146,7 +146,7 @@ $slide-duration: 3.5s;
 }
 
 .intro-dialog {
-  background-color: rgba(0, 0, 0, 1);
+  background: radial-gradient(ellipse at center, #333333 0%, #000000 99%);
   position: relative;
   z-index: 10000;
   height: 100vh;
@@ -207,5 +207,68 @@ $slide-duration: 3.5s;
   }
   .slide5 {
     animation-delay: ($slide-duration * 4);
+  }
+}
+
+.instructions-dialog {
+  background: radial-gradient(ellipse at center, #333333 0%, #000000 99%);
+  position: relative;
+  z-index: 10000;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: white;
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: calc(1vw + 16px);
+    padding: 10px;
+    text-decoration: none;
+    color: #444444;
+
+    &:hover {
+      background-color: #222222;
+      color: #ffffff;
+    }
+  }
+
+  .next {
+    position: absolute;
+    padding: 0 20px;
+    right: 0;
+    top: 50%;
+    cursor: pointer;
+  }
+
+  .previous {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    padding: 0 20px;
+    cursor: pointer;
+  }
+
+  .slide-show {
+    position: relative;
+    overflow: auto;
+    width: 70vw;
+    height: 70vh;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .slide {
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: block;
+    font-size: 5vw;
+    line-height: 5.5vw;
+    width: 100%;
   }
 }

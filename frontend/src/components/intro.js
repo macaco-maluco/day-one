@@ -17,13 +17,13 @@ export default class Intro extends Component {
                 everything has changed…<br />your solar system is dead
             </div>
             <div className='slide slide2'>
-                the lifes of all survivours is in your hands
+                the lives of all survivours are in your hands now
             </div>
             <div className='slide slide3'>
-                discover solar systems and populate them to save your generation
+                discover new solar systems to save your generation
             </div>
             <div className='slide slide4'>
-                its DAY ONE <br />in the infinite universe
+                it's DAY ONE <br />in the infinite universe
             </div>
             <div className='slide slide5'>
                 your mission starts now!
