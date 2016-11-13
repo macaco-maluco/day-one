@@ -16,6 +16,7 @@ import {
 import getShipPopulationCache from './cache-selectors/get-ship-population'
 import getShipPopulation from './selectors/get-ship-population'
 import getPlayer from './selectors/get-player'
+import arrayLikeToArray from './helpers/array-like-to-array'
 
 const initialState = {
   viewport: [window.innerWidth, window.innerHeight],
@@ -108,7 +109,7 @@ const reducer = (state, action) => {
         return state
       }
 
-      return compose(
+      const newState = compose(
         set(
           solarSystemLens,
           set(
@@ -128,6 +129,11 @@ const reducer = (state, action) => {
           ]
         )
       )(state)
+
+      return {
+        ...newState,
+        players: arrayLikeToArray(newState.players)
+      }
 
     case 'SELECT_SOLAR_SYSTEM':
       return {

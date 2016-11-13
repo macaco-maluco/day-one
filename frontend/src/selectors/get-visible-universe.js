@@ -22,6 +22,7 @@ const dotToPixels = (universe) => {
   const topLeftDot = universe.viewport
     .map((x) => floor(x / 2))
     .map((x, i) => universe.cameraPositionStart[i] - x)
+
   return {
     ...universe,
     solarSystems: universe.solarSystems.map((solarSystem) => ({
