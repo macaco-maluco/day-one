@@ -59,8 +59,8 @@ function Game ({
           style={{
             x: spring(cameraPosition[0]),
             y: spring(cameraPosition[1]),
-            playerX: spring(pixelPosition[0], { stiffness: 150, damping: 15 }),
-            playerY: spring(pixelPosition[1], { stiffness: 150, damping: 15 })
+            playerX: spring(pixelPosition[0], { stiffness: 111, damping: 33 }),
+            playerY: spring(pixelPosition[1], { stiffness: 111, damping: 33 })
           }}
           >
           {(style) => (

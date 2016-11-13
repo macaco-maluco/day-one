@@ -11,9 +11,9 @@ export const MATERIALS = [
   'carbon',
   'titanium'
 ]
-export const ORBIT_STEP_MAXIMUM = 45
-export const ORBIT_STEP_MINIMUM = 10
-export const PLANET_RADIUS_MINIMUM = 2
+export const ORBIT_STEP_MAXIMUM = 30
+export const ORBIT_STEP_MINIMUM = 15
+export const PLANET_RADIUS_MINIMUM = 5
 export const PLANET_RADIUS_MAXIMUM = 8
 export const POPULATION_CAPACITY_MINIMUM = 11000
 export const POPULATION_CAPACITY_MAXIMUM = 52100000
@@ -21,7 +21,7 @@ export const POPULATION_GROWTH_FACTOR = 1.3
 export const SOLAR_SYSTEM_CUT_FACTOR = 0.3
 export const SOLAR_SYSTEM_PLANETS_MAXIMUM = 4
 export const SOLAR_SYSTEM_PLANETS_MINIMUM = 2
-export const STAR_RADIUS_MINIMUM = 5
+export const STAR_RADIUS_MINIMUM = 10
 export const STAR_RADIUS_MAXIMUM = 20
 export const UNIVERSE_LIFESPAN = 1000 * 60 * 60 * 24 * 7 // one week
 export const UNIVERSE_BIG_BANG = 1479024348172
