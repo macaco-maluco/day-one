@@ -6,6 +6,7 @@ import SolarSystem from './solar-system/index'
 import Player from './player'
 import TargetMarker from './target-marker'
 import Particles from './particles'
+import Intro from './intro'
 import Hud from './hud'
 
 function Game ({
@@ -23,8 +24,11 @@ function Game ({
   selectedSolarSystem,
   particleMatrix,
   pixelPosition,
-  otherPlayers
+  otherPlayers,
+  showIntro,
+  onCloseIntro
 }) {
+  if (showIntro) return <Intro onClick={onCloseIntro} />
   return (
     <div>
       <Hud
@@ -110,6 +114,9 @@ const mapDispatchToProps = (dispatch) => {
     onClickPopulate: (planetIndex) => dispatch({
       type: 'POPULATE_PLANET',
       payload: planetIndex
+    }),
+    onCloseIntro: () => dispatch({
+      type: 'CLOSE_INTRO'
     })
   }
 }
