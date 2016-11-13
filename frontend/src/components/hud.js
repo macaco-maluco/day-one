@@ -1,5 +1,8 @@
 import React from 'react'
 import SolarSystem from './solar-system'
+import EnergyIcon from './hud/energy'
+import PopulationIcon from './hud/population'
+import ShipIcon from './hud/ship'
 import {POPULATION_ONBOARD_SIZE, SOLAR_SYSTEM_STAGES, STAR_TYPES} from 'constants'
 
 const hudStyles = {
@@ -36,7 +39,7 @@ export default ({
 
   return (
     <div>
-      <div style={{...hudStyles, textAlign: 'center'}}>
+      <div style={{...hudStyles, textAlign: 'center', height: 18}}>
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
           <div style={{
             background: 'red',
@@ -47,8 +50,30 @@ export default ({
         </div>
 
         <span style={{float: 'left'}}>DAY ONE</span>
-        <span>{totalPopulation} | {currentPopulation} | {currentEnergy} | </span>
-        <span>You will last for X</span>
+        <div
+          className='stats'
+          style={statBoxStyle}>
+          <div title='Ship population' style={{...statBoxStyle, width: 180}}>
+            <ShipIcon
+              fill='white'
+              style={{transform: 'scale(0.3)'}} />
+            <span>{currentPopulation}</span>
+          </div>
+          <div style={{padding: '0 0 0 30px'}}>&bull;</div>
+          <div title='Total population' style={{...statBoxStyle, width: 180}}>
+            <PopulationIcon
+              fill='white'
+              style={{transform: 'scale(0.3)'}} />
+            <span>{totalPopulation}</span>
+          </div>
+          <div style={{padding: '0 0 0 30px'}}>&bull;</div>
+          <div title='Current energy' style={{...statBoxStyle, width: 180}}>
+            <EnergyIcon
+              fill='white'
+              style={{transform: 'scale(0.3)'}} />
+            <span>{currentEnergy}</span>
+          </div>
+        </div>
         <span style={{float: 'right'}}>HEAT DEATH</span>
 
       </div>
@@ -161,6 +186,13 @@ const systemDefinition = (solarSystem) => {
   }
 
   return solarSystem.stage
+}
+
+const statBoxStyle = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  height: 18
 }
 
 const closeButtonStyle = {
