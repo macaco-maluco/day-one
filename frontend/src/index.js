@@ -37,7 +37,8 @@ const initialState = {
       ],
       energyLog: [
         [ENERGY_INITIAL, Date.now()]
-      ]
+      ],
+      originalMaterial: 'water'
     }
   ],
   planets: [],
@@ -232,7 +233,7 @@ const reducer = (state, action) => {
   }
 }
 
-const store = createStore(reducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+const store = createEnvironmentStore()
 
 tick(store.dispatch)
 resize(store.dispatch)
@@ -243,3 +244,11 @@ render(
   </Provider>,
   document.getElementById('root')
 )
+
+function createEnvironmentStore () {
+  if (process.env.NODE_ENV !== 'production') {
+    return createStore(reducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+  }
+
+  return createStore(reducer, initialState)
+}
