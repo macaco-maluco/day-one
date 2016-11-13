@@ -1,3 +1,7 @@
+export const FUSION_DURATION = 0.05
+export const SUPERNOVA_DURATION = 0.1
+export const RED_GIANT_DURATION = 0.2
+
 export const GRAVITY_MAXIMUM = 10
 export const GRAVITY_MINIMUM = 0.3
 
@@ -41,10 +45,22 @@ export const SOLAR_SYSTEM_STAGES = {
   NEUTRON_STAR: 'neutron_star',
   WHITE_DWARF: 'white_dwarf'
 }
+export const SOLAR_SYSTEM_LIFESPAN_THRESHOLDS = {
+  BLACK_HOLE: 0.1,
+  NEUTRON_STAR: 0.2,
+  WHITE_DWARF: 0.5,
+  BROWN_DWARF: 1
+}
 
 export const STAR_RADIUS_MINIMUM = 10
 export const STAR_RADIUS_MAXIMUM = 30
 export const STAR_TYPES = ['M', 'K', 'G', 'F', 'O']
+export const STAR_END_STAGES = {
+  BLACK_HOLE: SOLAR_SYSTEM_STAGES.BLACK_HOLE,
+  NEUTRON_STAR: SOLAR_SYSTEM_STAGES.NEUTRON_STAR,
+  WHITE_DWARF: SOLAR_SYSTEM_STAGES.WHITE_DWARF,
+  BROWN_DWARF: SOLAR_SYSTEM_STAGES.BROWN_DWARF
+}
 
 export const UNIVERSE_LIFESPAN = 1000 * 60 * 2// 60 * 24 * 7 // one week
 export const UNIVERSE_BIG_BANG = Date.now() // 1479024348172
