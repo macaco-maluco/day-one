@@ -26,7 +26,8 @@ export default ({
   totalPopulation,
   planets,
   onClickPopulate,
-  onClickOnboard
+  onClickOnboard,
+  onClickAddSwarm
 }) => {
   const universeSpent = (now - bigBang) / (heatDeath - bigBang) * 100
 
@@ -82,6 +83,9 @@ export default ({
             <h3>{selectedSolarSystem.name}</h3>
             <p>x: {selectedSolarSystem.position[0]}</p>
             <p>y: {selectedSolarSystem.position[1]}</p>
+            <button onClick={onClickAddSwarm}>
+              Add Dyson Swarm
+            </button>
           </div>
           {selectedSolarSystem.planets.map((p, i) => <div key={i} style={{paddingRight: '30px', width: 160}}>
             <h3>Planet {i}</h3>

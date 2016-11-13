@@ -171,6 +171,11 @@ const mapDispatchToProps = (dispatch) => {
           introAlreadySeen: true
         }
       })
+    },
+    onClickAddSwarm: () => {
+      return dispatch({
+        type: 'ADD_DYSON_SWARM'
+      })
     }
   }
 }

@@ -1,4 +1,4 @@
-import {compose, filter, map} from 'ramda'
+import {compose, equals, filter, map} from 'ramda'
 import toSolarSystem from './solar-system'
 import translatePlanets from './translate-planets'
 import {
@@ -14,8 +14,10 @@ import {
 export default (universe) => {
   const universeAge = universe.now - universe.bigBang
   const normalizedUniverseAge = universeAge / (universe.heatDeath - universe.bigBang)
+  const {dysonSwarms} = universe
 
   const solarSystems = compose(
+    map(getMutableData({dysonSwarms})),
     map(getStage(normalizedUniverseAge)),
     map(translatePlanets(universeAge)),
     map(toSolarSystem),
@@ -27,6 +29,11 @@ export default (universe) => {
     solarSystems
   }
 }
+
+const getMutableData = ({dysonSwarms}) => (solarSystem) => ({
+  ...solarSystem,
+  dysonSwarm: dysonSwarms.find((ds) => equals(ds.solarSystemId, solarSystem.id))
+})
 
 const cutOut = filter(([x, y, noise]) => noise > SOLAR_SYSTEM_CUT_FACTOR)
 

@@ -9,6 +9,7 @@ import tick from 'effects/tick'
 import resize from 'effects/resize'
 import playerPopulation from 'calculators/player-population'
 import Planet from 'constructors/planet'
+import DysonSwarm from 'constructors/dyson-swarm'
 import findPlanetByIndex from 'helpers/find-planet-by-index'
 import addPopulationLog from 'selectors/player/add-population-log'
 import {
@@ -45,6 +46,7 @@ const initialState = {
   ],
   planets: [],
   solarSystems: [],
+  dysonSwarms: [],
   selectedSolarSystemId: null,
   selectedPlanetIndex: null,
   currentPlayer: 0,
@@ -65,6 +67,19 @@ const reducer = (state, action) => {
         now: action.payload
       }
 
+    case 'ADD_DYSON_SWARM':
+      return {
+        ...state,
+        dysonSwarms: [
+          ...state.dysonSwarms,
+          DysonSwarm(
+            state.selectedSolarSystemId,
+            state.currentPlayer,
+            Date.now()
+          )
+        ]
+      }
+
     case 'RESIZE_VIEWPORT':
       return {
         ...state,
@@ -72,10 +87,6 @@ const reducer = (state, action) => {
       }
 
     case 'ONBOARD_SHIP':
-      if (playerPopulation(currentPlayer.populationLog) <= action.payload.population) {
-        return state
-      }
-
       return addPopulationLog(
         findPlanetByIndex(state, action.payload.index),
         {

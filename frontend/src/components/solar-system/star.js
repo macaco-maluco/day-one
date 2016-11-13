@@ -2,7 +2,7 @@ import React from 'react'
 import {Motion, spring} from 'react-motion'
 import {SOLAR_SYSTEM_STAGES, STAR_TYPES} from 'constants'
 
-export default function ({pixelPosition, radius, type, stage}) {
+export default function ({pixelPosition, radius, type, stage, dysonSwarm}) {
   return <g>
     <AccretionDisk
       pixelPosition={pixelPosition}
@@ -14,6 +14,7 @@ export default function ({pixelPosition, radius, type, stage}) {
       radius={getStarRadius(stage, radius)}
       type={getStarType(stage, type)}
       opacity={getStarOpacity(stage)}
+      dysonSwarm={dysonSwarm}
     />
     <DeadStar
       pixelPosition={pixelPosition}
@@ -149,17 +150,18 @@ function AccretionDisk ({pixelPosition, expanded, radius}) {
   </Motion>
 }
 
-function MainSequence ({pixelPosition, radius, type, opacity}) {
+function MainSequence ({pixelPosition, radius, type, opacity, dysonSwarm}) {
   return <Motion
     defaultStyle={{
       radius: radius,
-      opacity: opacity
+      opacity: opacity,
+      spacing: dysonSwarm ? 2 : 100
     }}
     style={{
       radius: spring(radius),
-      opacity: spring(opacity)
-    }}
-    >
+      opacity: spring(opacity),
+      spacing: spring(dysonSwarm ? 2 : 100, {stiffness: 10, damping: 15})
+    }}>
     {(style) => (
       <g className={`star ${type}`} opacity={style.opacity}>
         <circle
@@ -183,6 +185,15 @@ function MainSequence ({pixelPosition, radius, type, opacity}) {
           r={style.radius}
           stroke='none'
         />
+        {dysonSwarm && <circle
+          cx={pixelPosition[0]}
+          cy={pixelPosition[1]}
+          r={style.radius + 20}
+          fill='none'
+          stroke='#fff'
+          strokeWidth={2}
+          strokeDasharray={`2, ${style.spacing}`}
+        />}
         <StarMarks pixelPosition={pixelPosition} radius={style.radius} />
       </g>
     )}

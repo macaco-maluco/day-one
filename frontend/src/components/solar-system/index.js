@@ -14,14 +14,26 @@ export default function solarSystems ({
   translation,
   onClickStar,
   onClickPlanet,
-  stage
+  stage,
+  dysonSwarm
 }) {
   return (
     <g
       style={{cursor: 'pointer', WebkitTapHighlightColor: 'rgba(0,0,0,0)'}}
       onClick={(e) => { e.stopPropagation(); onClickStar(e) }}>
-      <Planets pixelPosition={pixelPosition} planets={planets} onClickPlanet={onClickPlanet} stage={stage} />
-      <Star type={starType} stage={stage} pixelPosition={pixelPosition} radius={starRadius} timeLeft={timeLeft} opacity={timeLeft / lifespan} />
+      <Planets
+        pixelPosition={pixelPosition}
+        planets={planets}
+        onClickPlanet={onClickPlanet}
+        stage={stage}
+      />
+      <Star
+        type={starType}
+        dysonSwarm={dysonSwarm}
+        stage={stage}
+        pixelPosition={pixelPosition}
+        radius={starRadius}
+      />
       {stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE && <text
         style={{ fill: '#d2cfff', textTransform: 'uppercase' }}
         opacity={0.5}
