@@ -1,7 +1,6 @@
 import React from 'react'
 import SolarSystem from './solar-system'
-
-import {POPULATION_ONBOARD_SIZE} from 'constants'
+import {POPULATION_ONBOARD_SIZE, SOLAR_SYSTEM_STAGES} from 'constants'
 
 const hudStyles = {
   position: 'absolute',
@@ -29,6 +28,7 @@ export default ({
   onClickOnboard,
   onClickAddSwarm
 }) => {
+  const isMain = selectedSolarSystem && selectedSolarSystem.stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE
   const universeSpent = (now - bigBang) / (heatDeath - bigBang) * 100
 
   return (
@@ -86,11 +86,11 @@ export default ({
             {selectedSolarSystem.dysonSwarm != null && <p>
               Dyson Swarm energy: {selectedSolarSystem.dysonSwarm.currentEnergy}
             </p>}
-            {selectedSolarSystem.dysonSwarm == null && <button onClick={onClickAddSwarm}>
+            {isMain && selectedSolarSystem.dysonSwarm == null && <button onClick={onClickAddSwarm}>
               Add Dyson Swarm
             </button>}
           </div>
-          {selectedSolarSystem.planets.map((p, i) => <div key={i} style={{paddingRight: '30px', width: 160}}>
+          {isMain && !selectedSolarSystem.dysonSwarm && selectedSolarSystem.planets.map((p, i) => <div key={i} style={{paddingRight: '30px', width: 160}}>
             <h3>Planet {i}</h3>
             <p>Material: {p.material}</p>
             <p>Gravity: {p.gravity.toFixed(2)}</p>
