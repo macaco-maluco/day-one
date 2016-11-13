@@ -65,14 +65,10 @@ function Game (props) {
             <g transform={`translate(${style.x}, ${style.y})`}>
               <Particles viewport={viewport} particleMatrix={particleMatrix} />
               {solarSystems.map((solarSystem) => <SolarSystem
-                onClickStar={() => onSelectSolarSystem([
-                  ...solarSystem.position,
-                  solarSystem.noise
-                ])}
-                onClickPlanet={(planetIndex) => onSelectPlanet([
-                  ...solarSystem.position,
-                  solarSystem.noise
-                ], planetIndex)}
+                onClickStar={() => onSelectSolarSystem(solarSystem.id)}
+                onClickPlanet={(planetIndex) => onSelectPlanet(
+                  solarSystem.id, planetIndex
+                )}
                 key={solarSystem.position.join('')}
                 {...solarSystem}
               />)}

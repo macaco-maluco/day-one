@@ -40,9 +40,12 @@ const dotToPixels = (universe) => {
   }
 }
 
+const logFirst = (x) => (console.log(x.noiseMatrix[0]), true) && x
+
 export default (ids) => compose(
   dotToPixels,
   getSolarSystems,
+  logFirst,
   noiseParticleMatrix(SEED + '654321'),
   noiseMatrix(SEED, ids)
 )
