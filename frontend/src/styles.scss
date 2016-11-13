@@ -1,5 +1,5 @@
 $timing-function: ease-out;
-$slide-duration: 4s;
+$slide-duration: 3.5s;
 
 @keyframes glow {
     0% {opacity: 0.1;}
@@ -160,12 +160,14 @@ $slide-duration: 4s;
     top: 10px;
     right: 10px;
     color: white;
-    font-size: calc(3vw + 16px);
+    font-size: calc(1vw + 16px);
     padding: 10px;
     text-decoration: none;
+    color: #444444;
 
     &:hover {
       background-color: #222222;
+      color: #ffffff;
     }
   }
 
@@ -173,7 +175,7 @@ $slide-duration: 4s;
     position: relative;
     overflow: auto;
     width: 70vw;
-    height: 30vh;
+    height: 40vh;
     text-align: center;
     font-weight: bold;
   }

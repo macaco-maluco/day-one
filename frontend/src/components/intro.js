@@ -8,10 +8,9 @@ class Intro extends Component {
       this.props.onCloseIntro()
     }, INTRO_TIME)
   }
-
   render () {
     return <div className='intro-dialog'>
-      <a className='close-btn' href='#' onClick={this.props.onCloseIntro}>X</a>
+      {this.props.introAlreadySeen && <a className='close-btn' href='#' onClick={this.props.onDiscardIntro}>X</a>}
       <div className='dialog-container'>
         <div className='dialog'>
           <div className='slide-show'>
@@ -25,7 +24,7 @@ class Intro extends Component {
                 discover solar systems and populate them to save your generation
             </div>
             <div className='slide slide4'>
-                its DAY ONE for you in the infinite universe
+                its DAY ONE <br />in the infinite universe
             </div>
             <div className='slide slide5'>
                 your mission starts now!
@@ -40,14 +39,36 @@ class Intro extends Component {
 function mapDispatchToProps (dispatch) {
   return {
     onCloseIntro: () => {
+      window.localStorage.setItem('dayOne.introAlreadySeen', 1)
       return dispatch({
-        type: 'CLOSE_INTRO'
+        type: 'CLOSE_INTRO',
+        payload: {
+          showIntro: false,
+          introAlreadySeen: true
+        }
+      })
+    },
+    onDiscardIntro: () => {
+      window.localStorage.setItem('dayOne.introDiscarded', 1)
+      return dispatch({
+        type: 'CLOSE_INTRO',
+        payload: {
+          showIntro: false,
+          introDiscarded: true,
+          introAlreadySeen: true
+        }
       })
     }
   }
 }
 
+function mapStateToProps (state) {
+  return {
+    introAlreadySeen: state.introAlreadySeen
+  }
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Intro)

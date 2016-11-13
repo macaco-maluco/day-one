@@ -1,10 +1,10 @@
 export const GRAVITY_MAXIMUM = 10
 export const GRAVITY_MINIMUM = 0.3
 
-export const GRID_PARTICLES = 70
+export const GRID_PARTICLES = 150
 export const GRID_SIZE = 300
 
-export const INTRO_TIME = 120000000
+export const INTRO_TIME = 16000
 
 export const MATERIALS = [
   'water',

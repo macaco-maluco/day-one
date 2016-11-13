@@ -49,7 +49,9 @@ const initialState = {
   currentPlayer: 0,
   cameraPositionStart: getMyPosition(),
   cameraPosition: [0, 0],
-  showIntro: true
+  showIntro: true,
+  introDiscarded: !!window.localStorage.getItem('dayOne.introDiscarded'),
+  introAlreadySeen: !!window.localStorage.getItem('dayOne.introAlreadySeen')
 }
 
 const reducer = (state, action) => {
@@ -134,7 +136,7 @@ const reducer = (state, action) => {
     case 'CLOSE_INTRO':
       return {
         ...state,
-        showIntro: false
+        ...action.payload
       }
 
     case 'MOVE':

@@ -20,11 +20,13 @@ function Game (props) {
     particleMatrix,
     pixelPosition,
     otherPlayers,
+    introDiscarded,
     showIntro,
     onCloseIntro
   } = props
 
-  if (showIntro) return <Intro onClick={onCloseIntro} />
+  if (!introDiscarded && showIntro) return <Intro onClick={onCloseIntro} />
+
   return (
     <div>
       <Hud {...props} />
