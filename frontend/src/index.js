@@ -1,3 +1,4 @@
+import 'styles.scss'
 import React from 'react'
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
@@ -6,16 +7,16 @@ import {render} from 'react-dom'
 import getMyPosition from 'helpers/get-my-position'
 import tick from 'effects/tick'
 import resize from 'effects/resize'
-import {equals} from 'ramda'
+import playerPopulation from 'calculators/player-population'
+import Planet from 'constructors/planet'
+import findPlanetByIndex from 'helpers/find-planet-by-index'
+import addPopulationLog from 'selectors/player/add-population-log'
 import {
   ENERGY_INITIAL,
   POPULATION_INITIAL,
   UNIVERSE_BIG_BANG,
   UNIVERSE_LIFESPAN
 } from './constants'
-import 'styles.scss'
-import playerPopulation from 'calculators/player-population'
-import Planet from 'constructors/planet'
 
 const initialState = {
   viewport: [window.innerWidth, window.innerHeight],
@@ -70,54 +71,37 @@ const reducer = (state, action) => {
         viewport: action.payload
       }
 
-    case 'POPULATE_PLANET':
-      if (
-        playerPopulation(currentPlayer.populationLog) <=
-        action.payload.population
-      ) {
+    case 'ONBOARD_SHIP':
+      if (playerPopulation(currentPlayer.populationLog) <= action.payload.population) {
         return state
       }
 
-      const now = Date.now()
-      const planet = state.planets
-        .find(
-          (planet) => equals(planet.solarSystemId, state.selectedSolarSystemId) &&
-            action.payload.index === planet.index
-        ) || Planet(
-          state.selectedSolarSystemId,
-          action.payload.index,
-          state.currentPlayer
-        )
+      return addPopulationLog(
+        findPlanetByIndex(state, action.payload.index),
+        {
+          shipPopulation: action.payload.population,
+          planetPopulation: -action.payload.population
+        }
+      )(state)
 
-      return {
-        ...state,
-        players: state.players.map((player, index) =>
-          index === state.currentPlayer
-            ? {
-              ...player,
-              populationLog: [
-                ...player.populationLog,
-                [-action.payload.population, now]
-              ]
-            }
-            : player
-        ),
-        planets: [
-          ...state.planets.filter(
-            (planet) => !(
-              equals(planet.solarSystemId, state.selectedSolarSystemId) &&
-              action.payload.index === planet.index
-            )
-          ),
-          {
-            ...planet,
-            populationLog: [
-              ...planet.populationLog,
-              [action.payload.population, now]
-            ]
-          }
-        ]
+    case 'POPULATE_PLANET':
+      if (playerPopulation(currentPlayer.populationLog) <= action.payload.population) {
+        return state
       }
+
+      const planet = findPlanetByIndex(state, action.payload.index) || Planet(
+        state.selectedSolarSystemId,
+        action.payload.index,
+        state.currentPlayer
+      )
+
+      return addPopulationLog(
+        planet,
+        {
+          shipPopulation: -action.payload.population,
+          planetPopulation: action.payload.population
+        }
+      )(state)
 
     case 'SELECT_SOLAR_SYSTEM':
       return {

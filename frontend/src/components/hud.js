@@ -1,6 +1,8 @@
 import React from 'react'
 import SolarSystem from './solar-system'
 
+import {POPULATION_ONBOARD_SIZE} from 'constants'
+
 const hudStyles = {
   position: 'absolute',
   top: 0,
@@ -19,11 +21,12 @@ export default ({
   shipEnergy,
   shipPopulation,
   selectedSolarSystem,
-  onClickPopulate,
   currentPopulation,
   currentEnergy,
   totalPopulation,
-  planets
+  planets,
+  onClickPopulate,
+  onClickOnboard
 }) => {
   const universeSpent = (now - bigBang) / (heatDeath - bigBang) * 100
 
@@ -86,10 +89,26 @@ export default ({
             <p>Gravity: {p.gravity.toFixed(2)}</p>
             <p>Capacity: {p.populationCapacity}</p>
             <p>Population: {p.currentPopulation || 0}</p>
-            <button onClick={() => onClickPopulate(i)}>Populate</button>
+            <button
+              onClick={() => onClickPopulate(i)}
+              disabled={!acceptPopulation(p, currentPopulation)}>
+              Populate
+            </button>
+            <button
+              onClick={() => onClickOnboard(i)}
+              disabled={!canOnboard(p)}>
+              Onboard
+            </button>
           </div>)}
         </div>
       </div>}
     </div>
   )
 }
+
+const acceptPopulation = (planet, shipCurrentPopulation) =>
+  planet.populationCapacity > (planet.currentPopulation || 0) &&
+    shipCurrentPopulation > POPULATION_ONBOARD_SIZE
+
+const canOnboard = (planet) =>
+  planet.currentPopulation >= POPULATION_ONBOARD_SIZE

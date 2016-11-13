@@ -6,6 +6,8 @@ export default function Planets ({stage, pixelPosition, planets, onClickPlanet})
   const isMain = stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE ||
     stage === SOLAR_SYSTEM_STAGES.FUSION_START
 
+  if (!isMain) { return false }
+
   return <Motion
     defaultStyle={{
       opacity: isMain ? 1 : 0
