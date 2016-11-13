@@ -22,6 +22,7 @@ export default ({
   onClickPopulate,
   currentPopulation,
   currentEnergy,
+  totalPopulation,
   planets
 }) => {
   const universeSpent = (now - bigBang) / (heatDeath - bigBang) * 100
@@ -39,7 +40,7 @@ export default ({
         </div>
 
         <span style={{float: 'left'}}>DAY ONE</span>
-        <span>{currentPopulation} | {currentEnergy} | </span>
+        <span>{totalPopulation} | {currentPopulation} | {currentEnergy} | </span>
         <span>You will last for X</span>
         <span style={{float: 'right'}}>HEAT DEATH</span>
 
