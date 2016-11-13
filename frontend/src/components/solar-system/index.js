@@ -1,42 +1,35 @@
 import React from 'react'
-import AccretionDisk from './accretion-disk'
-import MainSequence from './main-sequence'
-import Supernova from './supernova'
-import FusionStart from './fusion-start'
-import NeutronStar from './neutron-star'
-import BlackHole from './black-hole'
-import RedGiant from './red-giant'
-import WhiteDwarf from './white-dwarf'
-import BrownDwarf from './brown-dwarf'
 import {SOLAR_SYSTEM_STAGES} from 'constants'
+import Star from './star'
+import Planets from './planets'
 
-export default function SolarSystem ({stage, ...props}) {
-  switch (stage) {
-    case SOLAR_SYSTEM_STAGES.FUSION_START:
-      return <FusionStart {...props} />
-
-    case SOLAR_SYSTEM_STAGES.ACCRETION_DISK:
-      return <AccretionDisk {...props} />
-
-    case SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE:
-      return <MainSequence {...props} />
-
-    case SOLAR_SYSTEM_STAGES.NEUTRON_STAR:
-      return <NeutronStar {...props} />
-
-    case SOLAR_SYSTEM_STAGES.BLACK_HOLE:
-      return <BlackHole {...props} />
-
-    case SOLAR_SYSTEM_STAGES.SUPERNOVA:
-      return <Supernova {...props} />
-
-    case SOLAR_SYSTEM_STAGES.RED_GIANT:
-      return <RedGiant {...props} />
-
-    case SOLAR_SYSTEM_STAGES.WHITE_DWARF:
-      return <WhiteDwarf {...props} />
-
-    case SOLAR_SYSTEM_STAGES.BROWN_DWARF:
-      return <BrownDwarf {...props} />
-  }
+export default function solarSystems ({
+  name,
+  starType,
+  pixelPosition,
+  planets,
+  lifespan,
+  starRadius,
+  timeLeft,
+  translation,
+  onClickStar,
+  onClickPlanet,
+  stage
+}) {
+  return (
+    <g
+      style={{cursor: 'pointer', WebkitTapHighlightColor: 'rgba(0,0,0,0)'}}
+      onClick={(e) => { e.stopPropagation(); onClickStar(e) }}>
+      <Planets pixelPosition={pixelPosition} planets={planets} onClickPlanet={onClickPlanet} stage={stage} />
+      <Star type={starType} stage={stage} pixelPosition={pixelPosition} radius={starRadius} timeLeft={timeLeft} opacity={timeLeft / lifespan} />
+      {stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE && <text
+        style={{ fill: '#d2cfff', textTransform: 'uppercase' }}
+        opacity={0.5}
+        x={pixelPosition[0] + 30}
+        y={pixelPosition[1] + (starRadius / 2) - 3}
+        >
+        {name}
+      </text>}
+    </g>
+  )
 }
