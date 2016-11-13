@@ -125,6 +125,13 @@ const reducer = (state, action) => {
         selectedPlanetIndex: null
       }
 
+    case 'CLOSE_SOLAR_SYSTEM_HUD':
+      return {
+        ...state,
+        selectedSolarSystemId: null,
+        selectedPlanetIndex: null
+      }
+
     case 'SELECT_PLANET':
       return {
         ...state,

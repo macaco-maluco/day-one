@@ -159,6 +159,9 @@ const mapDispatchToProps = (dispatch) => {
       type: 'SELECT_SOLAR_SYSTEM',
       payload: solarSystem
     }),
+    onClickCloseSolarSystemHud: () => dispatch({
+      type: 'CLOSE_SOLAR_SYSTEM_HUD'
+    }),
     onSelectPlanet: (solarSystem, planetIndex) => dispatch({
       type: 'SELECT_PLANET',
       payload: {
