@@ -33,9 +33,13 @@ const initialState = {
       position: [getMyPosition()[0] + 200, getMyPosition()[1] + 200],
       populationLog: [
         [POPULATION_INITIAL, Date.now()]
+      ],
+      energyLog: [
+        [ENERGY_INITIAL, Date.now()]
       ]
     }
   ],
+  planets: [],
   solarSystems: [],
   selectedSolarSystemPosition: null,
   selectedPlanetIndex: null,

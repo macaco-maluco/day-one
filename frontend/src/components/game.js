@@ -23,7 +23,8 @@ function Game ({
   selectedSolarSystem,
   particleMatrix,
   pixelPosition,
-  otherPlayers
+  otherPlayers,
+  ...props
 }) {
   return (
     <div>
@@ -34,6 +35,7 @@ function Game ({
         shipPopulation={shipPopulation}
         selectedSolarSystem={selectedSolarSystem}
         onClickPopulate={onClickPopulate}
+        {...props}
       />
       <svg
         onClick={(e) => onMove([
