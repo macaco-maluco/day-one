@@ -1,13 +1,13 @@
 export default [{
-  img: 'image1',
-  text: 'text1'
+  img: '',
+  text: 'Your ship consumes a lot of energy, remember to harvest energy from different solar systems'
 }, {
-  img: 'image2',
-  text: 'text2'
+  img: '',
+  text: 'Your civilisation requires WATER to survive. Search for planets with water and populate them'
 }, {
-  img: 'image3',
-  text: 'text3'
+  img: '',
+  text: 'Remember, the universe is dying. Be fast'
 }, {
-  img: 'image4',
-  text: 'text4'
+  img: '',
+  text: 'Click on the star of the solar system for information'
 }]
