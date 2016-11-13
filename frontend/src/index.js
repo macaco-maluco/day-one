@@ -10,7 +10,6 @@ import tick from 'effects/tick'
 import resize from 'effects/resize'
 import playerEnergy from 'calculators/player-energy'
 import playerPopulation from 'calculators/player-population'
-import planetPopulation from 'calculators/planet-population'
 import dysonSwarmEnergy from 'calculators/dyson-swarm-energy'
 import gameOver from 'calculators/game-over'
 import Planet from 'constructors/planet'
@@ -24,7 +23,6 @@ import {
   DYSON_SWARM_COST,
   POPULATION_INITIAL,
   UNIVERSE_LIFESPAN,
-  SOLAR_SYSTEM_STAGES,
   DYSON_SWARM_ENERGY_HARVEST_INCREMENT
 } from './constants'
 
