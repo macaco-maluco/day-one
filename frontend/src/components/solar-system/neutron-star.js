@@ -6,7 +6,7 @@ export default function NeutronStar ({
   return <circle
     cx={pixelPosition[0]}
     cy={pixelPosition[1]}
-    r={10}
+    r={2}
     fill='blue'
     style={{filter: 'blur(5px)'}}
   />
