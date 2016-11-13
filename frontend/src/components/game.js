@@ -8,6 +8,7 @@ import Player from './player'
 import TargetMarker from './target-marker'
 import Particles from './particles'
 import Intro from './intro'
+import EndGame from './end-game'
 import Instructions from './instructions'
 import Hud from './hud'
 
@@ -35,11 +36,14 @@ function Game (props) {
     goToPrevSlide,
     goToNextSlide,
     instructionsSlides,
-    planets
+    planets,
+    gameOver,
+    restartGame
   } = props
 
-  if (!introDiscarded && showIntro) return <Intro alreadySeen={introAlreadySeen} onDiscard={onDiscardIntro} onClose={onCloseIntro} />
-  if (!showIntro && showInstructions) return <Instructions slides={instructionsSlides} onClose={onCloseInstructions} goToPrev={goToPrevSlide} goToNext={goToNextSlide} currentSlide={currentSlide} />
+  if (gameOver) return <EndGame gameOver={gameOver} onRestart={restartGame} />
+  if (!gameOver && !introDiscarded && showIntro) return <Intro alreadySeen={introAlreadySeen} onDiscard={onDiscardIntro} onClose={onCloseIntro} />
+  if (!gameOver && !showIntro && showInstructions) return <Instructions slides={instructionsSlides} onClose={onCloseInstructions} goToPrev={goToPrevSlide} goToNext={goToNextSlide} currentSlide={currentSlide} />
   return (
     <div>
       <Hud {...props} />
@@ -229,6 +233,11 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch({
         type: 'GO_TO_SLIDE',
         payload: 1
+      })
+    },
+    restartGame: () => {
+      return dispatch({
+        type: 'RESTART'
       })
     }
   }

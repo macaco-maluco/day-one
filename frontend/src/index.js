@@ -9,7 +9,6 @@ import getMyPosition from 'helpers/get-my-position'
 import tick from 'effects/tick'
 import resize from 'effects/resize'
 import playerEnergy from 'calculators/player-energy'
-import restart from 'effects/restart'
 import playerPopulation from 'calculators/player-population'
 import dysonSwarmEnergy from 'calculators/dyson-swarm-energy'
 import gameOver from 'calculators/game-over'
@@ -251,7 +250,6 @@ const store = createEnvironmentStore()
 
 store.subscribe(tick(store))
 store.subscribe(resize(store))
-store.subscribe(restart(store))
 
 render(
   <Provider store={store}>
