@@ -1,4 +1,4 @@
-import toSolarSystem from './solar-system'
+import toSolarSystem from '../solar-system'
 
 export default (state) => {
   const nextState = {

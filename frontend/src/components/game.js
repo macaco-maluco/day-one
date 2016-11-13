@@ -1,7 +1,7 @@
 import React from 'react'
 import {Motion, spring} from 'react-motion'
 import {connect} from 'react-redux'
-import getVisibleUniverse from 'selectors/get-visible-universe'
+import getGame from 'selectors/game'
 import SolarSystem from './solar-system/index'
 import Player from './player'
 import TargetMarker from './target-marker'
@@ -115,6 +115,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(
-  getVisibleUniverse,
+  getGame,
   mapDispatchToProps
 )(Game)

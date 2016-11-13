@@ -1,10 +1,7 @@
 import {compose} from 'ramda'
 import noiseMatrix from './noise-matrix'
 import noiseParticleMatrix from './noise-particle-matrix'
-import getSolarSystem from './get-solar-system'
-import getShipPopulation from './get-ship-population'
-import getSelectedSolarSystem from './get-selected-solar-system'
-import getPlayer from './get-player'
+import getSolarSystems from '../solar-system'
 import seedableRandom from 'helpers/seedable-random'
 import {SEED} from 'constants'
 
@@ -44,11 +41,8 @@ const dotToPixels = (universe) => {
 }
 
 export default compose(
-  getShipPopulation,
-  getPlayer,
   dotToPixels,
+  getSolarSystems,
   noiseParticleMatrix(SEED + '654321'),
-  getSelectedSolarSystem,
-  getSolarSystem,
   noiseMatrix(SEED)
 )

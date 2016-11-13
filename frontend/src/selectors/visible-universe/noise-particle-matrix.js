@@ -35,7 +35,7 @@ export default (seed) => (universe) => {
 
   const particleMatrix = matrix.map((dot) => [
     ...(gridToDots(dot)),
-    random(seed + 'back' + dot.join('.'))
+    random(seed + dot.join('.'))
   ])
 
   return {
