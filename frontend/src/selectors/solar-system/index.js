@@ -1,108 +1,95 @@
-import {compose} from 'ramda'
-import {betweenInteger} from 'helpers/between'
-import seedableRandom from 'helpers/seedable-random'
-import starName from 'helpers/planet-name'
-import getPlanets from './planet'
-
+import {compose, filter, map} from 'ramda'
+import toSolarSystem from './solar-system'
+import translatePlanets from './translate-planets'
 import {
-  GRID_SIZE,
-  STAR_RADIUS_MINIMUM,
-  STAR_RADIUS_MAXIMUM,
-  STAR_TYPES,
-  STAR_TYPES_THRESHOLDS
+  FUSION_DURATION,
+  RED_GIANT_DURATION,
+  SOLAR_SYSTEM_CUT_FACTOR,
+  SOLAR_SYSTEM_LIFESPAN_THRESHOLDS,
+  SOLAR_SYSTEM_STAGES,
+  STAR_END_STAGES,
+  SUPERNOVA_DURATION
 } from 'constants'
 
-const {abs} = Math
+export default (universe) => {
+  const universeAge = universe.now - universe.bigBang
+  const normalizedUniverseAge = universeAge / (universe.heatDeath - universe.bigBang)
 
-export default (x) => {
-  return compose(
-    getPlanets,
-    getStarRadius,
-    getStarType,
-    getBirth,
-    getName,
-    addDeviation,
-    toObject
-  )(x)
-}
+  const solarSystems = compose(
+    map(getStage(normalizedUniverseAge)),
+    map(translatePlanets(universeAge)),
+    map(toSolarSystem),
+    cutOut
+  )(universe.noiseMatrix)
 
-const toObject = ([x, y, noise]) => ({position: [x, y], noise})
-
-const deviation = (noise, counter) =>
-  GRID_SIZE / 2 * abs(seedableRandom(noise, counter))
-
-const addDeviation = (solarSystem) => ({
-  ...solarSystem,
-  position: solarSystem.position
-    .map((x, i) => x + deviation(solarSystem.noise, i + 1))
-})
-
-const getName = (solarSystem) => {
   return {
-    ...solarSystem,
-    name: starName(solarSystem.noise)
+    ...universe,
+    solarSystems
   }
 }
 
-const getStarType = (solarSystem) => ({
+const cutOut = filter(([x, y, noise]) => noise > SOLAR_SYSTEM_CUT_FACTOR)
+
+const getStage = (normalizedUniverseAge) => (solarSystem) => ({
   ...solarSystem,
-  starType: calculateStarType(solarSystem.lifespan)
-})
-
-const calculateStarType = (lifespan) => {
-  if (lifespan < STAR_TYPES_THRESHOLDS.O) {
-    return STAR_TYPES.O
-  }
-
-  if (lifespan < STAR_TYPES_THRESHOLDS.F) {
-    return STAR_TYPES.F
-  }
-
-  if (lifespan < STAR_TYPES_THRESHOLDS.G) {
-    return STAR_TYPES.G
-  }
-
-  if (lifespan < STAR_TYPES_THRESHOLDS.K) {
-    return STAR_TYPES.K
-  }
-
-  if (lifespan < STAR_TYPES_THRESHOLDS.M) {
-    return STAR_TYPES.M
-  }
-}
-
-const getStarRadius = (solarSystem) => ({
-  ...solarSystem,
-  starRadius: betweenInteger(
-    (1 - solarSystem.lifespan),
-    STAR_RADIUS_MINIMUM,
-    STAR_RADIUS_MAXIMUM
+  stage: calculateStage(
+    normalizedUniverseAge,
+    solarSystem.birth,
+    solarSystem.lifespan
   )
 })
 
-const getBirth = (solarSystem) => {
-  const lifespan = seedableRandom(solarSystem.noise, 101)
-  const birth = calculateBirth(
-    lifespan,
-    seedableRandom(solarSystem.noise, 100)
-  )
+const calculateStage = (normalizedNow, birth, lifespan) => {
+  const endStage = calculateEndStage(lifespan)
+  const death = (birth + lifespan)
 
-  return {
-    ...solarSystem,
-    lifespan,
-    birth
+  if (normalizedNow < birth - FUSION_DURATION) {
+    return SOLAR_SYSTEM_STAGES.ACCRETION_DISK
+  }
+
+  if (normalizedNow < birth) {
+    return SOLAR_SYSTEM_STAGES.FUSION_START
+  }
+
+  if (normalizedNow < death) {
+    return SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE
+  }
+
+  switch (endStage) {
+    case STAR_END_STAGES.BLACK_HOLE:
+    case STAR_END_STAGES.NEUTRON_STAR:
+      if (normalizedNow < death + SUPERNOVA_DURATION) {
+        return SOLAR_SYSTEM_STAGES.SUPERNOVA
+      }
+
+      return endStage
+
+    case STAR_END_STAGES.WHITE_DWARF:
+      if (normalizedNow < death + RED_GIANT_DURATION) {
+        return SOLAR_SYSTEM_STAGES.RED_GIANT
+      }
+
+      return endStage
+
+    default:
+      return endStage
   }
 }
 
-const calculateBirth = (lifespan, birthNoise) => {
-  // ie. .8 for a .2 star (short lived star)
-  const birthRange = 1 - lifespan
+const calculateEndStage = (lifespan) => {
+  if (lifespan < SOLAR_SYSTEM_LIFESPAN_THRESHOLDS.BLACK_HOLE) {
+    return STAR_END_STAGES.BLACK_HOLE
+  }
 
-  // ie. for a .2 star (.8 birthRange) and .8 birthNoise, it will be .64
-  const unWeightedBirth = birthRange * birthNoise
+  if (lifespan < SOLAR_SYSTEM_LIFESPAN_THRESHOLDS.NEUTRON_STAR) {
+    return STAR_END_STAGES.NEUTRON_STAR
+  }
 
-  // ie. for a .64 unWeightedBirth and .2 start, it will be .128
-  const birth = unWeightedBirth * lifespan
+  if (lifespan < SOLAR_SYSTEM_LIFESPAN_THRESHOLDS.WHITE_DWARF) {
+    return STAR_END_STAGES.WHITE_DWARF
+  }
 
-  return birth
+  if (lifespan < SOLAR_SYSTEM_LIFESPAN_THRESHOLDS.BROWN_DWARF) {
+    return STAR_END_STAGES.BROWN_DWARF
+  }
 }
