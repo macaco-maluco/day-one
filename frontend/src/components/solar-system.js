@@ -16,6 +16,7 @@ export default function solarSystems ({
       style={{cursor: 'pointer', WebkitTapHighlightColor: 'rgba(0,0,0,0)'}}
       onClick={(e) => { e.stopPropagation(); onClickStar(e) }}>
       <circle
+        className={`star ${planets[0].material}`}
         cx={pixelPosition[0]}
         cy={pixelPosition[1]}
         r={starRadius}
@@ -33,6 +34,7 @@ export default function solarSystems ({
             transition: 'transform 1s linear'
           }}>
           <circle
+            className={`planet-orbit ${p.material}`}
             cx={pixelPosition[0]}
             cy={pixelPosition[1]}
             r={p.orbit}
@@ -42,6 +44,7 @@ export default function solarSystems ({
             strokeWidth='1'
           />
           <circle
+            className={`planet ${p.material}`}
             cx={pixelPosition[0] + p.orbit}
             cy={pixelPosition[1]}
             r={p.radius}
