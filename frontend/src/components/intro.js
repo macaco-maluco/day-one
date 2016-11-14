@@ -1,15 +1,9 @@
 import React, {Component} from 'react'
-import {INTRO_TIME} from 'constants'
 
 export default class Intro extends Component {
-  componentDidMount () {
-    setInterval(() => {
-      this.props.onClose()
-    }, INTRO_TIME)
-  }
   render () {
     return <div className='intro-dialog'>
-      {this.props.alreadySeen && <a className='close-btn' href='#' onClick={this.props.onDiscard}>X</a>}
+      <a className='close-btn' href='#' onClick={this.props.onDiscard}>X</a>
       <div className='dialog-container'>
         <div className='slide-show'>
           <div className='slide slide1'>
