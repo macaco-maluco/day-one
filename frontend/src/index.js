@@ -271,8 +271,8 @@ render(
 )
 
 function createEnvironmentStore () {
-  const introDiscarded = !!window.localStorage.getItem('dayOne.introDiscarded')
-  const introAlreadySeen = !!window.localStorage.getItem('dayOne.introAlreadySeen')
+  const introDiscarded = true
+  const introAlreadySeen = true
 
   if (process.env.NODE_ENV !== 'production') {
     return createStore(reducer, buildInitialState({introDiscarded, introAlreadySeen}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
