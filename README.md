@@ -1,35 +1,31 @@
-# Node Knockout 2016 Starter
-
-A barebones Node.js app using [Express 4](http://expressjs.com/).
-
-Tuned to run on EngineYard Cloud.
-
-## Running Locally
-
-Make sure you have [Node.js](http://nodejs.org/) installed (uses version `4.4.5`).
-
-```sh
-git clone git@github.com:rumblex/nodeknockout2016-day-one.git # or clone your own fork
-cd nodeknockout2016-day-one
-npm install
-npm start
-```
-
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-## Deploying to EngineYard
-
-Log into <https://cloud.engineyard.com>. Navigate to your Team's Application, and click "Deploy".
 
 
-## Supported Node.js versions
+## Population
 
-Please use one of these Node.js versions
+- Doesn't grow on ship
+- Grows as steady linear rate on planets
+- Can be transferred to and from planets in minimum increments (for example 100, add 100, take 100)
+- Needs to be above a threshold. If it ever gets below, the player loses the game
+- If it reaches certain threshold, the player gets awarded (they "win")
 
-4.4.5, 4.6.0, 5.11.0, 6.4.0, 6.7.0
+## Energy
 
-## Documentation
+- Is spent at a fix rate by existing
+- Put a fix rate to create a dyson swarm (wait for the dyson swarm to be finished)
+- Grows as steady linear rate on completed dyson swarms
+- Collect all-that-you-can-carry
 
-For more information about using Node.js on EngineYard, check out these articles
+## Solar System
 
-- [Deploy Your Node.js Application on Engine Yard Cloud](https://support.cloud.engineyard.com/hc/en-us/articles/205411878-Deploy-Your-Node-js-Application-on-Engine-Yard-Cloud)
+- We want to be "realistic". Massive stars exist closer to the beginning. Smaller throughout the entire lifespan of the universe
+
+
+## Credits
+
+Space Station and Space Ship icons from project noun
+
+https://thenounproject.com/search/?q=satelite&i=518060
+https://thenounproject.com/search/?q=spaeship&i=162487
+https://thenounproject.com/term/lightning/542899/
+https://thenounproject.com/search/?q=ship+population&i=554850
+https://thenounproject.com/search/?q=population&i=321988
