@@ -2,15 +2,15 @@ import React from 'react'
 import {Motion, spring} from 'react-motion'
 import {SOLAR_SYSTEM_STAGES, STAR_TYPES} from 'constants'
 
-export default function ({pixelPosition, radius, type, stage, dysonSwarm, rotation}) {
+export default function ({position, radius, type, stage, dysonSwarm, rotation}) {
   return <g>
     <AccretionDisk
-      pixelPosition={pixelPosition}
+      position={position}
       radius={radius * 5}
       expanded={stage === SOLAR_SYSTEM_STAGES.ACCRETION_DISK}
     />
     <MainSequence
-      pixelPosition={pixelPosition}
+      position={position}
       radius={getStarRadius(stage, radius)}
       type={getStarType(stage, type)}
       opacity={getStarOpacity(stage)}
@@ -18,7 +18,7 @@ export default function ({pixelPosition, radius, type, stage, dysonSwarm, rotati
       rotation={rotation}
     />
     <DeadStar
-      pixelPosition={pixelPosition}
+      position={position}
       radius={getDeadStarRadius(stage)}
       opacity={getDeadStarOpacity(stage)}
       stage={stage}
@@ -107,7 +107,7 @@ function getDeadStarFill (stage) {
   }
 }
 
-function DeadStar ({ stage, radius, opacity, pixelPosition }) {
+function DeadStar ({ stage, radius, opacity, position }) {
   return <Motion
     defaultStyle={{
       radius: radius,
@@ -120,8 +120,8 @@ function DeadStar ({ stage, radius, opacity, pixelPosition }) {
     >
     {(style) => (
       <circle
-        cx={pixelPosition[0]}
-        cy={pixelPosition[1]}
+        cx={position[0]}
+        cy={position[1]}
         r={style.radius}
         fill={getDeadStarFill(stage)}
         stroke='none'
@@ -130,7 +130,7 @@ function DeadStar ({ stage, radius, opacity, pixelPosition }) {
   </Motion>
 }
 
-function AccretionDisk ({pixelPosition, expanded, radius}) {
+function AccretionDisk ({position, expanded, radius}) {
   return <Motion
     defaultStyle={{
       radius: expanded ? radius : 0
@@ -142,37 +142,37 @@ function AccretionDisk ({pixelPosition, expanded, radius}) {
     {(style) => (
       <g>
         <circle
-          cx={pixelPosition[0]}
-          cy={pixelPosition[1]}
+          cx={position[0]}
+          cy={position[1]}
           r={style.radius}
           fill='#1d094e'
           opacity={0.2}
         />
         <circle
           className='accretion disk-4'
-          cx={pixelPosition[0]}
-          cy={pixelPosition[1]}
+          cx={position[0]}
+          cy={position[1]}
           r={style.radius / 2}
           fill='#1d094e'
         />
         <circle
           className='accretion disk-3'
-          cx={pixelPosition[0]}
-          cy={pixelPosition[1]}
+          cx={position[0]}
+          cy={position[1]}
           r={style.radius / 3}
           fill='#1d094e'
         />
         <circle
           className='accretion disk-2'
-          cx={pixelPosition[0]}
-          cy={pixelPosition[1]}
+          cx={position[0]}
+          cy={position[1]}
           r={style.radius / 6}
           fill='#1d094e'
         />
         <circle
           className='accretion disk-1'
-          cx={pixelPosition[0]}
-          cy={pixelPosition[1]}
+          cx={position[0]}
+          cy={position[1]}
           r={style.radius / 10}
           fill='#1d094e'
           opacity={0.3}
@@ -182,7 +182,7 @@ function AccretionDisk ({pixelPosition, expanded, radius}) {
   </Motion>
 }
 
-function MainSequence ({pixelPosition, radius, type, opacity, dysonSwarm, rotation}) {
+function MainSequence ({position, radius, type, opacity, dysonSwarm, rotation}) {
   return <Motion
     defaultStyle={{
       radius: radius,
@@ -198,29 +198,29 @@ function MainSequence ({pixelPosition, radius, type, opacity, dysonSwarm, rotati
       <g className={`star ${type}`} opacity={style.opacity}>
         <circle
           className={`star-part glow1 ${type}`}
-          cx={pixelPosition[0]}
-          cy={pixelPosition[1]}
+          cx={position[0]}
+          cy={position[1]}
           r={style.radius + 5}
           stroke='none'
         />
         <circle
           className={`star-part glow2 ${type}`}
-          cx={pixelPosition[0]}
-          cy={pixelPosition[1]}
+          cx={position[0]}
+          cy={position[1]}
           r={style.radius + 8}
           stroke='none'
         />
         <circle
           className={`star-part center ${type}`}
-          cx={pixelPosition[0]}
-          cy={pixelPosition[1]}
+          cx={position[0]}
+          cy={position[1]}
           r={style.radius}
           stroke='none'
         />
         {dysonSwarm != null && <g>
           {dysonSwarm.currentEnergy > 2000 && <circle
-            cx={pixelPosition[0]}
-            cy={pixelPosition[1]}
+            cx={position[0]}
+            cy={position[1]}
             r={style.radius + 22}
             fill='none'
             stroke='#00bbff'
@@ -228,13 +228,13 @@ function MainSequence ({pixelPosition, radius, type, opacity, dysonSwarm, rotati
             strokeDasharray={`2, 4`}
             style={{
               transform: `rotate(${-rotation}rad)`,
-              transformOrigin: `${pixelPosition[0]}px ${pixelPosition[1]}px`,
+              transformOrigin: `${position[0]}px ${position[1]}px`,
               transition: 'transform 1s linear'
             }}
           />}
           <circle
-            cx={pixelPosition[0]}
-            cy={pixelPosition[1]}
+            cx={position[0]}
+            cy={position[1]}
             r={style.radius + 20}
             fill='none'
             stroke='#fff'
@@ -242,18 +242,18 @@ function MainSequence ({pixelPosition, radius, type, opacity, dysonSwarm, rotati
             strokeDasharray={`2, ${style.spacing}`}
           />
         </g>}
-        <StarMarks pixelPosition={pixelPosition} radius={style.radius} />
+        <StarMarks position={position} radius={style.radius} />
       </g>
     )}
   </Motion>
 }
 
-function StarMarks ({pixelPosition, radius}) {
+function StarMarks ({position, radius}) {
   const size = radius / 3
   return <g className='mark'>
     <circle
-      cx={pixelPosition[0] + size}
-      cy={pixelPosition[1] - size}
+      cx={position[0] + size}
+      cy={position[1] - size}
       r={size}
       stroke='none'
     />

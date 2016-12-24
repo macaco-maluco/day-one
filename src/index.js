@@ -54,8 +54,7 @@ const buildInitialState = ({introDiscarded, introAlreadySeen}) => {
     selectedSolarSystemId: null,
     selectedPlanetIndex: null,
     currentPlayer: 0,
-    cameraPositionStart: getMyPosition(),
-    cameraPosition: [0, 0],
+    cameraPosition: getMyPosition(),
     showIntro: true,
     showInstructions: true,
     currentSlide: 0,
@@ -242,7 +241,7 @@ const reducer = (state, action) => {
     case 'MOVE':
       return {
         ...state,
-        cameraPosition: state.cameraPosition.map((v, i) => v - action.payload[i]),
+        cameraPosition: state.cameraPosition.map((v, i) => v + action.payload[i]),
         players: state.players.map((player, index) => (
           index !== state.currentPlayer
             ? player
