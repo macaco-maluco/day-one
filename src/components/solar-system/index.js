@@ -6,7 +6,7 @@ import Planets from './planets'
 export default function solarSystems ({
   name,
   starType,
-  pixelPosition,
+  position,
   planets,
   lifespan,
   starRadius,
@@ -22,7 +22,7 @@ export default function solarSystems ({
       style={{WebkitTapHighlightColor: 'rgba(0,0,0,0)'}}
       onClick={(e) => { e.stopPropagation(); onClickStar(e) }}>
       <Planets
-        pixelPosition={pixelPosition}
+        position={position}
         planets={planets}
         onClickPlanet={onClickPlanet}
         stage={stage}
@@ -32,15 +32,15 @@ export default function solarSystems ({
         type={starType}
         dysonSwarm={dysonSwarm}
         stage={stage}
-        pixelPosition={pixelPosition}
+        position={position}
         radius={starRadius}
         rotation={planets[0].translation}
       />
       {stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE && <text
         style={{ fill: '#d2cfff', textTransform: 'uppercase' }}
         opacity={0.5}
-        x={pixelPosition[0] + 30}
-        y={pixelPosition[1] + (starRadius / 2) - 3}
+        x={position[0] + 30}
+        y={position[1] + (starRadius / 2) - 3}
         >
         {name}
       </text>}

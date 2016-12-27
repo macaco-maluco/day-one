@@ -3,7 +3,7 @@ import {Motion, spring} from 'react-motion'
 import {SOLAR_SYSTEM_STAGES} from 'constants'
 import SpaceStation from './space-station'
 
-export default function Planets ({dysonSwarm, stage, pixelPosition, planets, onClickPlanet}) {
+export default function Planets ({dysonSwarm, stage, position, planets, onClickPlanet}) {
   const isMain = stage === SOLAR_SYSTEM_STAGES.MAIN_SEQUENCE ||
     stage === SOLAR_SYSTEM_STAGES.FUSION_START
 
@@ -28,13 +28,13 @@ export default function Planets ({dysonSwarm, stage, pixelPosition, planets, onC
               onClick={(e) => { e.stopPropagation(); onClickPlanet(index) }}
               style={{
                 transform: `rotate(${p.translation}rad)`,
-                transformOrigin: `${pixelPosition[0]}px ${pixelPosition[1]}px`,
+                transformOrigin: `${position[0]}px ${position[1]}px`,
                 transition: 'transform 0.5s linear'
               }}>
               <circle
                 className={`planet-orbit ${p.material}`}
-                cx={pixelPosition[0]}
-                cy={pixelPosition[1]}
+                cx={position[0]}
+                cy={position[1]}
                 r={p.orbit}
                 fill='none'
                 opacity={0.3}
@@ -43,8 +43,8 @@ export default function Planets ({dysonSwarm, stage, pixelPosition, planets, onC
               />
               <circle
                 className={`planet ${p.material}`}
-                cx={pixelPosition[0] + p.orbit}
-                cy={pixelPosition[1]}
+                cx={position[0] + p.orbit}
+                cy={position[1]}
                 r={p.radius}
                 fill={colors[p.material]}
                 stroke='none'
@@ -54,7 +54,7 @@ export default function Planets ({dysonSwarm, stage, pixelPosition, planets, onC
                   <SpaceStation
                     style={{
                       fill: 'white',
-                      transform: `translate(${pixelPosition[0] + p.orbit}px, ${pixelPosition[1]}px) rotate(${p.translation}rad) scale(0.3)`,
+                      transform: `translate(${position[0] + p.orbit}px, ${position[1]}px) rotate(${p.translation}rad) scale(0.3)`,
                       transition: 'transform 0.5s linear'
                     }} />
               }
