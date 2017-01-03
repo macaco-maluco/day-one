@@ -15,6 +15,7 @@ import {POPULATION_ONBOARD_SIZE} from 'constants'
 
 function Game (props) {
   const {
+    scale,
     cameraPosition,
     onMove,
     onSelectSolarSystem,
@@ -28,6 +29,7 @@ function Game (props) {
     showIntro,
     onCloseIntro,
     onDiscardIntro,
+    onChangeScale,
     introAlreadySeen,
     planets,
     gameOver,
@@ -55,11 +57,16 @@ function Game (props) {
         >
         {(style) => (
           <svg
-            viewBox={`${style.x - viewport[0] / 2} ${style.y - viewport[1] / 2} ${viewport[0]} ${viewport[1]}`}
+            viewBox={`${style.x - (viewport[0] * scale) / 2} ${style.y - (viewport[1] * scale) / 2} ${viewport[0] * scale} ${viewport[1] * scale}`}
             onClick={(e) => onMove([
               e.pageX - viewport[0] / 2,
               e.pageY - viewport[1] / 2
             ])}
+            onWheel={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              onChangeScale(e.deltaY)
+            }}
             width={viewport[0]}
             height={viewport[1]}
             style={{
@@ -147,6 +154,10 @@ const mergePlanetMetadata = (solarSystemId, planets, planetsMetadata) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    onChangeScale: (amount) => dispatch({
+      type: 'SCALE',
+      payload: amount
+    }),
     onMove: (delta) => dispatch({
       type: 'MOVE',
       payload: delta

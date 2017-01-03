@@ -33,6 +33,7 @@ const buildInitialState = ({introDiscarded, introAlreadySeen}) => {
 
   return {
     viewport: [window.innerWidth, window.innerHeight],
+    scale: 1,
     bigBang: now,
     heatDeath: showIntro ? HUGE : now + UNIVERSE_LIFESPAN,
     now: now,
@@ -93,6 +94,16 @@ const reducer = (state, action) => {
       //     ) < POPULATION_INITIAL
       //   })
       // }
+
+    case 'SCALE':
+      const targetScale = state.scale + action.payload * 0.001
+
+      if (targetScale < 0.1 || targetScale > 20) { return state }
+
+      return {
+        ...state,
+        scale: targetScale
+      }
 
     case 'ADD_DYSON_SWARM':
       return {
