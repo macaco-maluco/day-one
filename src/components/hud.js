@@ -96,7 +96,7 @@ export default ({
               <SolarSystem
                 {...selectedSolarSystem}
                 key={selectedSolarSystem.position.join('_')}
-                pixelPosition={[150, 150]}
+                position={[150, 150]}
               />
             </g>
           </svg>

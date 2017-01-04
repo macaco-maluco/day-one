@@ -15,6 +15,7 @@ import {POPULATION_ONBOARD_SIZE} from 'constants'
 
 function Game (props) {
   const {
+    scale,
     cameraPosition,
     onMove,
     onSelectSolarSystem,
@@ -22,12 +23,13 @@ function Game (props) {
     solarSystems,
     viewport,
     particleMatrix,
-    pixelPosition,
+    position,
     otherPlayers,
     introDiscarded,
     showIntro,
     onCloseIntro,
     onDiscardIntro,
+    onChangeScale,
     introAlreadySeen,
     planets,
     gameOver,
@@ -39,52 +41,57 @@ function Game (props) {
   return (
     <div>
       <Hud {...props} />
-      <svg
-        onClick={(e) => onMove([
-          e.pageX - viewport[0] / 2,
-          e.pageY - viewport[1] / 2
-        ])}
-        width={viewport[0]}
-        height={viewport[1]}
+      <Motion
+        defaultStyle={{
+          x: cameraPosition[0],
+          y: cameraPosition[1],
+          playerX: position[0],
+          playerY: position[1]
+        }}
         style={{
-          background: '#10052b',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0
-        }}>
-        <Motion
-          defaultStyle={{
-            x: cameraPosition[0],
-            y: cameraPosition[1],
-            playerX: pixelPosition[0],
-            playerY: pixelPosition[1]
-          }}
-          style={{
-            x: spring(cameraPosition[0]),
-            y: spring(cameraPosition[1]),
-            playerX: spring(pixelPosition[0], { stiffness: 111, damping: 33 }),
-            playerY: spring(pixelPosition[1], { stiffness: 111, damping: 33 })
-          }}
-          >
-          {(style) => (
-            <g transform={`translate(${style.x}, ${style.y})`}>
-              <Content
-                viewport={viewport}
-                particleMatrix={particleMatrix}
-                solarSystems={solarSystems}
-                planets={planets}
-                onSelectSolarSystem={onSelectSolarSystem}
-                onSelectPlanet={onSelectPlanet}
-                otherPlayers={otherPlayers}
-                pixelPosition={pixelPosition}
-              />
-              <Player position={[style.playerX, style.playerY]} />
-            </g>
-          )}
-        </Motion>
-      </svg>
+          x: spring(cameraPosition[0]),
+          y: spring(cameraPosition[1]),
+          playerX: spring(position[0], { stiffness: 111, damping: 33 }),
+          playerY: spring(position[1], { stiffness: 111, damping: 33 })
+        }}
+        >
+        {(style) => (
+          <svg
+            viewBox={`${style.x - (viewport[0] * scale) / 2} ${style.y - (viewport[1] * scale) / 2} ${viewport[0] * scale} ${viewport[1] * scale}`}
+            onClick={(e) => onMove([
+              e.pageX - viewport[0] / 2,
+              e.pageY - viewport[1] / 2
+            ])}
+            onWheel={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              onChangeScale(e.deltaY)
+            }}
+            width={viewport[0]}
+            height={viewport[1]}
+            style={{
+              background: '#10052b',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              '-webkit-tap-highlight-color': 'rgba(0,0,0,0)'
+            }}>
+            <Content
+              viewport={viewport}
+              particleMatrix={particleMatrix}
+              solarSystems={solarSystems}
+              planets={planets}
+              onSelectSolarSystem={onSelectSolarSystem}
+              onSelectPlanet={onSelectPlanet}
+              otherPlayers={otherPlayers}
+              position={position}
+            />
+            <Player position={[style.playerX, style.playerY]} />
+          </svg>
+        )}
+      </Motion>
     </div>
   )
 }
@@ -103,7 +110,7 @@ class Content extends Component {
       this.props.particleMatrix !== nextProps.particleMatrix ||
       this.props.solarSystems !== nextProps.solarSystems ||
       this.props.otherPlayers !== nextProps.otherPlayers ||
-      this.props.pixelPosition !== nextProps.pixelPosition
+      this.props.position !== nextProps.position
     )
   }
 
@@ -115,7 +122,7 @@ class Content extends Component {
       onSelectSolarSystem,
       onSelectPlanet,
       otherPlayers,
-      pixelPosition,
+      position,
       planets
     } = this.props
 
@@ -129,8 +136,8 @@ class Content extends Component {
           {...solarSystem}
           planets={mergePlanetMetadata(solarSystem.id, solarSystem.planets, planets)}
         />)}
-        {otherPlayers.map((player) => <Player position={player.pixelPosition} />)}
-        <TargetMarker position={pixelPosition} />
+        {otherPlayers.map((player) => <Player position={player.position} />)}
+        <TargetMarker position={position} />
       </g>
     )
   }
@@ -147,6 +154,10 @@ const mergePlanetMetadata = (solarSystemId, planets, planetsMetadata) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    onChangeScale: (amount) => dispatch({
+      type: 'SCALE',
+      payload: amount
+    }),
     onMove: (delta) => dispatch({
       type: 'MOVE',
       payload: delta

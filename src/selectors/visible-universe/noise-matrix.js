@@ -11,11 +11,10 @@ const random = (seed) => {
 }
 
 export default (seed, ids) => (universe) => {
-  const { viewport, cameraPositionStart, cameraPosition } = universe
+  const { viewport, cameraPosition } = universe
   const viewportInGrid = viewport.map((x) => ceil(x / GRID_SIZE))
 
-  const myPositionInTheGrid = cameraPositionStart
-    .map((x, i) => x - cameraPosition[i])
+  const myPositionInTheGrid = cameraPosition
     .map((x) => floor(x / GRID_SIZE))
 
   const ranges = viewportInGrid.map((x, i) => [
