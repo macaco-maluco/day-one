@@ -7,7 +7,7 @@ describe('universe star', () => {
       noise: 0.1,
       name: '神々が愛した靴',
       lifespan: 0.6370065572809835,
-      birth: 23.122920326201257,
+      birth: 0.20961191737810722,
       type: 'K',
       radius: 14
     })

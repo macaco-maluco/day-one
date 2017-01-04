@@ -1,6 +1,8 @@
+import seedableRandom from 'helpers/seedable-random'
+
 export default () => (star) => ({
   ...star,
-  birth: calculateBirth(star.lifespan, (star.noise, 100))
+  birth: calculateBirth(star.lifespan, seedableRandom(star.noise, 100))
 })
 
 const calculateBirth = (lifespan, birthNoise) => {
