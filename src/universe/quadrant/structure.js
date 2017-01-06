@@ -14,12 +14,12 @@ export default (constants) => (quadrant) => {
 
   const sizeInGrid = size.map((x) => ceil(x / GRID_SIZE))
 
-  const myPositionInTheGrid = coordinates
+  const coordinatesInTheGrid = coordinates
     .map((x) => floor(x / GRID_SIZE))
 
-  const ranges = sizeInGrid.map((x, i) => [
-    myPositionInTheGrid[i] - ceil(x / 2),
-    myPositionInTheGrid[i] + ceil(x / 2)
+  const ranges = sizeInGrid.map((value, index) => [
+    coordinatesInTheGrid[index],
+    coordinatesInTheGrid[index] + value
   ])
 
   const xRange = range(ranges[0][0], ranges[0][1])
