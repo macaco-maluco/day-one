@@ -13,7 +13,7 @@ export default (constants) => (system) => ({
     .reduce((orbits, index) => [
       ...orbits,
       {
-        starTranslation: betweenInteger(seedableRandom(system.noise, index), 0, 360),
+        startTranslation: betweenInteger(seedableRandom(system.noise, index), 0, 360),
         radius: getOrbit(
           seedableRandom(system.noise, index),
           (index === 0

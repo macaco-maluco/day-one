@@ -61,15 +61,15 @@ describe('universe | quadrant', () => {
           ],
           orbits: [
             {
-              starTranslation: 87,
+              startTranslation: 87,
               radius: 51
             },
             {
-              starTranslation: 101,
+              startTranslation: 101,
               radius: 72
             },
             {
-              starTranslation: 227,
+              startTranslation: 227,
               radius: 95
             }
           ]

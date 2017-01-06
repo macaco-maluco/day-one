@@ -30,6 +30,10 @@ $slide-duration: 3.5s;
   100% {opacity: 0}
 }
 
+body {
+  margin: 0;
+}
+
 .star-part {
   visibility: hidden;
 }

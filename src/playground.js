@@ -1,22 +1,18 @@
 import { render } from 'react-dom'
 import React from 'react'
-import SolarSystem from 'components/solar-system'
-import fixture from './playground.fixture.json'
-import solarSystem from 'selectors/solar-system/solar-system'
+import Quadrant from 'components/quadrant'
+import generateQuadrant from 'universe/quadrant'
 import 'styles.scss'
 
-const system = solarSystem([0, 0, 0.45])
-const systemWithPosition = {
-  ...system,
-  planets: system.planets.map((planet) => ({...planet, translation: 5})),
-  stage: 'Star',
-  pixelPosition: [400, 200]
-}
+const noise = 0.2
+const size = [window.innerWidth, window.innerHeight]
+const coordinates = [0, 0]
+
+const quadrant = generateQuadrant({})(noise, size, coordinates)
 
 render(
   <svg width='100vw' height='100vh' style={{ background: 'black' }}>
-    <SolarSystem {...fixture} />
-    <SolarSystem {...systemWithPosition} />
+    <Quadrant {...quadrant} />
   </svg>
   , document.getElementById('root')
 )

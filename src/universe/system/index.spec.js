@@ -38,15 +38,15 @@ describe('universe system', () => {
       ],
       orbits: [
         {
-          starTranslation: 196,
+          startTranslation: 196,
           radius: 52
         },
         {
-          starTranslation: 282,
+          startTranslation: 282,
           radius: 75
         },
         {
-          starTranslation: 162,
+          startTranslation: 162,
           radius: 97
         }
       ]
