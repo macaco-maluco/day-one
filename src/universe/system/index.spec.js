@@ -1,7 +1,7 @@
 import generateSystem from '.'
 
-describe('universe star', () => {
-  it('should generate a star based on a noise', () => {
+describe('universe system', () => {
+  it('should generate a system based on a noise', () => {
     const system = generateSystem({})(0.1)
     expect(system).toEqual({
       noise: 0.1,
