@@ -20,8 +20,8 @@ describe('universe | quadrant', () => {
       ],
       cells: [
         [
-          36.540490145944204,
-          42.134245164680806,
+          7.237114990130067,
+          85.65070701297373,
           0.9762564697302878
         ]
       ],
@@ -30,47 +30,36 @@ describe('universe | quadrant', () => {
           noise: 0.9762564697302878,
           star: {
             noise: 0.9762564697302878,
-            name: 'rhae',
-            lifespan: 0.8497191934338844,
-            birth: 0.12129388502577362,
+            name: 'meamir',
+            lifespan: 0.9243151918053627,
+            birth: 0.019428938037294088,
             type: 'M',
-            radius: 8
+            radius: 6
           },
           planets: [
             {
-              noise: 0.24360326763962803,
+              noise: 0.04824743326753378,
               radius: 5,
-              material: 'titanium',
-              gravity: 2.6629516961043915,
-              populationCapacity: 12700050
+              material: 'plutonium',
+              gravity: 0.7680001026950776,
+              populationCapacity: 2524160
             },
             {
-              noise: 0.2808949677645387,
-              radius: 5,
-              material: 'phosphorus',
-              gravity: 3.024681187316025,
-              populationCapacity: 14642537
-            },
-            {
-              noise: 0.6316459105419199,
+              noise: 0.5710047134198248,
               radius: 6,
-              material: 'manganese',
-              gravity: 6.426965332256622,
-              populationCapacity: 32912803
+              material: 'selenium',
+              gravity: 5.838745720172301,
+              populationCapacity: 29754064
             }
           ],
           orbits: [
             {
-              startTranslation: 87,
-              radius: 51
+              startTranslation: 17,
+              radius: 50
             },
             {
-              startTranslation: 101,
+              startTranslation: 205,
               radius: 72
-            },
-            {
-              startTranslation: 227,
-              radius: 95
             }
           ]
         }

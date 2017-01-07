@@ -7,47 +7,47 @@ describe('universe system', () => {
       noise: 0.1,
       star: {
         noise: 0.1,
-        name: '神々が愛した靴',
-        lifespan: 0.6370065572809835,
-        birth: 0.20961191737810722,
-        type: 'K',
-        radius: 14
+        name: 'psoenri',
+        lifespan: 0.5341289069037884,
+        birth: 0.24737509790977166,
+        type: 'G',
+        radius: 16
       },
       planets: [
         {
-          noise: 0.5463912608211103,
+          noise: 0.4288907456211746,
           radius: 6,
-          material: 'arsenic',
-          gravity: 5.59999522996477,
-          populationCapacity: 28471974
+          material: 'vanadium',
+          gravity: 4.4602402325253925,
+          populationCapacity: 22351490
         },
         {
-          noise: 0.7840610153070884,
+          noise: 0.6234988542273641,
+          radius: 6,
+          material: 'manganese',
+          gravity: 6.347938886005431,
+          populationCapacity: 32488431
+        },
+        {
+          noise: 0.990128728793934,
           radius: 7,
-          material: 'tungsten',
-          gravity: 7.905391848478756,
-          populationCapacity: 40851954
-        },
-        {
-          noise: 0.451620451333838,
-          radius: 6,
-          material: 'zircorium',
-          gravity: 4.680718377938228,
-          populationCapacity: 23535457
+          material: 'tellurium',
+          gravity: 9.90424866930116,
+          populationCapacity: 51585815
         }
       ],
       orbits: [
         {
-          startTranslation: 196,
+          startTranslation: 154,
           radius: 52
         },
         {
-          startTranslation: 282,
+          startTranslation: 224,
           radius: 75
         },
         {
-          startTranslation: 162,
-          radius: 97
+          startTranslation: 356,
+          radius: 99
         }
       ]
     })
