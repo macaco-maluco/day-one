@@ -14,8 +14,8 @@ describe('universe | quadrant | structure', () => {
       ...quadrant,
       cells: [
         [
-          0,
-          0,
+          17.90336696851682,
+          46.09712843730449,
           0.5548876167740673
         ]
       ]
