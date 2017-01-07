@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ({radius, type}) {
+export default function ({radius, type, name}) {
   return <g className={`star ${type}`}>
     <circle
       className={`star-part glow1 ${type}`}
@@ -18,6 +18,13 @@ export default function ({radius, type}) {
       stroke='none'
     />
     <StarMarks radius={radius} />
+    <text
+      style={{ fill: '#d2cfff', textTransform: 'uppercase' }}
+      opacity={0.5}
+      x={radius + 10}
+      y={(radius / 2) - 3}>
+      {name}
+    </text>
   </g>
 }
 
