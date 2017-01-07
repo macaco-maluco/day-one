@@ -6,9 +6,11 @@ import {
   SUPERNOVA_DURATION
 } from 'constants'
 
-export default (constants) => (star) => {
+export default (constants) => (system) => {
+  const {star} = system
+
   return {
-    ...star,
+    ...system,
     stages: STAR_LIFECYCLES.find((x) => star.lifespan < x[0])[1]
       .map((stage) => ({ stage }))
       .map(({stage}) => {

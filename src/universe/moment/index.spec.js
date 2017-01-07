@@ -1,14 +1,8 @@
-import generateQuadrant from '.'
+import getMoment from '.'
 
-describe('universe | quadrant', () => {
-  it('should generate a quadrant with all the systems that it entails', () => {
-    const noise = 0.2
-    const size = [1, 1]
-    const coordinates = [0, 0]
-
-    const quadrant = generateQuadrant({})(noise, size, coordinates)
-
-    expect(quadrant).toEqual({
+describe('universe | moment', () => {
+  it('should return the moment information', () => {
+    const quadrant = {
       noise: 0.2,
       size: [
         1,
@@ -82,6 +76,12 @@ describe('universe | quadrant', () => {
           ]
         }
       ]
+    }
+
+    const moment = getMoment(quadrant)(0.1)
+
+    expect(moment).toEqual({
+      stages: ['Star']
     })
   })
 })
