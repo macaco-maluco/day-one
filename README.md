@@ -1,5 +1,7 @@
 # Day One
 
+[![Build Status](https://travis-ci.org/macaco-maluco/day-one.svg)](https://travis-ci.org/macaco-maluco/day-one)
+
 The game runs on top of a **procedural generated universe**, with solar systems, planets and other celestial objects that are born and die.
 
 It was implemented as part of the [Node Knockout 2016 hackathon](https://www.nodeknockout.com/entries/55-batata-frita). Check a [video](https://www.youtube.com/watch?v=l-iS5pEy7V8) to see it in action.
