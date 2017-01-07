@@ -24,7 +24,11 @@ const update = () => {
   const now = quadrantMoment(normalizedNow)
 
   render(
-    <svg width='100vw' height='100vh' viewBox={`0 0 ${width} ${height}`} style={{ background: 'black' }}>
+    <svg
+      width='100vw'
+      height='100vh'
+      viewBox={`0 0 ${width} ${height}`}
+      style={{ background: '#10052b' }}>
       <text cx={10} cy={10}>{normalizedNow}</text>
       <Quadrant {...quadrant} moment={now} />
     </svg>
