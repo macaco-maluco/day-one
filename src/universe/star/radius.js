@@ -6,9 +6,12 @@ import {
 } from 'constants'
 
 export default (constants) => (star) => {
-  return { ...star, radius: betweenInteger(
-    (1 - star.lifespan),
-    STAR_RADIUS_MINIMUM,
-    STAR_RADIUS_MAXIMUM
-  )}
+  return {
+    ...star,
+    radius: betweenInteger(
+      (1 - star.lifespan),
+      STAR_RADIUS_MINIMUM,
+      STAR_RADIUS_MAXIMUM
+    )
+  }
 }
