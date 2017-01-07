@@ -1,6 +1,6 @@
 import {range} from 'ramda'
 import {betweenInteger} from 'helpers/between'
-import seedableRandom from 'helpers/seedable-random'
+import random from 'random'
 import {
   STAR_RADIUS_MAXIMUM,
   ORBIT_STEP_MAXIMUM,
@@ -13,9 +13,9 @@ export default (constants) => (system) => ({
     .reduce((orbits, index) => [
       ...orbits,
       {
-        startTranslation: betweenInteger(seedableRandom(system.noise, index), 0, 360),
+        startTranslation: betweenInteger(random(system.noise + index), 0, 360),
         radius: getOrbit(
-          seedableRandom(system.noise, index),
+          random(system.noise + index),
           (index === 0
             ? STAR_RADIUS_MAXIMUM
             : orbits[index - 1].radius)

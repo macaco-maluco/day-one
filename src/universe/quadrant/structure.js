@@ -1,14 +1,8 @@
-import Alea from 'alea'
 import { range } from 'ramda'
 import { GRID_SIZE } from 'constants'
-import seedableRandom from 'helpers/seedable-random'
+import random from 'random'
 
 const { floor, ceil, abs } = Math
-
-const random = (seed) => {
-  const r = new Alea(seed)
-  return r()
-}
 
 export default (constants) => (quadrant) => {
   const { noise, size, coordinates } = quadrant
@@ -36,7 +30,7 @@ export default (constants) => (quadrant) => {
       .map((x) => x * GRID_SIZE)
 
   const deviation = (noise, counter) =>
-    GRID_SIZE / 2 * abs(seedableRandom(noise, counter))
+    GRID_SIZE / 2 * abs(random(noise + counter))
 
   const addNoise = (dot) => [
     ...(gridToDots(dot)),

@@ -1,6 +1,6 @@
-import seedableRandom from 'helpers/seedable-random'
+import random from 'random'
 
 export default (constants) => (star) => ({
   ...star,
-  lifespan: seedableRandom(star.noise, 101)
+  lifespan: random(star.noise + 101)
 })
