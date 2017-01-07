@@ -3,6 +3,7 @@ import generateSystem from '.'
 describe('universe system', () => {
   it('should generate a system based on a noise', () => {
     const system = generateSystem({})(0.1)
+
     expect(system).toEqual({
       noise: 0.1,
       star: {
@@ -11,7 +12,25 @@ describe('universe system', () => {
         lifespan: 0.5341289069037884,
         birth: 0.24737509790977166,
         type: 'G',
-        radius: 16
+        radius: 16,
+        stages: [
+          {
+            stage: 'Accretion Disk',
+            start: 0
+          },
+          {
+            stage: 'Starting Fusion...',
+            start: 0.2445973201319939
+          },
+          {
+            stage: 'Star',
+            start: 0.24737509790977166
+          },
+          {
+            stage: 'Brown Dwarf',
+            start: 0.7815040048135601
+          }
+        ]
       },
       planets: [
         {

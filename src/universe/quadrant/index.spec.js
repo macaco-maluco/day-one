@@ -20,8 +20,8 @@ describe('universe | quadrant', () => {
       ],
       cells: [
         [
-          7.237114990130067,
-          85.65070701297373,
+          8.443300821818411,
+          99.92582484846935,
           0.9762564697302878
         ]
       ],
@@ -34,7 +34,25 @@ describe('universe | quadrant', () => {
             lifespan: 0.9243151918053627,
             birth: 0.019428938037294088,
             type: 'M',
-            radius: 6
+            radius: 6,
+            stages: [
+              {
+                stage: 'Accretion Disk',
+                start: 0
+              },
+              {
+                stage: 'Starting Fusion...',
+                start: 0.01665116025951631
+              },
+              {
+                stage: 'Star',
+                start: 0.019428938037294088
+              },
+              {
+                stage: 'Brown Dwarf',
+                start: 0.9437441298426568
+              }
+            ]
           },
           planets: [
             {
