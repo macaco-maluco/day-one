@@ -4,7 +4,8 @@ import random from 'random'
 import {
   STAR_RADIUS_MAXIMUM,
   ORBIT_STEP_MAXIMUM,
-  ORBIT_STEP_MINIMUM
+  ORBIT_STEP_MINIMUM,
+  ORBIT_SPEED_FACTOR
 } from 'constants'
 
 export default (constants) => (system) => {
@@ -21,14 +22,21 @@ export default (constants) => (system) => {
             : orbits[index - 1].radius)
         )
 
+        const radialSpeedDecay = Math.pow(radius, 3) / 100000
         const startTranslation = betweenFloat(random(system.noise + index), 0, rotation)
-        const endTranslation = betweenFloat(random(system.noise + index), rotation, (5 * rotation))
+        const duration = (
+          betweenFloat(
+            random(system.noise + index),
+            ORBIT_SPEED_FACTOR * rotation,
+            ORBIT_SPEED_FACTOR * 5 * rotation
+          ) / radialSpeedDecay
+        )
 
         return [
           ...orbits,
           {
             startTranslation,
-            endTranslation,
+            endTranslation: startTranslation + duration,
             radius
           }
         ]

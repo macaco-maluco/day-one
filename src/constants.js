@@ -45,6 +45,8 @@ export const MATERIALS = [
 export const ORBIT_STEP_MAXIMUM = 25
 export const ORBIT_STEP_MINIMUM = 20
 
+export const ORBIT_SPEED_FACTOR = 3
+
 export const PLANET_RADIUS_MINIMUM = 5
 export const PLANET_RADIUS_MAXIMUM = 8
 
