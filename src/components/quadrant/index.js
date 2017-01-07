@@ -5,7 +5,7 @@ export default function Quadrant ({cells, systems, moment}) {
   return <g>
     {systems.map((system, index) => <g
       transform={`translate(${cells[index][0]}, ${cells[index][1]})`}>
-      <System {...system} stage={moment.stages[index]} />
+      <System {...system} stage={moment.stages[index]} translations={moment.translations[index]} />
     </g>)}
   </g>
 }

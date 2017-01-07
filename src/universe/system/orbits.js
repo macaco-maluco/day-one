@@ -14,6 +14,7 @@ export default (constants) => (system) => ({
       ...orbits,
       {
         startTranslation: betweenInteger(random(system.noise + index), 0, 360),
+        endTranslation: 50,
         radius: getOrbit(
           random(system.noise + index),
           (index === 0

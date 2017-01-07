@@ -16,7 +16,7 @@ const coordinates = [0, 0]
 const quadrant = generateQuadrant({})(noise, size, coordinates)
 const quadrantMoment = getMoment(quadrant)
 
-const start = Date.now()
+const start = Date.now() + 1000
 const lifespan = 30 * 1000
 
 const update = () => {

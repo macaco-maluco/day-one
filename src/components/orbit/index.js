@@ -1,9 +1,9 @@
 import React from 'react'
 import Planet from '../planet'
 
-export default function Orbit ({orbit, planet}) {
+export default function Orbit ({orbit, planet, translation}) {
   return <g
-    style={{transform: `rotate(${orbit.startTranslation}rad)`}}>
+    style={{transform: `rotate(${translation}rad)`}}>
     <circle
       className={`planet-orbit ${planet.material}`}
       r={orbit.radius}

@@ -5,12 +5,13 @@ import {SOLAR_SYSTEM_STAGES} from 'constants'
 
 export default class System extends PureComponent {
   render () {
-    const {star, planets, orbits, stage} = this.props
+    const {star, planets, orbits, stage, translations} = this.props
 
     return <g>
       <Star {...star} stage={stage} />
       {hasPlanets(stage) && orbits.map((orbit, index) => <Orbit
         orbit={orbit}
+        translation={translations[index]}
         planet={planets[index]}
       />)}
     </g>
