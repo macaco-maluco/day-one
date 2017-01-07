@@ -4,7 +4,7 @@ import Quadrant from 'components/quadrant'
 import generateQuadrant from 'universe/quadrant'
 import 'styles.scss'
 
-const scale = 4
+const scale = 2
 const width = window.innerWidth * scale
 const height = window.innerHeight * scale
 
