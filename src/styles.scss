@@ -302,24 +302,7 @@ $slide-duration: 3.5s;
 }
 
 .accretion {
-  animation-name: gentleGlow, rotateCW;
-  animation-duration: 1.5s;
-  animation-iteration-count: infinite;
   opacity: 0.3;
-  transform-origin: 50% 50%;
-
-  .disk-4 {
-    animation-delay: 0s;
-  }
-  .disk-3 {
-    animation-delay: 1s;
-  }
-  .disk-2 {
-    animation-delay: 3s;
-  }
-  .disk-1 {
-    animation-delay: 5s;
-  }
 }
 
 .hudDetail {
