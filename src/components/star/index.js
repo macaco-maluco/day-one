@@ -4,13 +4,14 @@ import AccretionDisk from './accretion-disk'
 import DeadStar from './dead-star'
 import {SOLAR_SYSTEM_STAGES, STAR_TYPES} from 'constants'
 
-export default function ({radius, type, stage}) {
+export default function ({radius, type, stage, name}) {
   return <g>
     <AccretionDisk
       radius={radius * 5}
       expanded={stage === SOLAR_SYSTEM_STAGES.ACCRETION_DISK}
     />
     <MainSequence
+      name={name}
       radius={getStarRadius(stage, radius)}
       type={getStarType(stage, type)}
       opacity={getStarOpacity(stage)}
