@@ -1,16 +1,15 @@
 import { range } from 'ramda'
-import { GRID_SIZE } from 'constants'
 import random from 'random'
 
 const { floor, ceil, abs } = Math
 
-export default (constants) => (quadrant) => {
+export default ({gridSize}) => (quadrant) => {
   const { noise, size, coordinates } = quadrant
 
-  const sizeInGrid = size.map((x) => ceil(x / GRID_SIZE))
+  const sizeInGrid = size.map((x) => ceil(x / gridSize))
 
   const coordinatesInTheGrid = coordinates
-    .map((x) => floor(x / GRID_SIZE))
+    .map((x) => floor(x / gridSize))
 
   const ranges = sizeInGrid.map((value, index) => [
     coordinatesInTheGrid[index],
@@ -27,10 +26,10 @@ export default (constants) => (quadrant) => {
 
   const gridToDots = (dot) =>
     dot
-      .map((x) => x * GRID_SIZE)
+      .map((x) => x * gridSize)
 
   const deviation = (noise, counter) =>
-    GRID_SIZE / 2 * abs(random(noise + counter))
+    gridSize / 2 * abs(random(noise + counter))
 
   const addNoise = (dot) => [
     ...(gridToDots(dot)),
