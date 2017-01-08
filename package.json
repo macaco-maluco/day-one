@@ -23,7 +23,7 @@
     "react-redux": "^4.4.5",
     "recharts": "^0.20.2",
     "redux": "^3.6.0",
-    "spectacle": "^1.2.5"
+    "reveal.js": "^3.3.0"
   },
   "devDependencies": {
     "sagui": "^8.0.0-rc.3"
