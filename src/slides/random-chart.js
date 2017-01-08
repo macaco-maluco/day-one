@@ -9,8 +9,8 @@ const data = (seed) => range(0, 400)
 
 export default ({ seed }) => (
   <ScatterChart width={400} height={400} margin={{top: 20, right: 20, bottom: 20, left: 20}}>
-    <XAxis dataKey={'x'} name='stature' unit='cm'/>
-    <YAxis dataKey={'y'} name='weight' unit='kg'/>
+    <XAxis dataKey={'x'} name='stature' unit='cm' />
+    <YAxis dataKey={'y'} name='weight' unit='kg' />
     <Scatter name='A school' data={data(seed)} fill='#8884d8' />
     <CartesianGrid />
   </ScatterChart>
