@@ -10,5 +10,9 @@ import Slides from 'slides/index'
 render(
   <Slides />,
   document.getElementById('root'),
-  () => Reveal.initialize({ history: true })
+  () => Reveal.initialize({
+    history: true,
+    transitionSpeed: 'fast',
+    transition: 'zoom'
+  })
 )
