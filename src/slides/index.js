@@ -5,6 +5,7 @@ import StartSmall from './start-small'
 import ThereIsNoRandom from './there-is-no-random'
 import AvoidCorrelation from './avoid-correlation'
 import TheUniverse from './the-universe'
+import WrappingUp from './wrapping-up'
 
 export default () => (
   <div className='slides'>
@@ -14,5 +15,6 @@ export default () => (
     <ThereIsNoRandom />
     <AvoidCorrelation />
     <TheUniverse />
+    <WrappingUp />
   </div>
 )
