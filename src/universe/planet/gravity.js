@@ -1,10 +1,6 @@
 import { betweenFloat } from 'helpers/between'
-import {
-  GRAVITY_MAXIMUM,
-  GRAVITY_MINIMUM
-} from 'constants'
 
-export default (constants) => (planet) => ({
+export default ({gravityMaximum, gravityMinimum}) => (planet) => ({
   ...planet,
-  gravity: betweenFloat(planet.noise, GRAVITY_MINIMUM, GRAVITY_MAXIMUM)
+  gravity: betweenFloat(planet.noise, gravityMinimum, gravityMaximum)
 })
