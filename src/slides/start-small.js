@@ -59,10 +59,14 @@ function generateStarSystem () {
 `
 
 const randomSystemSource = `
+const { abs, random } = Math
+
 function generateStarSystem () {
+  const starRadius = random() * 10 + 10
+  const planets = abs(random() * 3 + 1)
   return {
-    starRadius: Math.random() * 10 + 10,
-    planets: Math.abs(Math.random() * 3 + 1)
+    starRadius,
+    planets
   }
 }
 `
@@ -141,43 +145,49 @@ export default () => (
     </section>
     <section>
       <h2>generateStarSystem()</h2>
-      <table>
-        <tr>
-          <td>
-            <code><pre>{randomSystemSource}</pre></code>
-          </td>
-          <td>
-            <ForceUpdate />
-          </td>
-        </tr>
-      </table>
+      <ForceUpdate />
     </section>
   </section>
 )
 
 class ForceUpdate extends Component {
   render () {
-    const system = randomSystem()
-
     return (
       <div>
-        <button onClick={() => this.forceUpdate()}>Generate</button>
-        <svg
-          width='250'
-          height='250'
-          viewBox={'-125 -125 250 250'}>
-          <System {...system} stage='Star' translations={[0, 0]} />
-        </svg>
-        <code><pre>
-        {
-          `
-            starSystems = {
-              starRadius: ${system.star.radius},
-              planets: ${system.planets.length}
-            }
-          `
-        }
-        </pre></code>
+        <table>
+          <tr>
+            <td>
+              <code><pre>{randomSystemSource}</pre></code>
+              <button onClick={() => window.location.reload()}>Reload</button>
+            </td>
+            <td>
+              <svg
+                width='250'
+                height='250'
+                viewBox={'-125 -125 250 250'}>
+                <System {...randomSystem()} stage='Star' translations={[0, 0]} />
+              </svg>
+              <svg
+                width='250'
+                height='250'
+                viewBox={'-125 -125 250 250'}>
+                <System {...randomSystem()} stage='Star' translations={[0, 0]} />
+              </svg>
+              <svg
+                width='250'
+                height='250'
+                viewBox={'-125 -125 250 250'}>
+                <System {...randomSystem()} stage='Star' translations={[0, 0]} />
+              </svg>
+              <svg
+                width='250'
+                height='250'
+                viewBox={'-125 -125 250 250'}>
+                <System {...randomSystem()} stage='Star' translations={[0, 0]} />
+              </svg>
+            </td>
+          </tr>
+        </table>
       </div>
     )
   }
