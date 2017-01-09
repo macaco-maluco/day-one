@@ -7,6 +7,10 @@ export default () => (
     <section>
       <h1>universe as a function</h1>
     </section>
+    <section>
+      <h1>disclaimer</h1>
+      <p>this talk will contain graphs</p>
+    </section>
     <section data-background-image={noMansSky} />
     <section>
       <h2>"Poor Man's Sky"</h2>
