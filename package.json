@@ -16,6 +16,7 @@
   "dependencies": {
     "alea": "^0.0.9",
     "babel-polyfill": "^6.20.0",
+    "html2react": "^1.0.2",
     "ramda": "^0.22.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

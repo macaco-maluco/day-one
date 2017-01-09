@@ -14,7 +14,6 @@ render(
     controls: false,
     progress: false,
     history: true,
-    transitionSpeed: 'fast',
-    transition: 'zoom'
+    transitionSpeed: 'fast'
   })
 )

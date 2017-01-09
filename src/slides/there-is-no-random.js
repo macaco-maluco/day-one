@@ -104,7 +104,7 @@ export default () => (
     </section>
 
     <section>
-      <h2>generateStarSystem()</h2>
+      <h2>generateStarSystem(seed)</h2>
       <ForceUpdate />
     </section>
   </section>
@@ -139,25 +139,25 @@ class ForceUpdate extends Component {
                 width='250'
                 height='250'
                 viewBox={'-125 -125 250 250'}>
-                <System {...randomSystem(0.26748822191753385)} stage='Star' translations={[0, 0]} />
+                <System {...randomSystem(0.26)} stage='Star' translations={[Math.PI, Math.PI, Math.PI, Math.PI]} />
               </svg>
               <svg
                 width='250'
                 height='250'
                 viewBox={'-125 -125 250 250'}>
-                <System {...randomSystem(0.15453132770270694)} stage='Star' translations={[0, 0]} />
+                <System {...randomSystem(0.69)} stage='Star' translations={[Math.PI, Math.PI, Math.PI, Math.PI]} />
               </svg>
               <svg
                 width='250'
                 height='250'
                 viewBox={'-125 -125 250 250'}>
-                <System {...randomSystem(0.3315733539302248)} stage='Star' translations={[0, 0]} />
+                <System {...randomSystem(0.33)} stage='Star' translations={[Math.PI, Math.PI, Math.PI, Math.PI]} />
               </svg>
               <svg
                 width='250'
                 height='250'
                 viewBox={'-125 -125 250 250'}>
-                <System {...randomSystem(0.6992415201774085)} stage='Star' translations={[0, 0]} />
+                <System {...randomSystem(0.15)} stage='Star' translations={[Math.PI, Math.PI, Math.PI, Math.PI]} />
               </svg>
             </td>
           </tr>
