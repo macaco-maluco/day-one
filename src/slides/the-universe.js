@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { range } from 'ramda'
 import generateQuadrant from 'universe/quadrant'
 import generateSystem from 'universe/system'
@@ -7,6 +7,16 @@ import { GRID_SIZE } from 'constants'
 import random, { randomNd } from 'random'
 
 const quadrant = generateQuadrant({})(0.15, [800, 600], [0, 0])
+
+const deviationSource = `
+const addDeviation = ([x, y, noise]) => [
+  x + GRID_SIZE / 2 * abs(random(noise + 14123)),
+  y + GRID_SIZE / 2 * abs(random(noise + 2326)),
+  noise
+]
+
+const unsnapedSystems = systems.map(addDeviation)
+`
 
 export default () => (
   <section>
@@ -140,10 +150,9 @@ export default () => (
             ))
           }
           {
-            quadrant.cells.map((_, index) => {
-              const x = (index % 4) * GRID_SIZE + GRID_SIZE / 2
-              const y = Math.floor(index / 4) * GRID_SIZE + GRID_SIZE / 2
-              const noise = randomNd(x, y, random(0.3))
+            quadrant.cells.map(([qx, qy, noise], index) => {
+              const y = (index % 3) * GRID_SIZE + GRID_SIZE / 2
+              const x = Math.floor(index / 3) * GRID_SIZE + GRID_SIZE / 2
               const system = generateSystem({})(noise)
 
               return <g transform={`translate(${x}, ${y}) scale(0.7)`}>
@@ -159,8 +168,12 @@ export default () => (
     </section>
 
     <section>
+      <h3>unsnap from the grid</h3>
+      <code><pre>{deviationSource}</pre></code>
+    </section>
+
+    <section>
       <h2>quadrant</h2>
-      <p>x, y, width, height</p>
 
       <svg
         width='920'
@@ -192,17 +205,85 @@ export default () => (
             ))
           }
           {
-            quadrant.cells.map(([x, y]) => <circle cx={x} cy={y} r={5} fill='white' />)
+            quadrant.cells.map(([x, y, noise]) => {
+              const system = generateSystem({})(noise)
+
+              return <g transform={`translate(${x}, ${y}) scale(0.7)`}>
+                <System {...system} stage='Star' translations={system.orbits.map(({ startTranslation }) => startTranslation)} />
+              </g>
+            })
           }
         </g>
         <rect x={60} y={50} width={800} height={600} stroke='#f67c25' fill='none' />
       </svg>
-
-      <h3 className='fragment'>GRID_SIZE = 200</h3>
     </section>
 
-    <section>
-      <code>starSystems = quadrant(x, y, width, height)</code>
-    </section>
+    <AutoScrollingUniverse />
   </section>
 )
+
+class AutoScrollingUniverse extends Component {
+  constructor () {
+    super()
+
+    this.state = {
+      x: 0,
+      y: 0
+    }
+  }
+
+  startAnimation () {
+    const update = () => {
+      this.setState({
+        x: this.state.x + 1,
+        y: this.state.y + 1
+      })
+
+      window.requestAnimationFrame(update)
+    }
+
+    window.requestAnimationFrame(update)
+  }
+
+  render () {
+    const quadrant = generateQuadrant({})(0.15, [1200, 1000], [this.state.x - 200, this.state.y - 200])
+    const { x, y } = this.state
+
+    return (
+      <section onClick={() => this.startAnimation()}>
+        <svg
+          width='920'
+          height='700'
+          viewBox={`${this.state.x} ${this.state.y} 920 700`}>
+          <text
+            style={{ fill: '#d2cfff' }}
+            x={10 + x}
+            y={30 + y}>{`${x}, ${y}`}</text>
+
+          <text
+            style={{ fill: '#d2cfff' }}
+            x={450 + x}
+            y={30 + y}>800</text>
+
+          <text
+            style={{ fill: '#d2cfff' }}
+            x={870 + x}
+            y={350 + y}>600</text>
+
+          <g transform='translate(60, 50)'>
+            {
+              quadrant.cells.map(([x, y, noise]) => {
+                const system = generateSystem({})(noise)
+
+                return <g key={noise} transform={`translate(${x}, ${y}) scale(0.7)`}>
+                  <System {...system} stage='Star' translations={system.orbits.map(({ startTranslation }) => startTranslation)} />
+                </g>
+              })
+            }
+          </g>
+          <rect x={60 + x} y={50 + y} width={800} height={600} stroke='#f67c25' fill='none' />
+        </svg>
+      </section>
+    )
+  }
+}
