@@ -4,6 +4,7 @@ import ProceduralGeneration from './procedural-generation'
 import StartSmall from './start-small'
 import ThereIsNoRandom from './there-is-no-random'
 import AvoidCorrelation from './avoid-correlation'
+import TheUniverse from './the-universe'
 
 export default () => (
   <div className='slides'>
@@ -12,5 +13,6 @@ export default () => (
     <StartSmall />
     <ThereIsNoRandom />
     <AvoidCorrelation />
+    <TheUniverse />
   </div>
 )

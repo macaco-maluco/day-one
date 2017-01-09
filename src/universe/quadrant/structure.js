@@ -27,7 +27,7 @@ export default (constants) => (quadrant) => {
 
   const gridToDots = (dot) =>
     dot
-      .map((x) => x * GRID_SIZE)
+      .map((x) => x * GRID_SIZE + GRID_SIZE / 2)
 
   const deviation = (noise, counter) =>
     GRID_SIZE / 2 * abs(random(noise + counter))
