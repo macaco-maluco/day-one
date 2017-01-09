@@ -1,5 +1,4 @@
 import React from 'react'
-import RandomChart from './random-chart'
 
 const definitionSource = `
 const universe = [
