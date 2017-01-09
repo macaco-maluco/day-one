@@ -11,6 +11,8 @@ render(
   <Slides />,
   document.getElementById('root'),
   () => Reveal.initialize({
+    controls: false,
+    progress: false,
     history: true,
     transitionSpeed: 'fast',
     transition: 'zoom'
