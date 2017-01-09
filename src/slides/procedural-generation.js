@@ -1,46 +1,48 @@
 import React from 'react'
 import RandomChart from './random-chart'
 
+const definitionSource = `
+const universe = [
+  {
+    star: {
+      name: 'psoenri',
+      lifespan: 0.5341289069037884,
+      birth: 0.24737509790977166,
+      type: 'G',
+      radius: 16
+    },
+    planets: [
+      {
+        radius: 6,
+        material: 'vanadium',
+        gravity: 4.4602402325253925,
+        populationCapacity: 22351490
+      },
+      ...
+    ]
+  },
+  ...
+]
+`
+
+const rulesSource = `
+const universe = generateUniverse(0.127946129873)
+`
+
 export default () => (
   <section>
     <section>
-      <h2>What is procedurally generation?</h2>
+      <h2>an infinite universe?</h2>
     </section>
 
     <section>
-      <h2>TODO: Compare procedural or manual level design</h2>
+      <h2>define everything</h2>
+      <code><pre>{definitionSource}</pre></code>
     </section>
 
     <section>
-      <h2>universe = f(seed)</h2>
-    </section>
-
-    <section>
-      <h2>Math.random()</h2>
-    </section>
-
-    <section>
-      <h2>What is random?</h2>
-    </section>
-
-    <section>
-      <h2>Math.random()</h2>
-      <RandomChart />
-      <RandomChart />
-    </section>
-
-    <section>
-      <h2>random(seed)</h2>
-      <RandomChart seed={0.15} />
-      <RandomChart seed={0.15} />
-    </section>
-
-    <section>
-      <h2>There is no random, there is only very hard to predict sequence of numbers</h2>
-    </section>
-
-    <section>
-      <h2>TODO: What are pseudo-random functions</h2>
+      <h2>define set of rules</h2>
+      <code><pre>{rulesSource}</pre></code>
     </section>
   </section>
 )
