@@ -5,7 +5,7 @@ import mateus from './mateus.jpg'
 export default () => (
   <section>
     <section>
-      <h2>wrapping up...</h2>
+      <h1>wrapping up...</h1>
     </section>
 
     <section>

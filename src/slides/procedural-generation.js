@@ -40,7 +40,7 @@ const codeStyle = {
 export default () => (
   <section>
     <section>
-      <h2>an infinite universe?</h2>
+      <h1>an infinite universe?</h1>
     </section>
 
     <section>

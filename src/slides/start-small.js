@@ -109,7 +109,10 @@ const demoStyle = {
 export default () => (
   <section>
     <section>
-      <h2>start small</h2>
+      <h1>start small</h1>
+    </section>
+    <section>
+      <h2>a star system</h2>
       <div style={codeStyle}>
         <code style={{background: 'black', width: '100%'}}><pre>{systemSource}</pre></code>
       </div>

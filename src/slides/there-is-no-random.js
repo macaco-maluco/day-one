@@ -46,7 +46,7 @@ const system = {
 }
 
 const randomSystemSource = `
-<strong>import random from 'predictable-random-lib'</strong>
+<strong>import random from './repeatable-random'</strong>
 
 const { abs } = Math
 
@@ -78,7 +78,7 @@ function randomSystem (seed) {
 export default () => (
   <section>
     <section>
-      <h2>controlled randomness</h2>
+      <h1>controlled randomness</h1>
     </section>
 
     <section>

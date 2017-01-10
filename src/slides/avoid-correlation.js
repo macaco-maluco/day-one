@@ -93,7 +93,7 @@ function uncorrelatedRandomSystem (seed) {
 const getSystems = (generator) => xRange.map((x) => yRange.map((y) => generator((x * 10) + y)))
 
 const correlatedRandomSystemSource = `
-import random from 'predictable-random'
+import random from './repeatable-random'
 
 const { abs } = Math
 
@@ -109,7 +109,7 @@ function generateStarSystem (<strong>seed</strong>) {
 `
 
 const uncorrelatedRandomSystemSource = `
-import random from 'predictable-random'
+import random from './repeatable-random'
 
 const { abs } = Math
 

@@ -29,7 +29,7 @@ const codeStyle = {
 export default () => (
   <section>
     <section>
-      <h2>I was promised a universe!</h2>
+      <h1>I was promised a universe!</h1>
     </section>
 
     <section>
