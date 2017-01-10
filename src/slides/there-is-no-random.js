@@ -84,7 +84,7 @@ export default () => (
     <section>
       <blockquote style={{fontFamily: 'Lora', fontStyle: 'normal', background: 'transparent', fontSize: '1.2em'}}>
         <span style={{fontStyle: 'italic'}}>
-          “There is no random; only very hard to predict sequences of numbers”
+          “There is no random; only very hard to predict sequences of numbers”
         </span> — Abraham Lincoln
       </blockquote>
     </section>
@@ -151,8 +151,8 @@ class ForceUpdate extends Component {
               display: 'block',
               width: '100%'
             }}><pre>{html2react(randomSystemSource, {
-                strong: (props) => <strong style={{color: '#f67c25'}} {...props} />
-              })}</pre></code>
+              strong: (props) => <strong style={{color: '#f67c25'}} {...props} />
+            })}</pre></code>
         </div>
         <div
           style={{

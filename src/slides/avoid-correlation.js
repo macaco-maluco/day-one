@@ -158,8 +158,8 @@ export default () => (
     <section>
       <h2>…and this makes sense</h2>
       <code style={codeStyle}><pre>{html2react(correlatedRandomSystemSource, {
-          strong: (props) => <strong style={{color: '#f67c25'}} {...props} />
-        })}</pre></code>
+        strong: (props) => <strong style={{color: '#f67c25'}} {...props} />
+      })}</pre></code>
     </section>
 
     <section>
@@ -169,8 +169,8 @@ export default () => (
     <section>
       <h2>add unique factors to the seed</h2>
       <code style={{...codeStyle, width: 550}}><pre>{html2react(uncorrelatedRandomSystemSource, {
-          strong: (props) => <strong style={{color: '#f67c25'}} {...props} />
-        })}</pre></code>
+        strong: (props) => <strong style={{color: '#f67c25'}} {...props} />
+      })}</pre></code>
     </section>
 
     <section>
