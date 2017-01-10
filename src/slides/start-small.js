@@ -185,6 +185,11 @@ export default () => (
 )
 
 class ForceUpdate extends Component {
+  startUpdating () {
+    setInterval(() => this.forceUpdate(), 2000)
+    this.forceUpdate()
+  }
+
   render () {
     return (
       <section>
@@ -198,9 +203,14 @@ class ForceUpdate extends Component {
             alignItems: 'center',
             float: 'left'
           }}>
-          <code style={{background: 'black', display: 'block', width: '100%'}}><pre>{html2react(randomSystemSource, {
+          <div style={{ width: '100%' }}>
+            <code style={{background: 'black', display: 'block', width: '100%'}}><pre>{html2react(randomSystemSource, {
               strong: (props) => <strong style={{color: '#f67c25'}} {...props} />
             })}</pre></code>
+
+            <button style={{ fontSize: '0.5em', padding: '0.25em 2em', color: 'black', background: 'white' }} onClick={() => this.startUpdating()}>Start update</button>
+          </div>
+
         </div>
 
         <div
