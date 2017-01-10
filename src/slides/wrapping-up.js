@@ -33,8 +33,10 @@ export default () => (
       <ul>
         <li>Paulo Ragonha @pirelenito</li>
         <li>Fernando Via Canel @xaviervia</li>
-        <li></li>
-        <li>Thanks a lot to:</li>
+      </ul>
+
+      <h2 style={{ marginTop: '1em' }}>thanks to:</h2>
+      <ul>
         <li>Nikola Pejoski @npejo</li>
         <li>Jonathan Trujillo @jonotrujillo</li>
         <li>Klarna AB</li>
