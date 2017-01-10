@@ -22,11 +22,20 @@ const universe = [
   },
   ...
 ]
+
 `
 
 const rulesSource = `
 const universe = generateUniverse(0.127946129873)
+
 `
+
+const codeStyle = {
+  display: 'block',
+  background: 'black',
+  width: 500,
+  margin: '0 auto'
+}
 
 export default () => (
   <section>
@@ -36,12 +45,12 @@ export default () => (
 
     <section>
       <h2>define everything</h2>
-      <code><pre>{definitionSource}</pre></code>
+      <code style={codeStyle}><pre>{definitionSource}</pre></code>
     </section>
 
     <section>
       <h2>define set of rules</h2>
-      <code><pre>{rulesSource}</pre></code>
+      <code style={{ ...codeStyle, width: 550 }}><pre>{rulesSource}</pre></code>
     </section>
   </section>
 )

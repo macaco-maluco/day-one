@@ -30,6 +30,15 @@ export default () => (
     <section>
       <h2>questions?</h2>
       <h4>https://github.com/macaco-maluco/day-one</h4>
+      <ul>
+        <li>Paulo Ragonha @pirelenito</li>
+        <li>Fernando Via Canel @xaviervia</li>
+        <li></li>
+        <li>Thanks a lot to:</li>
+        <li>Nikola Pejoski @npejo</li>
+        <li>Jonathan Trujillo @jonotrujillo</li>
+        <li>Klarna AB</li>
+      </ul>
     </section>
   </section>
 )

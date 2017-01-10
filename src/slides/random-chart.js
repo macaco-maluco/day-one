@@ -11,11 +11,20 @@ const data = (seed) => theRange
 const linearData = () => theRange
   .map((x) => ({ x, y: x / 2 }))
 
-export default ({ linear, seed }) => (
-  <ScatterChart width={400} height={400} margin={{top: 20, right: 20, bottom: 20, left: 20}}>
-    <XAxis dataKey={'x'} name='stature' unit='cm' />
-    <YAxis dataKey={'y'} name='weight' unit='kg' />
-    <Scatter name='A school' data={linear ? linearData() : data(seed)} fill='#f67c25' />
-    <CartesianGrid />
-  </ScatterChart>
+export default ({ linear, seed, large }) => (
+  large
+    ? <div style={{marginLeft: -60}}>
+      <ScatterChart width={800} height={400} margin={{top: 20, right: 20, bottom: 20, left: 20}}>
+        <XAxis dataKey={'x'} name='stature' unit='cm' />
+        <YAxis dataKey={'y'} name='weight' unit='kg' />
+        <Scatter name='A school' data={linear ? linearData() : data(seed)} fill='#f67c25' />
+        <CartesianGrid />
+      </ScatterChart>
+    </div>
+    : <ScatterChart width={400} height={400} margin={{top: 20, right: 20, bottom: 20, left: 20}}>
+      <XAxis dataKey={'x'} name='stature' unit='cm' />
+      <YAxis dataKey={'y'} name='weight' unit='kg' />
+      <Scatter name='A school' data={linear ? linearData() : data(seed)} fill='#f67c25' />
+      <CartesianGrid />
+    </ScatterChart>
 )

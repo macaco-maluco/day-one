@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { range } from 'ramda'
 import System from 'components/system'
+import html2react from 'html2react'
 
 const systemSource = `
 const starSystems = {
   starRadius: 20,
   planets: 2
 }
+
 `
 
 const planet = {
@@ -56,19 +58,21 @@ function generateStarSystem () {
     planets: 2
   }
 }
+
 `
 
 const randomSystemSource = `
-const { abs, random } = Math
+<strong>const { abs, random } = Math</strong>
 
 function generateStarSystem () {
-  const starRadius = random() * 10 + 10
-  const planets = abs(random() * 3 + 1)
+  <strong>const starRadius = random() * 10 + 10
+  const planets = abs(random() * 3 + 1)</strong>
   return {
     starRadius,
     planets
   }
 }
+
 `
 
 function randomSystem () {
@@ -85,110 +89,151 @@ function randomSystem () {
   }
 }
 
+const codeStyle = {
+  alignItems: 'center',
+  justifyContent: 'center',
+  display: 'flex',
+  width: '50%',
+  height: 400,
+  float: 'left'
+}
+
+const demoStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '50%',
+  float: 'left'
+}
+
 export default () => (
   <section>
     <section>
       <h2>start small</h2>
-      <code><pre>{systemSource}</pre></code>
-      <svg
-        width='400'
-        height='400'
-        viewBox={'-200 -200 400 400'}>
-        <System {...system} stage='Star' translations={[0, 0]} />
-      </svg>
+      <div style={codeStyle}>
+        <code style={{background: 'black', width: '100%'}}><pre>{systemSource}</pre></code>
+      </div>
+      <div style={demoStyle}>
+        <svg
+          width='400'
+          height='400'
+          viewBox={'-200 -200 400 400'}>
+          <System {...system} stage='Star' translations={[0, 0]} />
+        </svg>
+      </div>
     </section>
     <section>
       <h2>generateStarSystem()</h2>
-      <code><pre>{staticSystemSource}</pre></code>
-      <svg
-        width='400'
-        height='400'
-        viewBox={'-200 -200 400 400'}>
-        <System {...system} stage='Star' translations={[0, 0]} />
-      </svg>
+      <div style={codeStyle}>
+        <code style={{background: 'black', width: '100%'}}><pre>{staticSystemSource}</pre></code>
+      </div>
+      <div style={demoStyle}>
+        <svg
+          width='400'
+          height='400'
+          viewBox={'-200 -200 400 400'}>
+          <System {...system} stage='Star' translations={[0, 0]} />
+        </svg>
+      </div>
     </section>
     <section>
       <h2>generateStarSystem()</h2>
-      <table>
-        <tr>
-          <td>
-            <code><pre>{staticSystemSource}</pre></code>
-          </td>
-          <td>
-            <svg
-              width='250'
-              height='250'
-              viewBox={'-125 -125 250 250'}>
-              <System {...system} stage='Star' translations={[0, 0]} />
-            </svg>
-            <svg
-              width='250'
-              height='250'
-              viewBox={'-125 -125 250 250'}>
-              <System {...system} stage='Star' translations={[0, 0]} />
-            </svg>
-            <svg
-              width='250'
-              height='250'
-              viewBox={'-125 -125 250 250'}>
-              <System {...system} stage='Star' translations={[0, 0]} />
-            </svg>
-            <svg
-              width='250'
-              height='250'
-              viewBox={'-125 -125 250 250'}>
-              <System {...system} stage='Star' translations={[0, 0]} />
-            </svg>
-          </td>
-        </tr>
-      </table>
+      <div
+        style={{
+          width: '50%',
+          height: 400,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          float: 'left'
+        }}>
+        <code style={{background: 'black', display: 'block', width: '100%'}}><pre>{staticSystemSource}</pre></code>
+      </div>
+      <div
+        style={{
+          width: '50%',
+          float: 'left'
+        }}>
+        <svg
+          width='200'
+          height='200'
+          viewBox={'-125 -125 250 250'}>
+          <System {...system} stage='Star' translations={[0, 0]} />
+        </svg>
+        <svg
+          width='200'
+          height='200'
+          viewBox={'-125 -125 250 250'}>
+          <System {...system} stage='Star' translations={[0, 0]} />
+        </svg>
+        <svg
+          width='200'
+          height='200'
+          viewBox={'-125 -125 250 250'}>
+          <System {...system} stage='Star' translations={[0, 0]} />
+        </svg>
+        <svg
+          width='200'
+          height='200'
+          viewBox={'-125 -125 250 250'}>
+          <System {...system} stage='Star' translations={[0, 0]} />
+        </svg>
+      </div>
     </section>
-    <section>
-      <h2>generateStarSystem()</h2>
-      <ForceUpdate />
-    </section>
+    <ForceUpdate />
   </section>
 )
 
 class ForceUpdate extends Component {
   render () {
     return (
-      <div>
-        <table>
-          <tr>
-            <td>
-              <code><pre>{randomSystemSource}</pre></code>
-              <button onClick={() => window.location.reload()}>Reload</button>
-            </td>
-            <td>
-              <svg
-                width='250'
-                height='250'
-                viewBox={'-125 -125 250 250'}>
-                <System {...randomSystem()} stage='Star' translations={[0, 0]} />
-              </svg>
-              <svg
-                width='250'
-                height='250'
-                viewBox={'-125 -125 250 250'}>
-                <System {...randomSystem()} stage='Star' translations={[0, 0]} />
-              </svg>
-              <svg
-                width='250'
-                height='250'
-                viewBox={'-125 -125 250 250'}>
-                <System {...randomSystem()} stage='Star' translations={[0, 0]} />
-              </svg>
-              <svg
-                width='250'
-                height='250'
-                viewBox={'-125 -125 250 250'}>
-                <System {...randomSystem()} stage='Star' translations={[0, 0]} />
-              </svg>
-            </td>
-          </tr>
-        </table>
-      </div>
+      <section>
+        <h2>generateStarSystem()</h2>
+        <div
+          style={{
+            width: '50%',
+            height: 400,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            float: 'left'
+          }}>
+          <code style={{background: 'black', display: 'block', width: '100%'}}><pre>{html2react(randomSystemSource, {
+              strong: (props) => <strong style={{color: '#f67c25'}} {...props} />
+            })}</pre></code>
+        </div>
+
+        <div
+          style={{
+            width: '50%',
+            float: 'left'
+          }}>
+          <svg
+            width='200'
+            height='200'
+            viewBox={'-125 -125 250 250'}>
+            <System {...randomSystem()} stage='Star' translations={[0, 0]} />
+          </svg>
+          <svg
+            width='200'
+            height='200'
+            viewBox={'-125 -125 250 250'}>
+            <System {...randomSystem()} stage='Star' translations={[0, 0]} />
+          </svg>
+          <svg
+            width='200'
+            height='200'
+            viewBox={'-125 -125 250 250'}>
+            <System {...randomSystem()} stage='Star' translations={[0, 0]} />
+          </svg>
+          <svg
+            width='200'
+            height='200'
+            viewBox={'-125 -125 250 250'}>
+            <System {...randomSystem()} stage='Star' translations={[0, 0]} />
+          </svg>
+        </div>
+      </section>
     )
   }
 }

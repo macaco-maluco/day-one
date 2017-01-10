@@ -16,7 +16,15 @@ const addDeviation = ([x, y, noise]) => [
 ]
 
 const unsnapedSystems = systems.map(addDeviation)
+
 `
+
+const codeStyle = {
+  display: 'block',
+  background: 'black',
+  width: 500,
+  margin: '0 auto'
+}
 
 export default () => (
   <section>
@@ -169,7 +177,7 @@ export default () => (
 
     <section>
       <h3>unsnap from the grid</h3>
-      <code><pre>{deviationSource}</pre></code>
+      <code style={{...codeStyle, width: 550}}><pre>{deviationSource}</pre></code>
     </section>
 
     <section>

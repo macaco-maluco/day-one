@@ -13,7 +13,7 @@ export default () => (
     </section>
     <section data-background-image={noMansSky} />
     <section>
-      <h2>"Poor Man's Sky"</h2>
+      <h2>"Poor Man’s Sky"</h2>
     </section>
     <section data-background-video={gameplay} />
   </section>

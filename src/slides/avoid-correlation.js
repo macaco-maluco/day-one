@@ -105,6 +105,7 @@ function generateStarSystem (<strong>seed</strong>) {
     planets
   }
 }
+
 `
 
 const uncorrelatedRandomSystemSource = `
@@ -120,14 +121,22 @@ function generateStarSystem (seed) {
     planets
   }
 }
+
 `
+
+const codeStyle = {
+  display: 'block',
+  background: 'black',
+  width: 500,
+  margin: '0 auto'
+}
 
 export default () => (
   <section>
     <section>
       <table>
         {getSystems(randomSystem).map((row) => <tr>
-          {row.map((system) => <td>
+          {row.map((system) => <td style={{border: 0}}>
             <svg
               width='125'
               height='125'
@@ -141,12 +150,14 @@ export default () => (
 
     <section>
       <h2>radius and amount of planets</h2>
-      <Graph seed={0.6} />
+      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
+        <Graph seed={0.6} />
+      </div>
     </section>
 
     <section>
       <h2>…and this makes sense</h2>
-      <code><pre>{html2react(correlatedRandomSystemSource, {
+      <code style={codeStyle}><pre>{html2react(correlatedRandomSystemSource, {
           strong: (props) => <strong style={{color: '#f67c25'}} {...props} />
         })}</pre></code>
     </section>
@@ -157,20 +168,22 @@ export default () => (
 
     <section>
       <h2>add unique factors to the seed</h2>
-      <code><pre>{html2react(uncorrelatedRandomSystemSource, {
+      <code style={{...codeStyle, width: 550}}><pre>{html2react(uncorrelatedRandomSystemSource, {
           strong: (props) => <strong style={{color: '#f67c25'}} {...props} />
         })}</pre></code>
     </section>
 
     <section>
       <h2>radius and amount of planets</h2>
-      <Graph seed={0.6} uncorrelated />
+      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
+        <Graph seed={0.6} uncorrelated />
+      </div>
     </section>
 
     <section>
       <table>
         {getSystems(uncorrelatedRandomSystem).map((row) => <tr>
-          {row.map((system) => <td>
+          {row.map((system) => <td style={{border: 0}}>
             <svg
               width='125'
               height='125'
