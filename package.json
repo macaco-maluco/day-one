@@ -6,9 +6,9 @@
   "scripts": {
     "build": "sagui build",
     "dist": "sagui dist",
+    "format": "sagui format",
     "start": "sagui develop --port 3000",
     "test": "sagui test",
-    "test:lint": "sagui test:lint",
     "test:typecheck": "sagui test:typecheck",
     "test:unit": "sagui test:unit --coverage",
     "test:unit:watch": "sagui test:unit --watch"
@@ -16,13 +16,13 @@
   "dependencies": {
     "alea": "^0.0.9",
     "ramda": "^0.22.1",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2",
-    "react-motion": "^0.4.5",
-    "react-redux": "^4.4.5",
+    "react": "~15.3.2",
+    "react-dom": "~15.3.2",
+    "react-motion": "~0.4.5",
+    "react-redux": "~4.4.5",
     "redux": "^3.6.0"
   },
   "devDependencies": {
-    "sagui": "^8.0.0-rc.3"
+    "sagui": "^9.0.0-rc.14"
   }
 }

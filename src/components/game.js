@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import {Motion, spring} from 'react-motion'
-import {connect} from 'react-redux'
-import {equals} from 'ramda'
+import { Motion, spring } from 'react-motion'
+import { connect } from 'react-redux'
+import { equals } from 'ramda'
 import getGame from 'selectors/game'
 import SolarSystem from './solar-system/index'
 import Player from './player'
@@ -11,9 +11,9 @@ import Intro from './intro'
 import EndGame from './end-game'
 import Hud from './hud'
 
-import {POPULATION_ONBOARD_SIZE} from 'constants'
+import { POPULATION_ONBOARD_SIZE } from 'constants'
 
-function Game (props) {
+function Game(props) {
   const {
     scale,
     cameraPosition,
@@ -37,7 +37,10 @@ function Game (props) {
   } = props
 
   if (gameOver) return <EndGame gameOver={gameOver} onRestart={restartGame} />
-  if (!gameOver && !introDiscarded && showIntro) return <Intro alreadySeen={introAlreadySeen} onDiscard={onDiscardIntro} onClose={onCloseIntro} />
+  if (!gameOver && !introDiscarded && showIntro)
+    return (
+      <Intro alreadySeen={introAlreadySeen} onDiscard={onDiscardIntro} onClose={onCloseIntro} />
+    )
   return (
     <div>
       <Hud {...props} />
@@ -54,15 +57,12 @@ function Game (props) {
           playerX: spring(position[0], { stiffness: 111, damping: 33 }),
           playerY: spring(position[1], { stiffness: 111, damping: 33 })
         }}
-        >
-        {(style) => (
+      >
+        {style => (
           <svg
-            viewBox={`${style.x - (viewport[0] * scale) / 2} ${style.y - (viewport[1] * scale) / 2} ${viewport[0] * scale} ${viewport[1] * scale}`}
-            onClick={(e) => onMove([
-              e.pageX - viewport[0] / 2,
-              e.pageY - viewport[1] / 2
-            ])}
-            onWheel={(e) => {
+            viewBox={`${style.x - viewport[0] * scale / 2} ${style.y - viewport[1] * scale / 2} ${viewport[0] * scale} ${viewport[1] * scale}`}
+            onClick={e => onMove([e.pageX - viewport[0] / 2, e.pageY - viewport[1] / 2])}
+            onWheel={e => {
               e.preventDefault()
               e.stopPropagation()
               onChangeScale(e.deltaY)
@@ -77,7 +77,8 @@ function Game (props) {
               right: 0,
               bottom: 0,
               '-webkit-tap-highlight-color': 'rgba(0,0,0,0)'
-            }}>
+            }}
+          >
             <Content
               viewport={viewport}
               particleMatrix={particleMatrix}
@@ -104,7 +105,7 @@ function Game (props) {
  * This optimizes to render only when necessary
  */
 class Content extends Component {
-  shouldComponentUpdate (nextProps) {
+  shouldComponentUpdate(nextProps) {
     return (
       this.props.viewport !== nextProps.viewport ||
       this.props.particleMatrix !== nextProps.particleMatrix ||
@@ -114,7 +115,7 @@ class Content extends Component {
     )
   }
 
-  render () {
+  render() {
     const {
       viewport,
       particleMatrix,
@@ -129,14 +130,16 @@ class Content extends Component {
     return (
       <g>
         <Particles viewport={viewport} particleMatrix={particleMatrix} />
-        {solarSystems.map((solarSystem) => <SolarSystem
-          onClickStar={() => onSelectSolarSystem(solarSystem.id)}
-          onClickPlanet={(planetIndex) => onSelectPlanet(solarSystem.id, planetIndex)}
-          key={solarSystem.position.join('')}
-          {...solarSystem}
-          planets={mergePlanetMetadata(solarSystem.id, solarSystem.planets, planets)}
-        />)}
-        {otherPlayers.map((player) => <Player position={player.position} />)}
+        {solarSystems.map(solarSystem => (
+          <SolarSystem
+            onClickStar={() => onSelectSolarSystem(solarSystem.id)}
+            onClickPlanet={planetIndex => onSelectPlanet(solarSystem.id, planetIndex)}
+            key={solarSystem.position.join('')}
+            {...solarSystem}
+            planets={mergePlanetMetadata(solarSystem.id, solarSystem.planets, planets)}
+          />
+        ))}
+        {otherPlayers.map(player => <Player position={player.position} />)}
         <TargetMarker position={position} />
       </g>
     )
@@ -146,50 +149,55 @@ class Content extends Component {
 const mergePlanetMetadata = (solarSystemId, planets, planetsMetadata) => {
   return planets.map((planet, i) => ({
     ...planet,
-    ...(planetsMetadata.find(
-      (p) => equals(solarSystemId, p.solarSystemId) && p.index === i
-    ) || {})
+    ...(planetsMetadata.find(p => equals(solarSystemId, p.solarSystemId) && p.index === i) || {})
   }))
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    onChangeScale: (amount) => dispatch({
-      type: 'SCALE',
-      payload: amount
-    }),
-    onMove: (delta) => dispatch({
-      type: 'MOVE',
-      payload: delta
-    }),
-    onSelectSolarSystem: (solarSystem) => dispatch({
-      type: 'SELECT_SOLAR_SYSTEM',
-      payload: solarSystem
-    }),
-    onClickCloseSolarSystemHud: () => dispatch({
-      type: 'CLOSE_SOLAR_SYSTEM_HUD'
-    }),
-    onSelectPlanet: (solarSystem, planetIndex) => dispatch({
-      type: 'SELECT_PLANET',
-      payload: {
-        solarSystem,
-        planetIndex
-      }
-    }),
-    onClickPopulate: (planetIndex) => dispatch({
-      type: 'POPULATE_PLANET',
-      payload: {
-        index: planetIndex,
-        population: POPULATION_ONBOARD_SIZE
-      }
-    }),
-    onClickOnboard: (planetIndex) => dispatch({
-      type: 'ONBOARD_SHIP',
-      payload: {
-        index: planetIndex,
-        population: POPULATION_ONBOARD_SIZE
-      }
-    }),
+    onChangeScale: amount =>
+      dispatch({
+        type: 'SCALE',
+        payload: amount
+      }),
+    onMove: delta =>
+      dispatch({
+        type: 'MOVE',
+        payload: delta
+      }),
+    onSelectSolarSystem: solarSystem =>
+      dispatch({
+        type: 'SELECT_SOLAR_SYSTEM',
+        payload: solarSystem
+      }),
+    onClickCloseSolarSystemHud: () =>
+      dispatch({
+        type: 'CLOSE_SOLAR_SYSTEM_HUD'
+      }),
+    onSelectPlanet: (solarSystem, planetIndex) =>
+      dispatch({
+        type: 'SELECT_PLANET',
+        payload: {
+          solarSystem,
+          planetIndex
+        }
+      }),
+    onClickPopulate: planetIndex =>
+      dispatch({
+        type: 'POPULATE_PLANET',
+        payload: {
+          index: planetIndex,
+          population: POPULATION_ONBOARD_SIZE
+        }
+      }),
+    onClickOnboard: planetIndex =>
+      dispatch({
+        type: 'ONBOARD_SHIP',
+        payload: {
+          index: planetIndex,
+          population: POPULATION_ONBOARD_SIZE
+        }
+      }),
     onCloseIntro: () => {
       window.localStorage.setItem('dayOne.introAlreadySeen', 1)
       return dispatch({
@@ -246,7 +254,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(
-  getGame,
-  mapDispatchToProps
-)(Game)
+export default connect(getGame, mapDispatchToProps)(Game)

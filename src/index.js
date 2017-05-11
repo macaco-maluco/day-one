@@ -1,10 +1,10 @@
 import 'styles.scss'
 import React from 'react'
-import {createStore} from 'redux'
-import {Provider} from 'react-redux'
-import {equals} from 'ramda'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import { equals } from 'ramda'
 import Game from 'components/game'
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 import getMyPosition from 'helpers/get-my-position'
 import tick from 'effects/tick'
 import resize from 'effects/resize'
@@ -26,7 +26,9 @@ import {
   DYSON_SWARM_ENERGY_HARVEST_INCREMENT
 } from './constants'
 
-const buildInitialState = ({introDiscarded, introAlreadySeen}) => {
+const a = '1234'
+
+const buildInitialState = ({ introDiscarded, introAlreadySeen }) => {
   const now = Date.now()
   const HUGE = 9999999999999
   const showIntro = !introDiscarded || !introDiscarded
@@ -40,12 +42,8 @@ const buildInitialState = ({introDiscarded, introAlreadySeen}) => {
     players: [
       {
         position: getMyPosition(),
-        populationLog: [
-          [showIntro ? HUGE : POPULATION_INITIAL, now]
-        ],
-        energyLog: [
-          [showIntro ? HUGE : ENERGY_INITIAL, now]
-        ],
+        populationLog: [[showIntro ? HUGE : POPULATION_INITIAL, now]],
+        energyLog: [[showIntro ? HUGE : ENERGY_INITIAL, now]],
         originalMaterial: 'water'
       }
     ],
@@ -70,7 +68,7 @@ const reducer = (state, action) => {
 
   switch (action.type) {
     case 'RESTART':
-      return buildInitialState({introAlreadySeen: true, introDiscarded: true})
+      return buildInitialState({ introAlreadySeen: true, introDiscarded: true })
 
     case 'TICK':
       return {
@@ -81,24 +79,27 @@ const reducer = (state, action) => {
           population: false
         })
       }
-      // return {
-      //   ...state,
-      //   now: action.payload,
-      //   gameOver: gameOver({
-      //     energy: playerEnergy(currentPlayer.energyLog) < 0,
-      //     population: state.planets.reduce((current, planet) =>
-      //       planet.playerId === state.currentPlayer
-      //         ? planetPopulation(planet.populationLog)
-      //         : current,
-      //       playerPopulation(currentPlayer.populationLog)
-      //     ) < POPULATION_INITIAL
-      //   })
-      // }
+    // return {
+    //   ...state,
+    //   now: action.payload,
+    //   gameOver: gameOver({
+    //     energy: playerEnergy(currentPlayer.energyLog) < 0,
+    //     population: state.planets.reduce((current, planet) =>
+    //       planet.playerId === state.currentPlayer
+    //         ? planetPopulation(planet.populationLog)
+    //         : current,
+    //       playerPopulation(currentPlayer.populationLog)
+    //     ) < POPULATION_INITIAL
+    //   })
+    // }
+
 
     case 'SCALE':
       const targetScale = state.scale + action.payload * 0.001
 
-      if (targetScale < 0.1 || targetScale > 20) { return state }
+      if (targetScale < 0.1 || targetScale > 20) {
+        return state
+      }
 
       return {
         ...state,
@@ -110,67 +111,60 @@ const reducer = (state, action) => {
         ...state,
         dysonSwarms: [
           ...state.dysonSwarms,
-          DysonSwarm(
-            state.selectedSolarSystemId,
-            state.currentPlayer,
-            Date.now()
-          )
+          DysonSwarm(state.selectedSolarSystemId, state.currentPlayer, Date.now())
         ],
-        players: state.players.map((p, i) =>
-          i === state.currentPlayer
-            ? {
-              ...p,
-              energyLog: [...p.energyLog, [-DYSON_SWARM_COST, Date.now()]]
-            }
-            : p
+        players: state.players.map(
+          (p, i) =>
+            i === state.currentPlayer
+              ? {
+                  ...p,
+                  energyLog: [...p.energyLog, [-DYSON_SWARM_COST, Date.now()]]
+                }
+              : p
         )
       }
 
     case 'HARVEST_DYSON_SWARM':
-      const targetDysonSwarm = state.dysonSwarms.find(
-        (dysonSwarm) => equals(
-          dysonSwarm.solarSystemId,
-          state.selectedSolarSystemId
-        )
+      const targetDysonSwarm = state.dysonSwarms.find(dysonSwarm =>
+        equals(dysonSwarm.solarSystemId, state.selectedSolarSystemId)
       )
 
       if (dysonSwarmEnergy(targetDysonSwarm.energyLog) - DYSON_SWARM_ENERGY_HARVEST_INCREMENT < 0) {
         return state
       }
 
-      if (playerEnergy(currentPlayer.energyLog) + DYSON_SWARM_ENERGY_HARVEST_INCREMENT > ENERGY_PLAYER_CAPACITY) {
+      if (
+        playerEnergy(currentPlayer.energyLog) + DYSON_SWARM_ENERGY_HARVEST_INCREMENT >
+        ENERGY_PLAYER_CAPACITY
+      ) {
         return state
       }
       return {
         ...state,
-        dysonSwarms: state.dysonSwarms.map((dysonSwarm) =>
-          equals(dysonSwarm.solarSystemId, state.selectedSolarSystemId)
-            ? {
-              ...dysonSwarm,
-              energyLog: [
-                ...dysonSwarm.energyLog,
-                [
-                  -DYSON_SWARM_ENERGY_HARVEST_INCREMENT,
-                  Date.now()
-                ]
-              ]
-            }
-            : dysonSwarm
+        dysonSwarms: state.dysonSwarms.map(
+          dysonSwarm =>
+            equals(dysonSwarm.solarSystemId, state.selectedSolarSystemId)
+              ? {
+                  ...dysonSwarm,
+                  energyLog: [
+                    ...dysonSwarm.energyLog,
+                    [-DYSON_SWARM_ENERGY_HARVEST_INCREMENT, Date.now()]
+                  ]
+                }
+              : dysonSwarm
         ),
 
-        players: state.players.map((player, id) =>
-          id === state.currentPlayer
-            ? {
-              ...player,
-              energyLog: [
-                ...player.energyLog,
-                [
-                  DYSON_SWARM_ENERGY_HARVEST_INCREMENT,
-                  Date.now()
-                ]
-              ]
-            }
-            : player
+        players: state.players.map(
+          (player, id) =>
+            id === state.currentPlayer
+              ? {
+                  ...player,
+                  energyLog: [
+                    ...player.energyLog,
+                    [DYSON_SWARM_ENERGY_HARVEST_INCREMENT, Date.now()]
+                  ]
+                }
+              : player
         )
       }
 
@@ -181,32 +175,24 @@ const reducer = (state, action) => {
       }
 
     case 'ONBOARD_SHIP':
-      return addPopulationLog(
-        findPlanetByIndex(state, action.payload.index),
-        {
-          shipPopulation: action.payload.population,
-          planetPopulation: -action.payload.population
-        }
-      )(state)
+      return addPopulationLog(findPlanetByIndex(state, action.payload.index), {
+        shipPopulation: action.payload.population,
+        planetPopulation: -action.payload.population
+      })(state)
 
     case 'POPULATE_PLANET':
       if (playerPopulation(currentPlayer.populationLog) <= action.payload.population) {
         return state
       }
 
-      const planet = findPlanetByIndex(state, action.payload.index) || Planet(
-        state.selectedSolarSystemId,
-        action.payload.index,
-        state.currentPlayer
-      )
+      const planet =
+        findPlanetByIndex(state, action.payload.index) ||
+        Planet(state.selectedSolarSystemId, action.payload.index, state.currentPlayer)
 
-      return addPopulationLog(
-        planet,
-        {
-          shipPopulation: -action.payload.population,
-          planetPopulation: action.payload.population
-        }
-      )(state)
+      return addPopulationLog(planet, {
+        shipPopulation: -action.payload.population,
+        planetPopulation: action.payload.population
+      })(state)
 
     case 'SELECT_SOLAR_SYSTEM':
       return {
@@ -230,7 +216,7 @@ const reducer = (state, action) => {
       }
 
     case 'CLOSE_INTRO':
-      return buildInitialState({introAlreadySeen: true, introDiscarded: true})
+      return buildInitialState({ introAlreadySeen: true, introDiscarded: true })
 
     case 'CLOSE_INSTRUCTIONS':
       return {
@@ -240,10 +226,8 @@ const reducer = (state, action) => {
 
     case 'GO_TO_SLIDE':
       let newSlide = state.currentSlide + action.payload
-      newSlide = (newSlide > instructionsSlides.length - 1)
-        ? instructionsSlides.length - 1
-        : newSlide
-      newSlide = (newSlide < 0) ? 0 : newSlide
+      newSlide = newSlide > instructionsSlides.length - 1 ? instructionsSlides.length - 1 : newSlide
+      newSlide = newSlide < 0 ? 0 : newSlide
       return {
         ...state,
         currentSlide: newSlide
@@ -253,14 +237,15 @@ const reducer = (state, action) => {
       return {
         ...state,
         cameraPosition: state.cameraPosition.map((v, i) => v + action.payload[i]),
-        players: state.players.map((player, index) => (
-          index !== state.currentPlayer
-            ? player
-            : {
-              ...player,
-              position: player.position.map((v, i) => v + action.payload[i])
-            }
-        ))
+        players: state.players.map(
+          (player, index) =>
+            index !== state.currentPlayer
+              ? player
+              : {
+                  ...player,
+                  position: player.position.map((v, i) => v + action.payload[i])
+                }
+        )
       }
 
     default:
@@ -280,13 +265,17 @@ render(
   document.getElementById('root')
 )
 
-function createEnvironmentStore () {
+function createEnvironmentStore() {
   const introDiscarded = true
   const introAlreadySeen = true
 
   if (process.env.NODE_ENV !== 'production') {
-    return createStore(reducer, buildInitialState({introDiscarded, introAlreadySeen}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+    return createStore(
+      reducer,
+      buildInitialState({ introDiscarded, introAlreadySeen }),
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
   }
 
-  return createStore(reducer, buildInitialState({introDiscarded, introAlreadySeen}))
+  return createStore(reducer, buildInitialState({ introDiscarded, introAlreadySeen }))
 }

@@ -1,4 +1,4 @@
-export default ({dispatch}) => {
+export default ({ dispatch }) => {
   window.addEventListener('resize', () => {
     dispatch({
       type: 'RESIZE_VIEWPORT',
