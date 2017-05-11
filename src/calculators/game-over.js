@@ -1,6 +1,6 @@
-import {GAME_OVER_REASONS} from 'constants'
+import { GAME_OVER_REASONS } from 'constants'
 
-export default ({energy, population}) => {
+export default ({ energy, population }) => {
   if (energy) {
     return {
       type: GAME_OVER_REASONS.ENERGY

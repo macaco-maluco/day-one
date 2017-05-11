@@ -1,5 +1,5 @@
-import {compose} from 'ramda'
-import {betweenInteger} from 'helpers/between'
+import { compose } from 'ramda'
+import { betweenInteger } from 'helpers/between'
 import seedableRandom from 'helpers/seedable-random'
 import starName from 'helpers/planet-name'
 import getPlanets from './planet'
@@ -12,18 +12,12 @@ import {
   STAR_TYPES_THRESHOLDS
 } from 'constants'
 
-const {abs} = Math
+const { abs } = Math
 
-export default (x) => {
-  return compose(
-    getPlanets,
-    getStarRadius,
-    getStarType,
-    getBirth,
-    getName,
-    addDeviation,
-    toObject
-  )(x)
+export default x => {
+  return compose(getPlanets, getStarRadius, getStarType, getBirth, getName, addDeviation, toObject)(
+    x
+  )
 }
 
 const toObject = ([x, y, noise]) => ({
@@ -32,28 +26,26 @@ const toObject = ([x, y, noise]) => ({
   id: [x, y, noise]
 })
 
-const deviation = (noise, counter) =>
-  GRID_SIZE / 2 * abs(seedableRandom(noise, counter))
+const deviation = (noise, counter) => GRID_SIZE / 2 * abs(seedableRandom(noise, counter))
 
-const addDeviation = (solarSystem) => ({
+const addDeviation = solarSystem => ({
   ...solarSystem,
-  position: solarSystem.position
-    .map((x, i) => x + deviation(solarSystem.noise, i + 1))
+  position: solarSystem.position.map((x, i) => x + deviation(solarSystem.noise, i + 1))
 })
 
-const getName = (solarSystem) => {
+const getName = solarSystem => {
   return {
     ...solarSystem,
     name: starName(solarSystem.noise)
   }
 }
 
-const getStarType = (solarSystem) => ({
+const getStarType = solarSystem => ({
   ...solarSystem,
   starType: calculateStarType(solarSystem.lifespan)
 })
 
-const calculateStarType = (lifespan) => {
+const calculateStarType = lifespan => {
   if (lifespan < STAR_TYPES_THRESHOLDS.O) {
     return STAR_TYPES.O
   }
@@ -75,21 +67,14 @@ const calculateStarType = (lifespan) => {
   }
 }
 
-const getStarRadius = (solarSystem) => ({
+const getStarRadius = solarSystem => ({
   ...solarSystem,
-  starRadius: betweenInteger(
-    (1 - solarSystem.lifespan),
-    STAR_RADIUS_MINIMUM,
-    STAR_RADIUS_MAXIMUM
-  )
+  starRadius: betweenInteger(1 - solarSystem.lifespan, STAR_RADIUS_MINIMUM, STAR_RADIUS_MAXIMUM)
 })
 
-const getBirth = (solarSystem) => {
+const getBirth = solarSystem => {
   const lifespan = seedableRandom(solarSystem.noise, 101)
-  const birth = calculateBirth(
-    lifespan,
-    seedableRandom(solarSystem.noise, 100)
-  )
+  const birth = calculateBirth(lifespan, seedableRandom(solarSystem.noise, 100))
 
   return {
     ...solarSystem,

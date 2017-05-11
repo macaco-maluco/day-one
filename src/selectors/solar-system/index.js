@@ -1,4 +1,4 @@
-import {compose, equals, filter, map} from 'ramda'
+import { compose, equals, filter, map } from 'ramda'
 import toSolarSystem from './solar-system'
 import translatePlanets from './translate-planets'
 import {
@@ -11,13 +11,13 @@ import {
   SUPERNOVA_DURATION
 } from 'constants'
 
-export default (universe) => {
+export default universe => {
   const universeAge = universe.now - universe.bigBang
   const normalizedUniverseAge = universeAge / (universe.heatDeath - universe.bigBang)
-  const {dysonSwarms, planets} = universe
+  const { dysonSwarms, planets } = universe
 
   const solarSystems = compose(
-    map(getMutableData({dysonSwarms, planets})),
+    map(getMutableData({ dysonSwarms, planets })),
     map(getStage(normalizedUniverseAge)),
     map(translatePlanets(universeAge)),
     map(toSolarSystem),
@@ -30,33 +30,28 @@ export default (universe) => {
   }
 }
 
-const getMutableData = ({dysonSwarms, planets}) => (solarSystem) => ({
+const getMutableData = ({ dysonSwarms, planets }) => solarSystem => ({
   ...solarSystem,
   planets: solarSystem.planets.map((planet, i) => ({
     ...planet,
-    ...(planets.find((planet) => equals(planet.solarSystemId, solarSystem.id) && planet.index === i) || {})
+    ...(planets.find(
+      planet => equals(planet.solarSystemId, solarSystem.id) && planet.index === i
+    ) || {})
   })),
 
-  dysonSwarm: dysonSwarms.find(
-    (dysonSwarm) => equals(dysonSwarm.solarSystemId, solarSystem.id)
-  )
+  dysonSwarm: dysonSwarms.find(dysonSwarm => equals(dysonSwarm.solarSystemId, solarSystem.id))
 })
 
 const cutOut = filter(([x, y, noise]) => noise > SOLAR_SYSTEM_CUT_FACTOR)
 
-const getStage = (normalizedUniverseAge) => (solarSystem) => ({
+const getStage = normalizedUniverseAge => solarSystem => ({
   ...solarSystem,
-  stage: calculateStage(
-    normalizedUniverseAge,
-    solarSystem.birth,
-    solarSystem.lifespan
-  )
+  stage: calculateStage(normalizedUniverseAge, solarSystem.birth, solarSystem.lifespan)
 })
 
 const calculateStage = (normalizedNow, birth, lifespan) => {
   const endStage = calculateEndStage(lifespan)
-  const death = (birth + lifespan)
-
+  const death = birth + lifespan
   if (normalizedNow < birth - FUSION_DURATION) {
     return SOLAR_SYSTEM_STAGES.ACCRETION_DISK
   }
@@ -90,7 +85,7 @@ const calculateStage = (normalizedNow, birth, lifespan) => {
   }
 }
 
-const calculateEndStage = (lifespan) => {
+const calculateEndStage = lifespan => {
   if (lifespan < SOLAR_SYSTEM_LIFESPAN_THRESHOLDS.BLACK_HOLE) {
     return STAR_END_STAGES.BLACK_HOLE
   }

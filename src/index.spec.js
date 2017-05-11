@@ -1,5 +1,3 @@
-describe('frontend', function () {
-  it('should work', function () {
-
-  })
+describe('frontend', function() {
+  it('should work', function() {})
 })
