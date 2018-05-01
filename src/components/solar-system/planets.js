@@ -29,7 +29,7 @@ export default function Planets ({dysonSwarm, stage, position, planets, onClickP
               style={{
                 transform: `rotate(${p.translation}rad)`,
                 transformOrigin: `${position[0]}px ${position[1]}px`,
-                transition: 'transform 0.5s linear'
+                transition: 'transform 1s linear'
               }}>
               <circle
                 className={`planet-orbit ${p.material}`}
