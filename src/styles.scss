@@ -302,7 +302,7 @@ $slide-duration: 3.5s;
 }
 
 .accretion {
-  animation-name: gentleGlow, rotateCW;
+  animation-name: gentleGlow;
   animation-duration: 1.5s;
   animation-iteration-count: infinite;
   opacity: 0.3;
