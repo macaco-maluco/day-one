@@ -1,0 +1,40 @@
+{
+  "position": [
+    8456256203946115,
+    9790452745273038
+  ],
+  "noise": 0.8799250607844442,
+  "id": [
+    8456256203946000,
+    9790452745272900,
+    0.8799250607844442
+  ],
+  "name": "kalliare",
+  "lifespan": 0.2778500556432846,
+  "birth": 0.16710461593034012,
+  "starType": "F",
+  "starRadius": 23,
+  "planets": [
+    {
+      "gravity": 9.348293189775983,
+      "material": "chromium",
+      "radius": 7,
+      "orbit": 52,
+      "populationCapacity": 11123040,
+      "translation": 34.20968934911242
+    },
+    {
+      "gravity": 4.547085927962416,
+      "material": "tellurium",
+      "radius": 6,
+      "orbit": 74,
+      "populationCapacity": 35618260,
+      "translation": 16.89243973703433
+    }
+  ],
+  "stage": "Star",
+  "pixelPosition": [
+    200,
+    200
+  ]
+}

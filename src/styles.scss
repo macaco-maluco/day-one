@@ -30,6 +30,57 @@ $slide-duration: 3.5s;
   100% {opacity: 0}
 }
 
+html {
+  font-size: 15px;
+}
+
+body {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  cursor: crosshair;
+  background: #10052b;
+}
+
+h3 {
+  margin: 0;
+  font-size: .725rem;
+  text-transform: uppercase;
+  padding-bottom: .5rem;
+  font-weight: 300;
+  letter-spacing: .1rem;
+}
+
+p {
+  font-size: .825rem;
+  margin: 0;
+  text-transform: uppercase;
+  padding-bottom: .25rem;
+}
+
+button {
+  border: 0;
+  background: #83bce6;
+  color: #10052b;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+button:disabled {
+  background: #666;
+}
+
+button:disabled:hover {
+  background: #666;
+}
+
+button:hover {
+  background: #7e00aa;
+}
+
+button:focus {
+  outline: none;
+}
+
 .star-part {
   visibility: hidden;
 }
